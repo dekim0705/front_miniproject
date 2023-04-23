@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import Logo from './Logo';
+import Navbar from './Navbar';
+import AccountBar from './AccountBar';
 
 const StyledLink = styled(Link)`
   width: 100px;
@@ -28,7 +30,7 @@ const StyledHeader = styled.header`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     padding: 0 30px;
   }
   a {
@@ -58,8 +60,8 @@ const StyledHeader = styled.header`
     line-height: 60px;
     text-align: center;
   }
-  @media screen and (max-width:768px) {
-    .navbar__menu, .topMember {
+  @media screen and (max-width: 768px) {
+    .navbar__menu, .topMember, .login, .join {
       display: none;
     }
   }
@@ -84,8 +86,10 @@ const Header = () => {
             <Link to="/login">로그인</Link>
           </div>
           <div className="box join">
-          <Link to="/join">가입</Link>
+            <Link to="/join">가입</Link>
           </div>
+          <AccountBar />
+          <Navbar />
         </div>
       </nav>
     </StyledHeader>
