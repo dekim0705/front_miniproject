@@ -76,7 +76,8 @@ const StyledMainContainer = styled.div`
       box-sizing: border-box;
     }
     .welcomeMessage {
-      font-size: 1.6em;
+      padding: 0 10px;
+      font-size: 1.7em;
     }
   }
 `;
