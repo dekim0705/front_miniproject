@@ -60,6 +60,25 @@ const StyledMainContainer = styled.div`
     height: 50px;
     fill: #fff;
   }
+
+  @media screen and (max-width:768px) {
+    .main__container {
+      padding: 20px;
+    }
+    .search {
+      width: 90%;
+    }
+    .value__container {
+      flex-wrap: wrap;
+      width: 90%;
+      justify-content: center;
+      gap: 0;
+      box-sizing: border-box;
+    }
+    .welcomeMessage {
+      font-size: 1.6em;
+    }
+  }
 `;
 
 const Main = () => {
