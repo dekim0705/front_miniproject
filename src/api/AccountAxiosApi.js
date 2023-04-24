@@ -1,7 +1,7 @@
 import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
-const AxiosApi = {
+const AccountAxiosApi = {
   // ✨ 로그인
   loginUser : async(email, pwd) => {
     const login = {
@@ -12,4 +12,4 @@ const AxiosApi = {
   }
 };
 
-export default AxiosApi;
+export default AccountAxiosApi;
