@@ -53,9 +53,9 @@ a:hover {
 }
 .find_account {
     font-size: 0.9rem;
-    position: fixed;
-    left: 290px;
-    top: 490px;
+    position: relative;
+    left: 140px;
+    top: -40px;
 }
 .login_button {
     width: 300px;
@@ -67,10 +67,15 @@ a:hover {
     font-size: 0.9rem;
     margin-top: -50px;
 }
-
 @media screen and (max-width: 768px) {
     .input_field {
         width: 95%;
+    }
+    .find_account {
+    font-size: 0.9rem;
+    position: fixed;
+    left: 290px;
+    top: 490px;
     }
 }
 `;

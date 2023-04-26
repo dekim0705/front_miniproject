@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledModal = styled.div`
+const StyledPopUp = styled.div`
   .modal {
     display: none;
     position: fixed;
@@ -86,12 +86,12 @@ const StyledModal = styled.div`
   }
 `;
 
-const Modal = (props) => {
+const PopUp = (props) => {
 
   const {open, confirm, close, type, header, children} = props;
 
   return (
-    <StyledModal>
+    <StyledPopUp>
       <div className={open ? "openModal modal" : "modal"}>
         {open &&
           <section>
@@ -109,8 +109,8 @@ const Modal = (props) => {
           </section>
           }
       </div>
-    </StyledModal>
+    </StyledPopUp>
   );
 }
 
-export default Modal;
+export default PopUp;
