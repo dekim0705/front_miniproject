@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import AccountAxiosApi from "../api/AccountAxiosApi";
-import LogoBigger from "./LogoBigger";
+import AccountAxiosApi from "../../api/AccountAxiosApi";
+import LogoBigger from "../LogoBigger";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import PopUp from "../util/PopUp";
+import PopUp from "../../util/PopUp";
 
 const StyledLoginField = styled.div`
   * {
