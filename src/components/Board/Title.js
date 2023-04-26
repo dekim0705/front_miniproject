@@ -10,15 +10,14 @@ export default function TitleTextField() {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginBottom: '16px',
+        marginBottom: '20px',
       }}
     >
       <TextField
         label="제목"
         id="title"
         sx={{
-          minWidth: '80%',
-          maxWidth: '100%',
+          width: '70%',
         }}
       />
     </Box>
