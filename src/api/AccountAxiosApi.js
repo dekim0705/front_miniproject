@@ -3,9 +3,9 @@ const KH_DOMAIN = "http://localhost:8111";
 
 const AccountAxiosApi = {
   // ✨ 로그인
-  loginUser : async(email, pwd) => {
+  loginMember : async(email, pwd) => {
     const login = {
-      id : email,
+      email : email,
       pwd : pwd
     };
     return await axios.post(KH_DOMAIN + "/login", login);

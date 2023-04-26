@@ -85,19 +85,18 @@ const passwordReg =
 /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
 const Login = () => {
-const [formInput, setFormInput] = useState({
-    email: "",
-    password: "",
-});
-const isValidLogin = !(
-    emailReg.test(formInput.email) && passwordReg.test(formInput.password)
-);
+    const [formInput, setFormInput] = useState({
+        email: "",
+        password: "",
+    });
+    const isValidLogin = !(
+        emailReg.test(formInput.email) && passwordReg.test(formInput.password)
+    );
 
-const handleLoginInput = (e) => {
-    const { value, name } = e.target;
-    setFormInput({ ...formInput, [name]: value });
-};
-
+    const handleLoginInput = (e) => {
+        const { value, name } = e.target;
+        setFormInput({ ...formInput, [name]: value });
+    };
 return (
     <StyledLoginField>
     <div className="welcome_message">
