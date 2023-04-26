@@ -1,3 +1,4 @@
+import ATable from "../components/Board";
 import Header from "../components/Header";
 
 const QnAPage = () => {
@@ -5,6 +6,7 @@ const QnAPage = () => {
   return (
     <>
       <Header />
+   
     </>
   );
 }

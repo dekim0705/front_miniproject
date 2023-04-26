@@ -9,6 +9,7 @@ import BestPage from './pages/BestPage';
 import QnAPage from './pages/QnAPage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
+import WritePage from './pages/WritePage';
 
 function App() {
   
@@ -25,6 +26,7 @@ function App() {
         <Route path='/qna' element={<QnAPage />}></Route>
         <Route path='/login' element={<LoginPage />}></Route>
         <Route path='/join' element={<JoinPage />}></Route>
+        <Route path='/write' element={<WritePage />}></Route>
       </Routes>
     </Router>
   );
