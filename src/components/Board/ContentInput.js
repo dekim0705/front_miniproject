@@ -14,10 +14,10 @@ const StyledBox = styled(Box)`
 `;
 
 const StyledTextarea = styled(TextareaAutosize)`
-  width: 80%;
+  width: 70%;
   resize: none;
-  padding: 8px;
-  font-size: 16px;
+  padding: 4px;
+  font-size: 15px;
   line-height: 1.5;
   border: 1px solid rgba(0, 0, 0, 0.23);
   border-radius: 4px;
@@ -34,7 +34,7 @@ const ContentInput = () => {
       <StyledTextarea
         placeholder="내용을 입력하세요"
         minRows={15}
-        maxRows={15}
+        maxRows={18}
       />
     </StyledBox>
   );

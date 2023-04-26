@@ -1,16 +1,18 @@
-import CategorySelect from "../components/CategorySelect";
-import ContentInput from "../components/ContentInput";
+
 import Header from "../components/Header";
-import TitleTextField from "../components/Title";
+
+import WriteForm from "../components/Board/WriteFormContainer";
+import SelectCategory from "../components/Board/CategorySelect";
+import WriteButton from "../components/Board/SubmitButton";
 
 const WrtiePage = () => {
 
   return (
     <>
       <Header />
-      <CategorySelect/>
-      <TitleTextField />
-      <ContentInput/>
+      <SelectCategory />
+    <WriteForm />
+    <WriteButton/>
     </>
   );
 }
