@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import AccountAxiosApi from "../../api/AccountAxiosApi";
-import LogoBigger from "../LogoBigger";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
+import Logo from "../Logo";
 
 const StyledLoginField = styled.div`
   * {
@@ -143,7 +143,7 @@ const Login = () => {
   return (
     <StyledLoginField>
       <div className="welcome_message">
-        <LogoBigger />
+        <Logo size="20rem"/>
         <h1>개발러스에 오신것을 환영합니다!</h1>
         <p>개발러스는 개발자들을 위한 정보공유 커뮤니티 입니다.</p>
       </div>

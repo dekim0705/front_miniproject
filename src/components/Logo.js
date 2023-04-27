@@ -5,13 +5,13 @@ import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
   .navbar__logo {
-  width: 10rem;
+    width: ${props => props.size || '10rem'};
   }
 `;
 
-const Logo = () => {
+const Logo = ({ size }) => {
   return (
-    <StyledLink to='/'>
+    <StyledLink to='/' size={size}>
       <img className="navbar__logo" src={logo} alt="개발러스 로고" />
     </StyledLink>
   );
