@@ -1,7 +1,6 @@
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write;
-    }
+{
+  "storage": {
+    "rules": "storage.rules",
+    "bucket": "devcom-mini-project"
   }
 }
