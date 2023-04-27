@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import AccountAxiosApi from "../../api/AccountAxiosApi";
@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PopUp from "../../util/PopUp";
+import { UserContext } from "../../context/UserInfo";
 
 const StyledLoginField = styled.div`
   * {
@@ -93,6 +94,9 @@ const StyledLoginField = styled.div`
 
 const Login = () => {
   const navigate = useNavigate();
+  // 🔥 Context API에 값을 저장
+  const context = useContext(UserContext);
+  const {setUserEmail, setUserPwd} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -112,6 +116,9 @@ const Login = () => {
     try {
     const response = await AccountAxiosApi.loginMember(inputEmail, inputPwd);
     if (response.data === true) {
+      // 🔥context에 저장
+      setUserEmail(inputEmail);
+      setUserPwd(inputPwd);
       navigate("/");
     } else {
       console.log("로그인 에러");
