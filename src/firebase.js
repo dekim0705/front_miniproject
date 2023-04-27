@@ -9,7 +9,3 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID
 };
-
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const storage = getStorage(app); // storage 인스턴스 생성
-export { app, storage }; // app, storage export

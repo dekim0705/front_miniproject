@@ -5,12 +5,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-<<<<<<< HEAD
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-=======
-    "@firebase/storage": "^0.11.2",
->>>>>>> 2642b09 (:bookmark: firebase..진행중..)
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
     "@mui/styled-engine-sc": "^5.12.0",
