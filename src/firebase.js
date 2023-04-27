@@ -11,5 +11,5 @@ const firebaseConfig = {
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const storage = getStorage(app); // storage 인스턴스 생성
-export { app, storage }; // app, storage export
+const storage = getStorage(app);
+export { app, storage };
