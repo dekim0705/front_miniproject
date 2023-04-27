@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const Wrapper = styled.div`
   display: flex;

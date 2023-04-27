@@ -9,7 +9,3 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID
 };
-
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const storage = getStorage(app);
-export { app, storage };
