@@ -143,7 +143,7 @@ const Login = () => {
   return (
     <StyledLoginField>
       <div className="welcome_message">
-        <Logo />
+        <Logo size="20rem"/>
         <h1>개발러스에 오신것을 환영합니다!</h1>
         <p>개발러스는 개발자들을 위한 정보공유 커뮤니티 입니다.</p>
       </div>
