@@ -34,6 +34,7 @@ const BoardWrite = () => {
           <TitleInput />
           <ContentInput />
           <TagField/>
+
         </Col>
       </Row>
     </Wrapper>
