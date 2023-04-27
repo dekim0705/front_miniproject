@@ -1,22 +1,9 @@
-import React from "react";
-import styled from "styled-components";
+// import React from "react";
+// import styled from "styled-components";
 
 // 더미데이터
 const BoardItem = [
-  // {
-  //   num: 10,
-  //   title: "글 제목이 들어갑니다.",
-  //   writer: "김이름",
-  //   date: "2021.1.15",
-  //   count: 33,
-  // },
-  // {
-  //   num: 9,
-  //   title: "글 제목이 들어갑니다.",
-  //   writer: "김이름",
-  //   date: "2021.1.15",
-  //   count: 33,
-  // },
+
   {
     num: 8,
     title: "글 제목이 들어갑니다.",

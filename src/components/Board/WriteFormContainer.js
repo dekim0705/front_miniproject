@@ -1,5 +1,5 @@
 import React from 'react';
-import CategorySelect from './CategorySelect';
+// import CategorySelect from './CategorySelect';
 import TitleInput from './Title';
 import ContentInput from './ContentInput';
 import styled from 'styled-components';
