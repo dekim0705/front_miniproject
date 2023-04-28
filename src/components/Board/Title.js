@@ -16,9 +16,7 @@ export default function TitleTextField() {
       <TextField
         label="제목"
         id="title"
-        sx={{
-          width: '70%',
-        }}
+        sx={{ width: '70%',}}
       />
     </Box>
   );

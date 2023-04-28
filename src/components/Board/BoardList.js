@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BoardItem from "./BoardItem";
+import WriteButton from "./WriteButton";
 
 
 const ListWrapper = styled.div`
@@ -9,6 +10,7 @@ const ListWrapper = styled.div`
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   overflow: hidden;
+
 `;
 
 const TableBox = styled.table`
@@ -41,9 +43,10 @@ const HeaderCell = styled.th`
   padding: 16px;
 `;
 
+
 const BoardList = () => {
-  return (
-    <ListWrapper>
+  return ( 
+        <ListWrapper>
       <TableBox>
         <TableHeader>
           <TableRow>
@@ -69,6 +72,8 @@ const BoardList = () => {
         </tbody>
       </TableBox>
     </ListWrapper>
+
+
   );
 };
 

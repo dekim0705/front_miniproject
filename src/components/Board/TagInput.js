@@ -16,10 +16,7 @@ export default function TagField() {
       <TextField
         label="태그"
         id="title"
-        sx={{
-          width: '70%',
-        }}
-      />
+        sx={{width: '70%',}}/>
     </Box>
   );
 }

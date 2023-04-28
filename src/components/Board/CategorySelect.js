@@ -5,7 +5,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 왼쪽 정렬 */
+  align-items: flex-start;
   width: 100%;
   padding-left: 100px;
   margin-left: 121px;

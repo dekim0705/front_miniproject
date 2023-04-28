@@ -8,7 +8,8 @@ const SearchContainer = styled.div`
     align-items: center;
     margin-left : 300px;
     padding-left :220px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    padding-top : 30px;
     justify-content: flex-end;
     gap: 5px;
  

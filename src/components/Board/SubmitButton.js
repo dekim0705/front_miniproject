@@ -23,7 +23,7 @@ const Button = styled.button`
 const WriteButton = ({onClick}) => {
   return (
     <ButtonWrapper>
-      <Button onClick={onClick}>작성</Button>
+      <Button onClick={onClick}>등록</Button>
     </ButtonWrapper>
   );
 };
