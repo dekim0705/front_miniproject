@@ -20,7 +20,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-const MemberDropDown = ({ setIsLogin }) => {
+const MemberDropDown = ({ setIsLogin, resetUser }) => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,6 +32,7 @@ const MemberDropDown = ({ setIsLogin }) => {
     setAnchorEl(null);
     if(option.text === '로그아웃') {
       setIsLogin(false);
+      resetUser();
     } navigate(option.path);
   };
 

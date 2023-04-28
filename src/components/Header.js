@@ -96,7 +96,7 @@ const Header = () => {
         </ul>
         <div className="topMember">💎 리액트흑흑 45 📝</div>
         {isLogin ? (
-          <MemberDropDown setIsLogin={setIsLogin} />
+          <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
         ) : (
           <div className="member">
             <div className="box login">
