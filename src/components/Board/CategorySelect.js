@@ -8,8 +8,8 @@ const Wrapper = styled.div`
   align-items: flex-start; /* 왼쪽 정렬 */
   width: 100%;
   padding-left: 100px;
-  margin-left: 120px;
-  margin-bottom:0;
+  margin-left: 121px;
+  margin-bottom: 15px;
   margin-top : 50px;
 `;
 

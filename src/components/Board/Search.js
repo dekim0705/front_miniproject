@@ -11,7 +11,9 @@ const SearchContainer = styled.div`
     padding-bottom: 10px;
     justify-content: flex-end;
     gap: 5px;
+ 
   `;
+  
 
   const SearchBar = styled.input`
   width : 50%;
@@ -21,6 +23,12 @@ const SearchContainer = styled.div`
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
   padding-left : 10px;
+  
+  @media (max-width: 768px) {
+    text-align: center;
+    align-items : center;
+ 
+  }
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`

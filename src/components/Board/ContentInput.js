@@ -14,7 +14,7 @@ const StyledBox = styled(Box)`
 `;
 
 const StyledTextarea = styled(TextareaAutosize)`
-  width: 70%;
+  width: 69.4%;
   resize: none;
   padding: 4px;
   font-size: 15px;
@@ -33,8 +33,8 @@ const ContentInput = () => {
     <StyledBox component="form" noValidate autoComplete="off">
       <StyledTextarea
         placeholder="내용을 입력하세요"
-        minRows={15}
-        maxRows={18}
+        minRows={13}
+        maxRows={16}
       />
     </StyledBox>
   );

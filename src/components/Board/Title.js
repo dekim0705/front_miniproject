@@ -10,7 +10,7 @@ export default function TitleTextField() {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginBottom: '20px',
+        marginBottom: '15px',
       }}
     >
       <TextField
