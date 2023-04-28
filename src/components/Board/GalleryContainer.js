@@ -1,85 +1,79 @@
 import React from 'react';
-import GalleryItem from './GalleryItem';
 import styled from 'styled-components';
-
+import GalleryItem from './GalleryItem';
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+  margin: 0 -0.5%;
+  padding: 20px; 
+  max-width: 1000px; 
+  margin: 0 auto; 
 
-  & > * {
-    width: calc(100% / 3 - 16px); // 한줄에 3개씩
-    margin-bottom: 32px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-
-  @media (max-width: 960px) {
-    & > * {
-      width: calc(50% - 16px);
-    }
-  }
-
-  @media (max-width: 600px) {
-    & > * {
-      width: 100%;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 const dummyData = [
   {
     id: 1,
-    title: 'Lorem Ipsum',
-    nickname: 'John Doe',
-    imageUrl: 'https://via.placeholder.com/300',
+    title: '제목 1',
+    nickname: '작성자 1',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 125,
+    views: 542
   },
   {
     id: 2,
-    title: 'Dolor Sit Amet',
-    nickname: 'Jane Smith',
-    imageUrl: 'https://via.placeholder.com/300',
+    title: '제목 2',
+    nickname: '작성자 2',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 95,
+    views: 324
   },
   {
     id: 3,
-    title: 'Consectetur Adipiscing Elit',
-    nickname: 'Mike Johnson',
-    imageUrl: 'https://via.placeholder.com/300',
+    title: '제목 3',
+    nickname: '작성자 3',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 125,
+    views: 542
   },
- 
   {
-      id: 4,
-      title: 'Lorem Ipsum',
-      nickname: 'John Doe',
-      imageUrl: 'https://via.placeholder.com/300',
-    },
-    {
-      id: 5,
-      title: 'Dolor Sit Amet',
-      nickname: 'Jane Smith',
-      imageUrl: 'https://via.placeholder.com/300',
-    },
-    {
-      id: 6,
-      title: 'Consectetur Adipiscing Elit',
-      nickname: 'Mike Johnson',
-      imageUrl: 'https://via.placeholder.com/300',
-    }
+    id: 4,
+    title: '제목 4',
+    nickname: '작성자 4',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 95,
+    views: 324
+  },
+  {
+    id: 5,
+    title: '제목 5',
+    nickname: '작성자 5',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 125,
+    views: 542
+  },
+  {
+    id: 6,
+    title: '제목 6',
+    nickname: '작성자 6',
+    thumbnail: 'https://via.placeholder.com/150',
+    likes: 95,
+    views: 324
+  },
+];
 
-  ];
-
-const GalleryContainer = () => {
-  return (
-    <Container>
-      {dummyData.map((item) => (
-        <GalleryItem key={item.id} item={item} />
-      ))}
-    </Container>
-  );
-};
+const GalleryContainer = () => (
+  <Container>
+    {dummyData.slice(0, 6).map((item) => (
+      <GalleryItem key={item.id} item={item} />
+    ))}
+  </Container>
+);
 
 export default GalleryContainer;

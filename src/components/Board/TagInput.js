@@ -10,7 +10,7 @@ export default function TagField() {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginTop: '20px',
+        marginTop: '15px',
       }}
     >
       <TextField

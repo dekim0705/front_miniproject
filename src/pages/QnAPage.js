@@ -4,8 +4,7 @@ import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
 import Header from "../components/Header";
 import SearchInput from "../components/Board/Search";
-import Pages from "../components/Board/pagination";
-
+import Pages from "../components/Board/Paginations";
 
 
 const BoardName = styled.div`
@@ -13,7 +12,12 @@ const BoardName = styled.div`
   margin: 30px 0px 10px 120px;
   padding : 10px 0px 0px 100px;
   width: 100%;
-  
+
+  @media (max-width: 768px) {
+    text-align: center;
+    margin: 30px 0 10px 0;
+    padding: 10px 0;
+  }
 
 `;
 
