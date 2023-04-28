@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 
 const Pages =() => {
   return (
-       <Stack spacing={2} sx={{ alignItems: 'center', paddingTop: '35px' }}>
+       <Stack spacing={2} sx={{ alignItems: 'center', padding: '50px' }}>
       <Pagination count={5} size="large" />
         </Stack>
       );

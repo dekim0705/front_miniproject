@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 const StyledButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.23);
   padding: 0.5rem 1rem;
@@ -17,6 +18,7 @@ const StyledButton = styled.button`
 
 const ImgUploadButton = () => {
   return (
+
     <StyledButton>파일 업로드</StyledButton>
   );
 };

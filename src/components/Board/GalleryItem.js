@@ -7,6 +7,7 @@ const Container = styled.div`
   width: calc(100% / 3 - 2%);
   margin: 0.5%;
   position: relative;
+  border-radius : 15px;
   
 
   @media (max-width: 768px) {
@@ -21,9 +22,12 @@ const Container = styled.div`
 
 const Thumbnail = styled.img`
   width: 100%;
-  max-height: 280px; 
+  max-height: 260px; 
   height: auto;
   object-fit: cover;
+  border-radius: 15px;
+  padding-bottom : 10px;
+  
 `;
 
 const Overlay = styled.div`
@@ -32,6 +36,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -67,6 +72,7 @@ const Info = styled.div`
   width: 100%;
   display: flex; 
   justify-content: space-between; 
+  padding-top: 10px;
 `;
 
 const Nickname = styled.p`
@@ -74,12 +80,13 @@ const Nickname = styled.p`
   font-size: 14px;
 `;
 
-const Views = styled.p`
+const Status = styled.p`
   margin: 0;
   font-size: 12px;
   color: #777;
   display: flex;
   align-items: center;
+  
 `;
 
 const IconWrapper = styled.span`
@@ -87,7 +94,7 @@ const IconWrapper = styled.span`
 `;
 
 const Gap = styled.span`
-  margin-right: 5px;
+  margin-right: 10px;
 `;
 
 const GalleryItem = ({ item }) => (
@@ -98,7 +105,7 @@ const GalleryItem = ({ item }) => (
     </Overlay>
     <Info>
       <Nickname>{item.nickname}</Nickname>
-      <Views>
+      <Status>
         <IconWrapper>
           <ThumbUpIcon fontSize="small" />
         </IconWrapper>
@@ -108,7 +115,7 @@ const GalleryItem = ({ item }) => (
           <RemoveRedEyeIcon fontSize="small" />
         </IconWrapper>
         {item.views}
-      </Views>
+      </Status>
     </Info>
   </Container>
 );
