@@ -75,7 +75,7 @@ const Button = styled.a`
 const Start = () => {
   const navigate = useNavigate();
   const StartButtonClick = () => {
-    navigate('loading');
+    navigate('result');
   };
 
   return (
