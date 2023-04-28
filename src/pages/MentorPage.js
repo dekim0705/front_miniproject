@@ -1,8 +1,11 @@
 import { useContext, useEffect } from "react";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo";
+import { Route, Routes } from "react-router-dom";
+import Header from "../components/Header";
 import Start from "../components/Mentor/Start";
+import Loading from "../components/Mentor/Loading";
+import MatchResult from "../components/Mentor/MatchResult";
 
 const MentorPage = () => {
   const context = useContext(UserContext);
@@ -18,7 +21,11 @@ const MentorPage = () => {
   return (
     <>
       <Header />
-      <Start />
+      <Routes>
+        <Route index path="/" element={<Start />} />
+        <Route path="loading" element={<Loading />} />
+        <Route path="result" element={<MatchResult />} />
+      </Routes>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -54,7 +55,7 @@ const Button = styled.a`
   border-radius: 10px;
   transition: all 0.2s;
   background: #3B74EC;
-  box-shadow: 0px 8px 0px 0px #1E2B4D;
+  box-shadow: 0px 8px 0px 0px #002081;
   text-decoration: none;
   font-size: 2em;
 
@@ -66,6 +67,11 @@ const Button = styled.a`
 `;
 
 const Start = () => {
+  const navigate = useNavigate();
+  const StartButtonClick = () => {
+    navigate('loading');
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -74,7 +80,7 @@ const Start = () => {
           <ItemTitle>성장하는 개발자가 되기 위한 한 걸음 🚀</ItemTitle>
           <ItemTitle>지금 멘토가 당신과의 만남을 기다리고 있습니다.</ItemTitle>
         </ItemContent>
-        <Button href="#" title="Button push lightblue">매칭하기</Button>
+        <Button onClick={StartButtonClick}>매칭하기</Button>
       </StyledContainer>
     </>
   );
