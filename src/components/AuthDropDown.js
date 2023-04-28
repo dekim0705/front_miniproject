@@ -19,7 +19,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-const AccountBar = () => {
+const AuthDropDown = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -66,4 +66,4 @@ const AccountBar = () => {
   );
 };
 
-export default AccountBar;
+export default AuthDropDown;

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { UserContext } from '../context/UserInfo';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import Logo from './Logo';
 import Navbar from './Navbar';
-import AccountBar from './AccountBar';
+import AuthDropDown from './AuthDropDown';
+import MemberDropDown from './MemberDropDown';
 
 const StyledLink = styled(Link)`
   width: 100px;
@@ -69,6 +71,17 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const context = useContext(UserContext);
+  const {userEmail, userPwd} = context;
+
+  useEffect(() => {
+    if(userEmail && userPwd) {
+      setIsLogin(true);
+      console.log("뭐냐");
+    } else setIsLogin(false);
+  }, [userEmail, userPwd]);
+
   return (
     <StyledHeader>
       <nav className="navbar">
@@ -82,16 +95,20 @@ const Header = () => {
           <StyledLink to="/qna">Q&A</StyledLink>
         </ul>
         <div className="topMember">💎 리액트흑흑 45 📝</div>
-        <div className="member">
-          <div className="box login">
-            <Link to="/login">로그인</Link>
+        {isLogin ? (
+          <MemberDropDown setIsLogin={setIsLogin} />
+        ) : (
+          <div className="member">
+            <div className="box login">
+              <Link to="/login">로그인</Link>
+            </div>
+            <div className="box join">
+              <Link to="/join">가입</Link>
+            </div>
+            <AuthDropDown />
+            <Navbar />
           </div>
-          <div className="box join">
-            <Link to="/join">가입</Link>
-          </div>
-          <AccountBar />
-          <Navbar />
-        </div>
+        )}
       </nav>
     </StyledHeader>
   );
