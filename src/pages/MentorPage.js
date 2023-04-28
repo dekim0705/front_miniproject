@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo";
-import ImageComponent from "../components/ImageComponent";
+import Start from "../components/Mentor/Start";
 
 const MentorPage = () => {
   const context = useContext(UserContext);
@@ -18,8 +18,7 @@ const MentorPage = () => {
   return (
     <>
       <Header />
-      <p>멘토 찾기 페이지!!!</p>
-      <ImageComponent />
+      <Start />
     </>
   );
 }
