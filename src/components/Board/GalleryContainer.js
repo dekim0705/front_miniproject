@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import GalleryItem from './GalleryItem';
+import WriteButton from './WriteButton';
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 -0.5%;
-  padding: 20px; 
+  padding: 30px; 
   max-width: 1000px; 
   margin: 0 auto; 
 
@@ -16,6 +17,17 @@ const Container = styled.div`
     align-items: center;
   }
 `;
+const WriteButtonWrapper = styled.div`
+
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  width: 100%;
+  margin-right : 10px;
+  
+`;
+
+
 
 const dummyData = [
   {
@@ -69,11 +81,19 @@ const dummyData = [
 ];
 
 const GalleryContainer = () => (
-  <Container>
+  <>
+    <Container>
     {dummyData.slice(0, 6).map((item) => (
       <GalleryItem key={item.id} item={item} />
     ))}
+     <WriteButtonWrapper>
+      <WriteButton />
+    </WriteButtonWrapper>
   </Container>
+
+  </>
+
+
 );
 
 export default GalleryContainer;

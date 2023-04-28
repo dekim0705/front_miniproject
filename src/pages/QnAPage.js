@@ -6,11 +6,11 @@ import Header from "../components/Header";
 import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
-
+import WriteButton from "../components/Board/WriteButton";
 
 const BoardName = styled.div`
-  font-size: 1.8rem;
-  margin: 30px 0px 10px 120px;
+  font-size: 2rem;
+  margin: 30px 0px 10px 130px;
   padding : 10px 0px 0px 100px;
   width: 100%;
 
@@ -21,6 +21,12 @@ const BoardName = styled.div`
   }
 
 `;
+const WriteButtonWrapper = styled.div`
+
+text-align: right;
+padding-top : 30px;
+  margin-right: 220px;
+`;
 
 const QnAPage = () => {
   return (
@@ -28,10 +34,14 @@ const QnAPage = () => {
   <>
     <Header />
     <BoardName>
-      Q&A
+      Q&A 
     </BoardName>
+
     <SearchInput />
     <BoardList />
+    <WriteButtonWrapper>
+      <WriteButton />
+    </WriteButtonWrapper>
     <Pages />
     <Footer />
   </>

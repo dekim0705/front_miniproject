@@ -5,9 +5,12 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const Container = styled.div`
   width: calc(100% / 3 - 2%);
-  margin: 0.5%;
+  margin: 1%;
   position: relative;
   border-radius : 15px;
+  height: 260px;
+  padding-bottom: 40px; 
+ 
   
 
   @media (max-width: 768px) {
@@ -22,11 +25,9 @@ const Container = styled.div`
 
 const Thumbnail = styled.img`
   width: 100%;
-  max-height: 260px; 
-  height: auto;
+  height: 260px;
   object-fit: cover;
   border-radius: 15px;
-  padding-bottom : 10px;
   
 `;
 
@@ -35,7 +36,7 @@ const Overlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 260px;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
@@ -84,17 +85,18 @@ const Status = styled.p`
   margin: 0;
   font-size: 12px;
   color: #777;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   
 `;
 
 const IconWrapper = styled.span`
-  margin-right: 3px;
+  margin-left: 10px;
+  padding-right : 5px;
 `;
 
 const Gap = styled.span`
-  margin-right: 10px;
+  margin-right: 5px;
 `;
 
 const GalleryItem = ({ item }) => (
