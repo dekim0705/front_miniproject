@@ -64,6 +64,12 @@ const Button = styled.a`
     margin-bottom: 5px;
     box-shadow: 0px 0px 0px 0px #3B74EC;
   }
+  @media screen and (max-width: 768px) {
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.5em;
+  }
 `;
 
 const Start = () => {
