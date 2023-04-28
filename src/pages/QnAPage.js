@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
+import Footer from "../components/Footer";
 
 
 const BoardName = styled.div`
@@ -32,6 +33,7 @@ const QnAPage = () => {
     <SearchInput />
     <BoardList />
     <Pages />
+    <Footer />
   </>
 
 
