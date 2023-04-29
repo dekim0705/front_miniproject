@@ -10,6 +10,7 @@ import QnAPage from './pages/QnAPage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 import WritePage from './pages/WritePage';
+import PostDetailPage from './pages/PostDetailPage';
 import UserStore from './context/UserInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
@@ -33,6 +34,7 @@ function App() {
           <Route path='/write' element={<WritePage />}></Route>
           <Route path='/mypage' element={<MyProfilePage />}></Route>
           <Route path='/chat' element={<ChatPage />}></Route>
+          <Route path='/post' element={<PostDetailPage />}></Route>
         </Routes>
       </Router>
     </UserStore>
