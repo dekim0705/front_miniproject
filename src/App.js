@@ -32,12 +32,9 @@ function App() {
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/join' element={<JoinPage />}></Route>
           <Route path='/write' element={<WritePage />}></Route>
-<<<<<<< HEAD
-          <Route path='/post' element={<PostDetailPage />}></Route>
-=======
           <Route path='/mypage' element={<MyProfilePage />}></Route>
           <Route path='/chat' element={<ChatPage />}></Route>
->>>>>>> 4806f9f7c8c11e55fd8e28318e5ea48ec56ddcc3
+          <Route path='/post' element={<PostDetailPage />}></Route>
         </Routes>
       </Router>
     </UserStore>
