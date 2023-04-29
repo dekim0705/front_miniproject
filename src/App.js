@@ -12,6 +12,8 @@ import JoinPage from './pages/JoinPage';
 import WritePage from './pages/WritePage';
 import PostDetailPage from './pages/PostDetailPage';
 import UserStore from './context/UserInfo';
+import MyProfilePage from './pages/MyProfilePage';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   
@@ -30,7 +32,12 @@ function App() {
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/join' element={<JoinPage />}></Route>
           <Route path='/write' element={<WritePage />}></Route>
+<<<<<<< HEAD
           <Route path='/post' element={<PostDetailPage />}></Route>
+=======
+          <Route path='/mypage' element={<MyProfilePage />}></Route>
+          <Route path='/chat' element={<ChatPage />}></Route>
+>>>>>>> 4806f9f7c8c11e55fd8e28318e5ea48ec56ddcc3
         </Routes>
       </Router>
     </UserStore>

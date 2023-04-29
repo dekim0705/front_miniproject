@@ -1,32 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserContext } from '../context/UserInfo';
 
 const StyledAccountBar = styled.div`
   @media screen and (min-width: 769px) {
-    display: none;
+    display: block;
   }
 `;
 
 const options = [
-  { path: '/login', text: '로그인' },
-  { path: '/join', text: '회원가입' }
+  { path: '/', text: '로그아웃' },
+  { path: '/mypage', text: '마이페이지' }
 ];
 
 const ITEM_HEIGHT = 48;
 
-const AccountBar = () => {
+const MemberDropDown = ({ setIsLogin, resetUser }) => {
+  const navigate = useNavigate();
+  // 🚀 context에서 userPfImgUrl 가져옴
+  const { userPfImgUrl } = useContext(UserContext);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (option) => {
     setAnchorEl(null);
+    if(option.text === '로그아웃') {
+      setIsLogin(false);
+      resetUser();
+    } navigate(option.path);
   };
 
   return (
@@ -39,7 +48,11 @@ const AccountBar = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <AccountCircleIcon style={{fontSize: 40, color: '#3B74EC'}} />
+        {userPfImgUrl ? (
+          <img src={userPfImgUrl} alt="Profile" style={{ width: 50, height: 50, borderRadius: '50%', border: '3px solid #C6DEF7' }} />
+        ) : (
+          <PersonOffIcon style={{ fontSize: 40, color: '#3B74EC' }} />
+        )}
       </IconButton>
       <Menu
         id="long-menu"
@@ -57,7 +70,7 @@ const AccountBar = () => {
         }}
       >
         {options.map((option) => (
-          <MenuItem key={option.text} component={Link} to={option.path} onClick={handleClose}>
+          <MenuItem key={option.text} onClick={() => handleClose(option)}>
             {option.text}
           </MenuItem>
         ))}
@@ -66,4 +79,4 @@ const AccountBar = () => {
   );
 };
 
-export default AccountBar;
+export default MemberDropDown;

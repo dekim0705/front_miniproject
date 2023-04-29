@@ -140,6 +140,9 @@ const MatchResult = () => {
   const ReturnButtonClick = () => {
     navigate('/mentor');
   };
+  const ChatButtonClick = () => {
+    navigate('/chat');
+  }
   return (
     <Container>
       <MessageContainer>
@@ -166,7 +169,7 @@ const MatchResult = () => {
         </MemberInfo>
       </MemberContainer>
       <ButtonContainer>
-        <Button push lightBlue>대화하기</Button>
+        <Button push lightBlue onClick={ChatButtonClick}>대화하기</Button>
         <Button push lightBlue onClick={ReturnButtonClick}>돌아가기</Button>
       </ButtonContainer>
     </Container>

@@ -18,6 +18,11 @@ const Content = styled.h1`
   color: #4E5968;
   font-weight: lighter;
   line-height: 20px;
+  @media screen and (max-width: 768px) {
+    padding: 0 10px;
+    font-size: 1.3em;
+    line-height: 30px;
+  }
 `;
 
 const Loading = () => {
