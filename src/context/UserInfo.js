@@ -4,6 +4,7 @@ export const UserContext = createContext(null);
 const UserStore = (props) => {
   const [userEmail, setUserEmail] = useState("");
   const [userPwd, setUserPwd] = useState("");
+  const [userPfImgUrl, setUserPfImgUrl] = useState("");
 
   const resetUser = () => {
     setUserEmail('');
@@ -11,7 +12,7 @@ const UserStore = (props) => {
   }
 
   return (
-    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser}}>
+    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl}}>
       {props.children}
     </UserContext.Provider>
   );

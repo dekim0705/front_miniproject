@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../context/UserInfo';
@@ -22,6 +22,8 @@ const ITEM_HEIGHT = 48;
 
 const MemberDropDown = ({ setIsLogin, resetUser }) => {
   const navigate = useNavigate();
+  // 🚀 context에서 userPfImgUrl 가져옴
+  const { userPfImgUrl } = useContext(UserContext);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -46,7 +48,11 @@ const MemberDropDown = ({ setIsLogin, resetUser }) => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <AccountCircleIcon style={{fontSize: 40, color: '#3B74EC'}} />
+        {userPfImgUrl ? (
+          <img src={userPfImgUrl} alt="Profile" style={{ width: 50, height: 50, borderRadius: '50%', border: '3px solid #C6DEF7' }} />
+        ) : (
+          <PersonOffIcon style={{ fontSize: 40, color: '#3B74EC' }} />
+        )}
       </IconButton>
       <Menu
         id="long-menu"

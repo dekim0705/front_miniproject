@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
 import Logo from "../Logo";
+import MainAxiosApi from "../../api/MainAxiosApi";
 
 const StyledLoginField = styled.div`
   * {
@@ -96,7 +97,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -119,6 +120,13 @@ const Login = () => {
       // 🔥context에 저장
       setUserEmail(inputEmail);
       setUserPwd(inputPwd);
+
+      // 🐢 프로필 이미지 URL 가져오기
+      const pfImgResponse = await MainAxiosApi.getUserPfImg(inputEmail);
+      if (pfImgResponse.data) {
+        setUserPfImgUrl(pfImgResponse.data);
+      }
+
       navigate("/");
     } else {
       console.log("로그인 에러");
