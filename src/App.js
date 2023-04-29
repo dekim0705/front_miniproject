@@ -10,6 +10,7 @@ import QnAPage from './pages/QnAPage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 import WritePage from './pages/WritePage';
+import PostDetailPage from './pages/PostDetailPage';
 import UserStore from './context/UserInfo';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/join' element={<JoinPage />}></Route>
           <Route path='/write' element={<WritePage />}></Route>
+          <Route path='/post' element={<PostDetailPage />}></Route>
         </Routes>
       </Router>
     </UserStore>

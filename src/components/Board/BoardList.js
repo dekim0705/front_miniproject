@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import BoardItem from "./BoardItem";
-import WriteButton from "./WriteButton";
+import { Link } from 'react-router-dom';
+
 
 
 const ListWrapper = styled.div`
@@ -43,6 +44,12 @@ const HeaderCell = styled.th`
   padding: 16px;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+
+`;
+
 
 const BoardList = () => {
   return ( 
@@ -62,11 +69,11 @@ const BoardList = () => {
             <TableRow key={index}>
               <TableCell>{item.num}</TableCell>
               <TableCell>
-                <a href="view.html">{item.title}</a>
+              <StyledLink to={"/post"}>{item.title}</StyledLink>
               </TableCell>
-              <TableCell>{item.writer}</TableCell>
+              <TableCell>{item.nickname}</TableCell>
               <TableCell>{item.date}</TableCell>
-              <TableCell>{item.count}</TableCell>
+              <TableCell>{item.views}</TableCell>
             </TableRow>
           ))}
         </tbody>
