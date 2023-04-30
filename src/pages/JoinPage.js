@@ -1,7 +1,9 @@
 import React from "react";
 import Logo from "../components/Logo"
-import JoinStep1 from "../components/Account/JoinStep1";
 import Footer from "../components/Footer";
+// import JoinStep1 from "../components/Account/JoinStep1";
+import JoinStep2 from "../components/Account/JoinStep2";
+
 
 
 const JoinPage = () => {
@@ -9,7 +11,8 @@ const JoinPage = () => {
   return (
     <>
       <Logo />
-      <JoinStep1 />
+      {/* <JoinStep1 />  */}
+      <JoinStep2 />
       <Footer />
     </>
   );
