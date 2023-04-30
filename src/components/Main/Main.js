@@ -54,6 +54,7 @@ const StyledMainContainer = styled.div`
     height: 60px;
     border-radius: 25px;
     border: 3px solid #3B74EC;
+    padding: 0 15px;
   }
   .search-icon {
     width: 50px;

@@ -12,6 +12,7 @@ const ChatUserInfoContainer = styled.div`
   border: 1px solid #eee;
   border-radius: 30px;
   padding: 20px;
+  overflow-y: auto;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -105,7 +106,7 @@ export const ChatUserInfo = () => {
           </NicknameContainer>
           <TechStacksContainer>
             <TechStack>Java</TechStack>
-            <TechStack>Spring Boot</TechStack>
+            <TechStack>SpringBoot</TechStack>
             <TechStack>JavaScript</TechStack>
           </TechStacksContainer>
           <JobContainer>
