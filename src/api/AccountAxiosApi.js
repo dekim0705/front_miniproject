@@ -9,7 +9,13 @@ const AccountAxiosApi = {
       pwd : pwd
     };
     return await axios.post(KH_DOMAIN + "/login", login);
+  },
+
+  // 👤 닉네임 중복 여부 확인
+  memberRegCheck: async(nickname) => {
+    return await axios.get(KH_DOMAIN + `/check?nickname=${nickname}`);
   }
+  
 };
 
 export default AccountAxiosApi;
