@@ -7,6 +7,8 @@ import Content, {dummyContent} from '../components/Board/PostContent';
 import LikeButton from '../components/Board/LikeButton';
 import CommentForm from '../components/Board/CommentForm';
 import CommentList, {comments} from '../components/Board/CommentList';
+import EditButton from '../components/Board/EditButton';
+import Footer from '../components/Footer';
 
 
 const Wrapper = styled.div`
@@ -34,6 +36,7 @@ const CommentWrapper = styled.div`
   width: 67%;
   margin-top: 10px;
   border-top : solid 1px #ccc;
+  border-bottom : solid 1px #ccc;
 `;
 
 const PostDetailPage = () => {
@@ -54,6 +57,8 @@ const PostDetailPage = () => {
           <CommentList comments={comments}  />
         </CommentWrapper>
       </Wrapper>
+      <EditButton />
+      <Footer />
     </>
   );
 };
