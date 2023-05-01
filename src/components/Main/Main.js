@@ -7,6 +7,17 @@ import NewReplyCnt from './NewReplyCnt';
 import PortfolioCnt from './PortfolioCnt';
 import TotalPostCnt from './TotalPostCnt';
 
+const ValueContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  flex-wrap: wrap;
+  @media screen and (max-width:768px) {
+    gap: 1rem;
+  }
+`;
+
 const StyledMainContainer = styled.div`
   .userWelcome {
     font-size: 2em;
@@ -20,28 +31,6 @@ const StyledMainContainer = styled.div`
   gap: 40px;
   @media screen and (max-width:768px) {
     padding: 50px 0;
-  }
-
-  .value__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 2rem;
-  }
-  .valueItem {
-    width: 140px;
-    text-align: center;
-    font-size: 1.3em;
-    margin: 20px 0;
-  }
-  .valueItem > p {
-    margin: 20px 0;
-  }
-  .valueItem > p:nth-child(1) {
-    font-weight: lighter;
-  }
-  .valueItem > p:nth-child(2) {
-    font-weight: bold;
   }
   .search {
     display: flex;
@@ -70,13 +59,6 @@ const StyledMainContainer = styled.div`
     .search {
       width: 90%;
     }
-    .value__container {
-      flex-wrap: wrap;
-      width: 90%;
-      justify-content: center;
-      gap: 0;
-      box-sizing: border-box;
-    }
   }
 `;
 
@@ -91,12 +73,12 @@ const Main = () => {
         <input type="search" className="search-bar" />
         <SearchIcon style={{fontSize: 50}} />
       </div>
-      <div className="value__container">
+      <ValueContainer>
         <NewPostCnt />
         <NewReplyCnt />
         <PortfolioCnt />
         <TotalPostCnt />
-      </div>
+      </ValueContainer>
     </StyledMainContainer>
   );
 }
