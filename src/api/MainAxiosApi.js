@@ -8,6 +8,11 @@ const MainAxiosApi = {
       email : email
     };
     return await axios.post(KH_DOMAIN + "/member/pfImg", pfImg);
+  },
+
+  // 🚀 글 작성 많은 상위 5명 요청하기
+  getTop5Writers : async() => {
+    return await axios.get(KH_DOMAIN + "/member/top-5writers");
   }
 };
 

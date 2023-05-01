@@ -6,6 +6,7 @@ import Logo from './Logo';
 import Navbar from './Navbar';
 import AuthDropDown from './AuthDropDown';
 import MemberDropDown from './MemberDropDown';
+import TopWriters from './Main/TopWriters';
 
 const StyledLink = styled(Link)`
   width: 100px;
@@ -50,13 +51,6 @@ const StyledHeader = styled.header`
     display: flex;
     gap: 10px;
   }
-  .topMember {
-    width: 200px;
-    padding: 10px 0;
-    text-align: center;
-    border: 3px solid #C6DEF7;
-    font-size: 0.8em;
-  }
   .box {
     width: 60px;
     height: 60px;
@@ -94,7 +88,7 @@ const Header = () => {
           <StyledLink to="/best">베스트</StyledLink>
           <StyledLink to="/qna">Q&A</StyledLink>
         </ul>
-        <div className="topMember">💎 리액트흑흑 45 📝</div>
+        <TopWriters />
         {isLogin ? (
           <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
         ) : (
