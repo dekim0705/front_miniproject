@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import BoardItem from "./BoardItem";
+import LatestPortfolioItem from "./LatestPortfolioItem";
 
 const BoardContainer = styled.div`
   width: calc(50% - 200px);
@@ -28,7 +27,7 @@ const BoardBodyContainer = styled.div`
   border-radius: 20px;
   gap: 20px;
 `;
-const Board = (props) => {
+const LatestPortfolio = (props) => {
 
   return (
     <BoardContainer>
@@ -36,10 +35,10 @@ const Board = (props) => {
         <BoardNameText>{props.name}</BoardNameText>
       </BoardName>
       <BoardBodyContainer>
-        <BoardItem />
+        <LatestPortfolioItem />
       </BoardBodyContainer>
     </BoardContainer>
   );
 };
 
-export default Board;
+export default LatestPortfolio;
