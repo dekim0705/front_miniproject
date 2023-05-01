@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TextsmsIcon from '@mui/icons-material/Textsms';
-import tmpProfileImg from "../../resource/profile.PNG"
 
 const BoardItemContainer = styled.div`
   padding: 0 10px;
@@ -23,16 +22,6 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-`;
-
-const ProfileImg = styled.div`
-  width: 40px;
-  height: 40px;
-  background-image: url(${tmpProfileImg});
-  background-color: #fff;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 50%;
 `;
 
 const PostInfo = styled.div`
@@ -57,26 +46,35 @@ const Title = styled.p`
   margin: 0;
 `;
 
-const BoardItem = () => {
+const BoardItem = ({post}) => {
   return (
     <BoardItemContainer>
       <BoardItem1>
         <UserInfo>
-          <ProfileImg />
-          <div className="nickname">양갱</div>
+          <img
+            src={post.pfImg}
+            alt='profileImage'
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: '50%',
+              border: '1px solid #eeeeee'
+            }}
+          />
+          {post.nickname}
         </UserInfo>
         <PostInfo>
           <ViewCount>
             <VisibilityIcon />
-            <p>3433</p>
+            <p>{post.viewCount}</p>
           </ViewCount>
           <ReplyCount>
             <TextsmsIcon />
-            <p>20</p>
+            <p>{post.commentCount}</p>
           </ReplyCount>
         </PostInfo>
       </BoardItem1>
-      <Title>주니어 웹 개발자가 알아야 할 ‘비동기 통신’</Title>
+      <Title>{post.title}</Title>
     </BoardItemContainer>
   );
 };

@@ -4,10 +4,7 @@ import MentorButton from "../components/Main/MentorButton";
 import WriteButton from "../components/Main/WriteButton";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import LatestInformation from "../components/Main/LatestInformation";
-import LatestPortfolio from "../components/Main/LatestPortfolio";
-import LatestBest from "../components/Main/LatestBest";
-import LatestQnA from "../components/Main/LatestQnA";
+import Board from "../components/Main/Board";
 
 const BoardContainer = styled.div`
   width: 100%;
@@ -26,10 +23,10 @@ const HomePage = () => {
       <Header />
       <Main />
       <BoardContainer>
-        <LatestInformation name="정보공유" />
-        <LatestPortfolio name="포트폴리오" />
-        <LatestBest name="베스트" />
-        <LatestQnA name="Q&A" />
+        <Board name="정보공유" category="information" />
+        <Board name="포트폴리오" category="portfolio" />
+        <Board name="베스트" category="best" />
+        <Board name="Q&A" category="qna" />
       </BoardContainer>
       <Footer />
       <WriteButton />
