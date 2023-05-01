@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import LogoutIcon from '@mui/icons-material/Logout';
+import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 
 const ChatUserInfoContainer = styled.div`
   display: flex;
@@ -84,14 +86,12 @@ const ChatButtonContainer = styled.div`
   gap: 30px;
 `;
 
-const MinimizeButton = styled.div`
-  font-weight: bold;
-  color: #777;
+const MinimizeButton = styled(TransitEnterexitIcon)`
+  color: #1E2B4D;
 `;
 
-const ExitButton = styled.div`
-  font-weight: bold;
-  color: #777;
+const ExitButton = styled(LogoutIcon)`
+  color: #1E2B4D;
 `;
 
 export const ChatUserInfo = () => {
@@ -115,8 +115,8 @@ export const ChatUserInfo = () => {
           </JobContainer>
         </DetailContainer>
         <ChatButtonContainer>
-          <MinimizeButton>dd</MinimizeButton>
-          <ExitButton>ff</ExitButton>
+          <MinimizeButton sx={{ fontSize: "2.5rem" }} />
+          <ExitButton sx={{ fontSize: "2.5rem" }} />
         </ChatButtonContainer>
       </ChatUserInfoContainer>
   );

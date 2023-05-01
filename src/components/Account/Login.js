@@ -114,6 +114,8 @@ const Login = () => {
   };
 
   const onClickLogin = async () => {
+    console.log(inputEmail);
+    console.log(inputPwd);
     try {
     const response = await AccountAxiosApi.loginMember(inputEmail, inputPwd);
     if (response.data === true) {

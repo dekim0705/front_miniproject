@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import InfoIcon from '@mui/icons-material/Info';
+import CodeIcon from '@mui/icons-material/Code';
+import SendIcon from '@mui/icons-material/Send';
 
 const ChatRoomContainer = styled.div`
   display: flex;
@@ -66,8 +69,8 @@ const Message = styled.div`
 
 const OtherUserMessage = styled(Message)`
   align-self: flex-start;
-  background-color: #4e5968;
-  color: #fff;
+  background-color: #E5E7EA;
+  color: #000;
 `;
 
 const MeMessage = styled(Message)`
@@ -99,7 +102,9 @@ const CreatedAt = styled.div`
 
 const ChatInputContainer = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 20px;
+  gap: 3px;
 `;
 
 const MsgInput = styled.input`
@@ -107,18 +112,17 @@ const MsgInput = styled.input`
   border-radius: 15px;
   border: 1px solid #eee;
   padding: 0 10px;
+  height: 50px;
 `;
 
-const CodeBlock = styled.div`
-  width: 55px;
-  height: 55px;
-  background-color: green;
+const CodeBlock = styled(CodeIcon)`
+  cursor: pointer;
+  color: #1E2B4D;
 `;
 
-const SendButton = styled.div`
-  width: 55px;
-  height: 55px;
-  background-color: orange;
+const SendButton = styled(SendIcon)`
+  cursor: pointer;
+  color: #1E2B4D;
 `;
 
 export const ChatRoom = () => {
@@ -127,6 +131,7 @@ export const ChatRoom = () => {
         <ChatUserContainer>
           <PfImg />
           <Nickname>양갱좋아</Nickname>
+          <InfoIcon style={{color: '4E5968'}} />
         </ChatUserContainer>
         <ChatViewContainer>
           <MessageContainer>
@@ -162,8 +167,8 @@ export const ChatRoom = () => {
         </ChatViewContainer>
         <ChatInputContainer>
           <MsgInput type="search" placeholder="메시지를 입력하세요." />
-          <CodeBlock />
-          <SendButton />
+          <CodeBlock sx={{ fontSize: "2rem" }} />
+          <SendButton sx={{ fontSize: "1.5rem" }} />
         </ChatInputContainer>
       </ChatRoomContainer>
   );

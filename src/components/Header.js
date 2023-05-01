@@ -54,8 +54,8 @@ const StyledHeader = styled.header`
     width: 200px;
     padding: 10px 0;
     text-align: center;
-    border: 3px outset #C6DEF7;
-    border-radius: 15px;
+    border: 3px solid #C6DEF7;
+    font-size: 0.8em;
   }
   .box {
     width: 60px;

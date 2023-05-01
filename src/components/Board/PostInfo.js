@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start; 
   padding-left: 20px;
- 
 `;
 
 const Title = styled.h3`
