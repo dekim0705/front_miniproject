@@ -1,6 +1,7 @@
 
 import React from "react";
 import BoardList from "../components/Board/BoardList";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import SearchInput from "../components/Board/Search";
@@ -29,20 +30,19 @@ padding-top : 30px;
 `;
 
 const WorkerPage = () => {
-
+  const { pageNum } = useParams();
   return (
     <>
       <Header />
       <BoardName>
       직장인 게시판
     </BoardName>
-
     <SearchInput />
-    <BoardList />
+    <BoardList boardName="worker" pageNum={pageNum} />
     <WriteButtonWrapper>
       <WriteButton />
     </WriteButtonWrapper>
-    <Pages />
+    <Pages boardNum={3} path="/worker" />
     <Footer />
     </>
   );

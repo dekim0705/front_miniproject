@@ -1,4 +1,3 @@
-// QnA Page
 import React from "react";
 import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
@@ -7,12 +6,14 @@ import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
 import WriteButton from "../components/Board/WriteButton";
+import { useParams } from "react-router-dom";
 
 const BoardName = styled.div`
   font-size: 1.5rem;
   margin: 30px 0px 10px 130px;
   padding : 10px 0px 0px 100px;
   width: 100%;
+  
 
   @media (max-width: 768px) {
     text-align: center;
@@ -29,24 +30,20 @@ padding-top : 30px;
 `;
 
 const InformationPage = () => {
+  const { pageNum } = useParams();
+  
   return (
-
-  <>
-    <Header />
-    <BoardName>
-      정보공유 게시판
-    </BoardName>
-
-    <SearchInput />
-    <BoardList />
-    <WriteButtonWrapper>
-      <WriteButton />
-    </WriteButtonWrapper>
-    <Pages />
-    <Footer />
-  </>
-
-
+    <>
+      <Header />
+      <BoardName>정보공유 게시판</BoardName>
+      <SearchInput />
+      <BoardList boardName="information" pageNum={pageNum} />
+      <WriteButtonWrapper>
+        <WriteButton />
+      </WriteButtonWrapper>
+      <Pages boardNum={2} path="/information" />
+      <Footer />
+    </>
   );
 };
 

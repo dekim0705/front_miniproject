@@ -7,6 +7,7 @@ import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
 import WriteButton from "../components/Board/WriteButton";
+import { useParams } from "react-router-dom";
 
 const BoardName = styled.div`
   font-size: 1.5rem;
@@ -29,7 +30,7 @@ padding-top : 30px;
 `;
 
 const BestPage = () => {
-
+  const { pageNum } = useParams();
   return (
     <>
       <Header />
@@ -38,11 +39,11 @@ const BestPage = () => {
     </BoardName>
 
     <SearchInput />
-    <BoardList />
+    <BoardList boardName="best" pageNum={pageNum} />
     <WriteButtonWrapper>
       <WriteButton />
     </WriteButtonWrapper>
-    <Pages />
+    <Pages boardNum={5} path="/best" />
     <Footer />
     </>
   );

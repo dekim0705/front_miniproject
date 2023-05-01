@@ -16,9 +16,9 @@ const options = [
   { path: '/mentor', text: '멘토찾기' },
   { path: '/information', text: '정보 공유' },
   { path: '/portfolio', text: '포트폴리오' },
-  { path: '/worker', text: '직장인' },
-  { path: '/best', text: '베스트' },
-  { path: '/qna', text: 'Q&A' },
+  { path: '/worker/:pageNum?', text: '직장인' },
+  { path: '/best', text: '베스트' }, 
+  { path: '/qna/:pageNum?', text: 'Q&A' },
 ];
 
 const ITEM_HEIGHT = 48;

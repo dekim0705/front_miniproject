@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import BoardItem from "./BoardItem";
 import { Link } from 'react-router-dom';
+import boardAxiosApi from "../../api/BoardAxiosApi";
 
 
 
@@ -51,7 +51,20 @@ const StyledLink = styled(Link)`
 `;
 
 
-const BoardList = () => {
+const BoardList = ({ boardName, pageNum }) => {
+  const [boardItem, setBoardItem] = useState([]);
+  
+    useEffect(() => {
+      const fetchBoardItems = async () => {
+        const items = await boardAxiosApi.requesthBoardItems(boardName, pageNum);
+        setBoardItem(items);
+      };
+  
+      fetchBoardItems();
+    }, [boardName, pageNum]);
+  
+
+
   return ( 
         <ListWrapper>
       <TableBox>
@@ -65,15 +78,15 @@ const BoardList = () => {
           </TableRow>
         </TableHeader>
         <tbody>
-          {BoardItem.map((item, index) => (
+          {boardItem.map((item, index) => (
             <TableRow key={index}>
-              <TableCell>{item.num}</TableCell>
+              <TableCell>{item.postNum}</TableCell>
               <TableCell>
-              <StyledLink to={"/post"}>{item.title}</StyledLink>
+              <StyledLink to={`/post/${item.postNum}`}>{item.title}</StyledLink>
               </TableCell>
               <TableCell>{item.nickname}</TableCell>
-              <TableCell>{item.date}</TableCell>
-              <TableCell>{item.views}</TableCell>
+              <TableCell>{item.writeDate}</TableCell>
+              <TableCell>{item.viewCount}</TableCell>
             </TableRow>
           ))}
         </tbody>
