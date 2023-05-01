@@ -7,14 +7,14 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 30px;
-  margin-right : 130px;
+  margin-right : 210px;
   margin-bottom : 50px;
 `;
 
 const EditButton = () => {
   return (
     <Wrapper>
-      <Stack spacing={2} direction="row">
+      <Stack spacing={3} direction="row">
         <Button variant="outlined" sx={{ width: '80px' }}>수정</Button>
         <Button variant="contained" sx={{ width: '80px' }}>삭제</Button>
       </Stack>

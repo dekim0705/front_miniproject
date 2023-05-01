@@ -10,11 +10,11 @@ const LikeButton = () => {
     <>
       {isLiked ? (
         <IconButton>
-          <ThumbUpAltSharp sx={{ fontSize: '35px', marginRight: '5px'}} />
+          <ThumbUpAltSharp sx={{ fontSize: '35px', margin: '8px'}} />
         </IconButton>
       ) : (
         <IconButton>
-          <ThumbUpOutlined sx={{ fontSize: '35px', marginRight: '5px'}} />
+          <ThumbUpOutlined sx={{ fontSize: '35px', margin: '8px'}} />
         </IconButton>
       )}
     </>

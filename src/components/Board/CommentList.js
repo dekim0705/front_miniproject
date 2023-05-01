@@ -17,18 +17,18 @@ const comments = [
     id: 1,
     author: '맹고더쿠',
     content: '좋은 정보 감사합니다 ~!!!! \n 덕분에 많은 도움이 되었어요 ㅎㅎ',
-    avatar: 'https://via.placeholder.com/40',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/devcom-mini-project.appspot.com/o/profile%2Fuser14.JPG?alt=media',
   },
   {
     id: 2,
     author: '딸기초코',
-    content: '댓글입니다',
+    content: '저에게 정말 필요한 글이에요!',
     avatar: 'https://via.placeholder.com/40',
   },
   {
     id: 3,
     author: '리액트흑흑',
-    content: '댓글입니다',
+    content: '감사합니다 잘 읽고가여 ㅎㅎ',
     avatar: 'https://via.placeholder.com/40',
   },
 ];

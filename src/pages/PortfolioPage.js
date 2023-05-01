@@ -26,7 +26,7 @@ const Divider = styled.div`
   padding-bottom: 20px;
 `;
 const PortfolioPage = () => {
-
+ 
   return (
     <>
       <Header />
@@ -35,7 +35,7 @@ const PortfolioPage = () => {
     </BoardName>
     <Divider />
       <GalleryContainer />
-      <Pages />
+      <Pages boardNum={4} path="/portfolio" />
       <Footer />
     </>
   );
