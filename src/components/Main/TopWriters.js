@@ -7,9 +7,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 4px;
-  border: 2px solid #C6DEF7;
-  border-radius: 10px;
+  border: 1px dotted #C6DEF7;
   padding: 5px 10px;
+  @media screen and (max-width: 768px) {
+      display: none;
+    }
 `;
 
 const Rank = styled.div`
@@ -31,10 +33,10 @@ const TopWriters = () => {
   useEffect(() => {
     const fetchTopWritersData = async () => {
       try {
-        const response = await MainAxiosApi.getTop5Writers();
+        const response = await MainAxiosApi.top5Writers();
         setTop5Writers(response.data);
       } catch (error) {
-        console.error("Error fetching top 5 writers data:", error);
+        console.error("글 작성 상위 5명 불러오기 에러😱", error);
       }
     };
     fetchTopWritersData();
@@ -43,7 +45,7 @@ const TopWriters = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % top5Writers.length);
-    }, 2500);
+    }, 2800);
 
     return () => {
       clearInterval(timer);
@@ -54,7 +56,7 @@ const TopWriters = () => {
     <>
       {top5Writers.length > 0 && (
         <Container>
-          <Rank>👑 {currentIndex + 1}위</Rank>
+          <Rank>💙 {currentIndex + 1}위</Rank>
           <img
             src={top5Writers[currentIndex].pfImg}
             alt="Profile"

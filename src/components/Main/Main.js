@@ -1,25 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
+import WelcomeMessage from './WelcomeMessage';
+import NewPostCnt from './NewPostCnt';
+import NewReplyCnt from './NewReplyCnt';
+import PortfolioCnt from './PortfolioCnt';
+import TotalPostCnt from './TotalPostCnt';
 
 const StyledMainContainer = styled.div`
   .userWelcome {
     font-size: 2em;
     display: none;
   }
-  .welcomeMessage {
-    font-size: 2em;
-    text-align: center;
-  }
-  .welcomeMessage > p {
-    margin: 10px 0;
-  }
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 80px 0;
   gap: 40px;
+  @media screen and (max-width:768px) {
+    padding: 50px 0;
+  }
 
   .value__container {
     display: flex;
@@ -52,7 +53,7 @@ const StyledMainContainer = styled.div`
   .search-bar {
     width: 100%;
     height: 60px;
-    border-radius: 25px;
+    border-radius: 40px;
     border: 3px solid #3B74EC;
     padding: 0 15px;
   }
@@ -76,10 +77,6 @@ const StyledMainContainer = styled.div`
       gap: 0;
       box-sizing: border-box;
     }
-    .welcomeMessage {
-      padding: 0 10px;
-      font-size: 1.7em;
-    }
   }
 `;
 
@@ -89,31 +86,16 @@ const Main = () => {
       <div className="userWelcome">
         <h1>닉네임 님, 안녕하세요.</h1>
       </div>
-      <div className="welcomeMessage">
-        <p>이미 00,000명의 개발자가 함께하고 있습니다.</p>
-        <p>지금 바로 검색해보세요!</p>
-      </div>
+      <WelcomeMessage />
       <div className="search">
         <input type="search" className="search-bar" />
         <SearchIcon style={{fontSize: 50}} />
       </div>
       <div className="value__container">
-        <div className="valueItem newPost">
-          <p>새 글</p>
-          <p>456</p>
-        </div>
-        <div className="valueItem newReply">
-          <p>새 댓글</p>
-          <p>120</p>
-        </div>
-        <div className="valueItem portfolio">
-          <p>포트폴리오</p>
-          <p>231</p>
-        </div>
-        <div className="valueItem totalPost">
-          <p>누적 게시글</p>
-          <p>34,232</p>
-        </div>
+        <NewPostCnt />
+        <NewReplyCnt />
+        <PortfolioCnt />
+        <TotalPostCnt />
       </div>
     </StyledMainContainer>
   );

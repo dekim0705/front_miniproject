@@ -124,7 +124,7 @@ const Login = () => {
       setUserPwd(inputPwd);
 
       // 🐢 프로필 이미지 URL 가져오기
-      const pfImgResponse = await MainAxiosApi.getUserPfImg(inputEmail);
+      const pfImgResponse = await MainAxiosApi.userPfImg(inputEmail);
       if (pfImgResponse.data) {
         setUserPfImgUrl(pfImgResponse.data);
       }

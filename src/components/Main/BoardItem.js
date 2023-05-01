@@ -54,6 +54,7 @@ const ReplyCount = styled.div`
 
 const Title = styled.p`
   padding: 5px 0;
+  margin: 0;
 `;
 
 const BoardItem = () => {
