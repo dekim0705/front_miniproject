@@ -40,7 +40,7 @@ const Board = ({ name, category }) => {
           case 'information':
             response = await MainAxiosApi.latest5InformationPosts();
             break;
-          case 'portfoliio':
+          case 'portfolio':
             response = await MainAxiosApi.latest5PortfolioPosts();
             break;
           case 'best':
