@@ -24,8 +24,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/mentor/*' element={<MentorPage />}></Route>
-          <Route path='/information/:pageNum?' element={<InformationPage />}></Route>
-          <Route path='/portfolio' element={<PortfolioPage />}></Route>
+          <Route path='/information/:pageNum' element={<InformationPage />}></Route>
+          <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
           <Route path='/worker/:pageNum' element={<WorkerPage />} />
           <Route path='/best/:pageNum' element={<BestPage />}></Route>
           <Route path='/qna/:pageNum' element={<QnAPage />}></Route>

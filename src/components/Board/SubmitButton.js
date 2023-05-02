@@ -7,6 +7,7 @@ const ButtonWrapper = styled.div`
   margin-top: 18px;
   padding-right : 150px;
   margin-right : 70px;
+  padding-bottom : 100px;
 `;
 
 
@@ -18,6 +19,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
 `;
 
 const WriteButton = ({onClick}) => {
