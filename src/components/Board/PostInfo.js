@@ -54,7 +54,7 @@ const AuthorWrapper = styled.div`
 const ProfileImg = styled.div`
   width: 40px;
   height: 40px;
-  background-image: url(${tmpProfileImg});
+  /* background-image: url(${tmpProfileImg}); */
   background-color: #fff;
   background-size: cover;
   background-repeat: no-repeat;
@@ -65,9 +65,9 @@ const post = {
   boardName: "정보 공유",
   title: "주니어 개발자의 이야기",
   nickname: "양갱",
-  date: "2023.04.30",
-  views: 130,
-  likes: 50,
+  writeDate: "2023.04.30",
+  viewCount: 130,
+  likeCount: 50,
 };
 
 
@@ -78,13 +78,13 @@ const PostInfo = ({ post }) => {
       <Title>{post.title}</Title>
       <Info>
       <AuthorWrapper>
-          <ProfileImg/>
+          <ProfileImg>{post.pfImg}</ProfileImg>
           <Author>{post.nickname}</Author>
         </AuthorWrapper>
         <div>
-          <Date> 작성날짜 : {post.date}</Date>
-          <Views>조회수 : {post.views}</Views>
-          <Likes>추천수 : {post.likes}</Likes>
+          <Date> 작성날짜 : {post.writeDate}</Date>
+          <Views>조회수 : {post.viewCount}</Views>
+          <Likes>추천수 : {post.likeCount}</Likes>
         </div>
       </Info>
     </Wrapper>

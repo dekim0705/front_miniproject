@@ -56,7 +56,7 @@ const BoardList = ({ boardName, pageNum }) => {
   
     useEffect(() => {
       const fetchBoardItems = async () => {
-        const items = await boardAxiosApi.requesthBoardItems(boardName, pageNum);
+        const items = await boardAxiosApi.requestGeneralList(boardName, pageNum);
         setBoardItem(items);
       };
   

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Pages from "../components/Board/Paginations";
+import { useParams } from "react-router-dom";
 
 
 const BoardName = styled.div`
@@ -26,6 +27,7 @@ const Divider = styled.div`
   padding-bottom: 20px;
 `;
 const PortfolioPage = () => {
+  const { pageNum } = useParams();
  
   return (
     <>
@@ -34,7 +36,7 @@ const PortfolioPage = () => {
       포트폴리오 게시판
     </BoardName>
     <Divider />
-      <GalleryContainer />
+    <GalleryContainer pageNum={pageNum} />
       <Pages boardNum={4} path="/portfolio" />
       <Footer />
     </>

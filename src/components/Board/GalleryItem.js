@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: 1%;
   position: relative;
   border-radius : 15px;
-  height: 260px;
+  height: 280px;
   padding-bottom: 40px; 
  
   
@@ -75,6 +75,10 @@ const Info = styled.div`
   justify-content: space-between; 
   padding-top: 10px;
 `;
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const Nickname = styled.p`
   margin: 0;
@@ -91,7 +95,7 @@ const Status = styled.p`
 `;
 
 const IconWrapper = styled.span`
-  margin-left: 10px;
+  margin-left: 5px;
   padding-right : 5px;
 `;
 
@@ -99,24 +103,35 @@ const Gap = styled.span`
   margin-right: 5px;
 `;
 
+const ProfilePic = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+
+
 const GalleryItem = ({ item }) => (
    <Container>
-    <Thumbnail src={item.thumbnail} alt={item.title} />
+    <Thumbnail src={item.imgUrl} alt={item.title} />
     <Overlay>
       <Title>{item.title}</Title>
     </Overlay>
     <Info>
+    <UserInfo>
+    <ProfilePic src={item.pfImg} alt={item.nickname} />
       <Nickname>{item.nickname}</Nickname>
+      </UserInfo>
       <Status>
         <IconWrapper>
           <ThumbUpIcon fontSize="small" />
         </IconWrapper>
-        {item.likes} 
+        {item.likeCount} 
         <Gap />
         <IconWrapper>
           <RemoveRedEyeIcon fontSize="small" />
         </IconWrapper>
-        {item.views}
+        {item.viewCount}
       </Status>
     </Info>
   </Container>
