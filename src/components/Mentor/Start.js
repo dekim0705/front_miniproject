@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from "react-router-dom";
+import ChatAxiosApi from '../../api/ChatAxiosApi';
+import { UserContext } from '../../context/UserInfo';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -73,9 +75,49 @@ const Button = styled.a`
 `;
 
 const Start = () => {
+  const [userMemberNum, setUserMemberNum] = useState(0);
+  // 🔴 로그인 정보 가져오기
+  const { userEmail } = useContext(UserContext);
+  // 🔴 로그인 유저 회원번호 가져오기
+  useEffect(() => {
+    const getMenteeMemberNum = async () => {
+      try {
+        const response = await ChatAxiosApi.menteeMemberNum(userEmail);
+        setUserMemberNum(response.data);
+        console.log("멘티 회원 정보 : " + response.data);
+      } catch (error) {
+        console.log("멘티 회원정보 가져오기 오류 🥹", error);
+      }
+    };
+    getMenteeMemberNum();
+  }, [userEmail]);
+
+  // 🚀 1. UserContext에서 필요한 요소 가져오기
+  const { setMentorNickname, setMentorPfImg, setMenteeNickname, setMenteePfImg } = useContext(UserContext);
+
   const navigate = useNavigate();
-  const StartButtonClick = () => {
-    navigate('result');
+  const StartButtonClick = async () => {
+    navigate('loading');
+    setTimeout(async () => {
+      try {
+        const menteeMemberNum = userMemberNum;
+        const response = await ChatAxiosApi.mentorInfo(menteeMemberNum);
+        console.log(response.data);
+        const response2 = await ChatAxiosApi.menteeInfo(userEmail);
+        console.log(response2.data);
+  
+        // 🚀 2. 서버에서 가져온 정보 UserContext에 저장
+        setMentorNickname(response.data[0].nickname);
+        setMentorPfImg(response.data[0].pfImg);
+        setMenteeNickname(response2.data[0].nickname);
+        setMenteePfImg(response2.data[0].pfImg);
+  
+        navigate('result');
+      } catch(error) {
+        console.error("멘토 정보 불러오기 실패. . 🥹", error);
+        navigate('result');
+      }
+    }, 3000);
   };
 
   return (

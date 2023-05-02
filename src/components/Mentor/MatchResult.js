@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserInfo';
 
 const rotate = keyframes`
   100% { transform: rotate(360deg); }
@@ -69,25 +70,24 @@ const MemberInfo = styled.div`
   gap: 20px;
 `;
 
-const ProfileImg = styled.div`
+const PfImg = styled.img`
   width: 300px;
   height: 300px;
-  border: 8px solid #C6DEF7;
   border-radius: 50%;
-  background: url("/src/resource/profile.PNG");
-  background-repeat: no-repeat;
-  background-size: contain;
+  border: 8px solid #C6DEF7;
   @media screen and (max-width: 768px) {
     width: 150px;
     height: 150px;
-    border: 2px solid #C6DEF7;
+    border: 4px solid #c6def7;
   }
 `;
 
 const Nickname = styled.div`
   font-size: 2em;
+  font-weight: bolder;
   @media screen and (max-width: 768px) {
-    font-size: 1.5em;
+    font-size: 1.3em;
+    font-weight: 400;
   }
 `;
 
@@ -136,6 +136,9 @@ const Button = styled.a`
 `;
 
 const MatchResult = () => {
+  // 🚀 3. Start 컴포넌트에서 저장한 UserContext 가져오기
+  const { mentorNickname, mentorPfImg, menteeNickname, menteePfImg } = useContext(UserContext);
+
   const navigate = useNavigate();
   const ReturnButtonClick = () => {
     navigate('/mentor');
@@ -160,12 +163,18 @@ const MatchResult = () => {
       </MessageContainer>
       <MemberContainer>
         <MemberInfo>
-          <ProfileImg />
-          <Nickname>양갱좋아</Nickname>
+          <PfImg
+            src={menteePfImg}
+            alt="MentorProfile"
+          />
+          <Nickname>{menteeNickname}</Nickname>
         </MemberInfo>
         <MemberInfo>
-          <ProfileImg />
-          <Nickname>리액트흑흑</Nickname>
+          <PfImg
+            src={mentorPfImg}
+            alt="MentorProfile"
+          />
+          <Nickname>{mentorNickname}</Nickname>
         </MemberInfo>
       </MemberContainer>
       <ButtonContainer>

@@ -88,10 +88,12 @@ const ChatButtonContainer = styled.div`
 
 const MinimizeButton = styled(TransitEnterexitIcon)`
   color: #1E2B4D;
+  cursor: pointer;
 `;
 
 const ExitButton = styled(LogoutIcon)`
   color: #1E2B4D;
+  cursor: pointer;
 `;
 
 export const ChatUserInfo = () => {

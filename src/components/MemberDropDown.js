@@ -22,7 +22,7 @@ const ITEM_HEIGHT = 48;
 
 const MemberDropDown = ({ setIsLogin, resetUser }) => {
   const navigate = useNavigate();
-  // 🚀 context에서 userPfImgUrl 가져옴
+  // 🚀 UserContext에서 필요한 요소 가져오기
   const { userPfImgUrl } = useContext(UserContext);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
