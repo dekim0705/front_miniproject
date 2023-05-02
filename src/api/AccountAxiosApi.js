@@ -14,6 +14,11 @@ const AccountAxiosApi = {
   // 👤 닉네임 중복 여부 확인
   memberRegCheck: async(nickname) => {
     return await axios.get(KH_DOMAIN + `/check?nickname=${nickname}`);
+  },
+  
+  // 👤 모든 기술스택 호출
+  allTechStacks: async() => {
+    return await axios.get(KH_DOMAIN + `/techstacks/all`);
   }
   
 };
