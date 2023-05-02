@@ -18,7 +18,7 @@ const Board = styled.div`
   border: 1px solid #ccc;
   border-radius : 10px;
   padding: 5px 30px;
-  min-height: 380px; 
+  min-height: 390px; 
   max-height: 800px; 
   overflow-y: auto; /* 스크롤바 */
 `;
@@ -29,17 +29,16 @@ const StyledContent = styled.p`
   white-space: pre-line;
 `;
 
-const dummyContent = "안녕하세요. 주니어 개발자입니다. \n 제가 처음 개발자로 취업한 이야기를 공유합니다. \n 혹시나 비슷한 고민을 하고 있는 분들에게 조금이나마 도움이 될 수 있으면 좋겠습니다!";
 
-const Content = () => {
+const Content = ({ content }) => {
   return (
     <Wrapper>
       <Board>
-        <StyledContent>{dummyContent}</StyledContent>
+        <StyledContent>{content}</StyledContent>
       </Board>
     </Wrapper>
   );
 };
 
-export { Content, dummyContent };
+
 export default Content;

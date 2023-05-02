@@ -11,7 +11,9 @@ const ListWrapper = styled.div`
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   overflow: hidden;
-
+  @media (max-width: 768px) {
+    min-width: 600px;
+  }
 `;
 
 const TableBox = styled.table`
@@ -24,9 +26,20 @@ const TableBox = styled.table`
   }
 `;
 
+const HeaderCell = styled.th`
+  padding: 16px;
+`;
+
+
 const TableHeader = styled.thead`
   background-color: rgb(83,131,236);
   color: white;
+
+  @media (max-width: 768px) {
+    ${HeaderCell}:nth-child(5) {
+      display: none;
+    }
+  }
 `;
 
 const TableRow = styled.tr`
@@ -38,17 +51,21 @@ const TableRow = styled.tr`
 
 const TableCell = styled.td`
   padding: 16px;
+  @media (max-width: 768px) {
+    &.view {
+      display: none;
+    }
+  }
 `;
 
-const HeaderCell = styled.th`
-  padding: 16px;
-`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
 
 `;
+
+
 
 
 const BoardList = ({ boardName, pageNum }) => {
@@ -86,7 +103,7 @@ const BoardList = ({ boardName, pageNum }) => {
               </TableCell>
               <TableCell>{item.nickname}</TableCell>
               <TableCell>{item.writeDate}</TableCell>
-              <TableCell>{item.viewCount}</TableCell>
+              <TableCell className="view">{item.viewCount}</TableCell>
             </TableRow>
           ))}
         </tbody>

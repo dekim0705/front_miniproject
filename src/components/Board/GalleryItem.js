@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Link } from 'react-router-dom';
+
 
 const Container = styled.div`
   width: calc(100% / 3 - 2%);
@@ -46,14 +48,16 @@ const Overlay = styled.div`
     opacity: 1;
   }
 `;
-
-const Title = styled.h3`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 20px;
+  font-weight:bold;
   text-align: center;
   margin: 0;
   padding: 0 10px;
@@ -64,6 +68,7 @@ const Title = styled.h3`
     opacity: 1;
   }
 `;
+
 
 const Info = styled.div`
   position: absolute;
@@ -115,7 +120,7 @@ const GalleryItem = ({ item }) => (
    <Container>
     <Thumbnail src={item.imgUrl} alt={item.title} />
     <Overlay>
-      <Title>{item.title}</Title>
+      <StyledLink to={`/post/${item.postNum}`}>{item.title}</StyledLink>
     </Overlay>
     <Info>
     <UserInfo>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import tmpProfileImg from "../../resource/profile.PNG"
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,48 +48,55 @@ const Likes = styled.span`
 const AuthorWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-left : 5px;
 `;
 
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
-  /* background-image: url(${tmpProfileImg}); */
-  background-color: #fff;
-  background-size: cover;
-  background-repeat: no-repeat;
   border-radius: 50%;
 `;
 
-const post = {
-  boardName: "정보 공유",
-  title: "주니어 개발자의 이야기",
-  nickname: "양갱",
-  writeDate: "2023.04.30",
-  viewCount: 130,
-  likeCount: 50,
+const BoardNames = (boardName) => {
+  switch (boardName) {
+    case "QnA":
+      return "Q&A";
+    case "Information":
+      return '정보 공유';
+    case "Worker":
+      return '직장인';
+    case "Portfolio":
+      return '포트폴리오';
+    case "Best":
+      return '베스트';
+    default:
+      return boardName;
+  }
 };
 
 
-const PostInfo = ({ post }) => {
-  return (
+const PostInfo = ({ postDetail }) => {
+  console.log(postDetail);
+  return  (
     <Wrapper>
-      <Category>{post.boardName}</Category>
-      <Title>{post.title}</Title>
+      <Category>{BoardNames(postDetail.boardName)}</Category>
+      <Title>{postDetail.title}</Title>
       <Info>
       <AuthorWrapper>
-          <ProfileImg>{post.pfImg}</ProfileImg>
-          <Author>{post.nickname}</Author>
+      <ProfileImg src={postDetail.pfImg} alt="프로필 이미지" />
+          <Author>{postDetail.nickname}</Author>
         </AuthorWrapper>
         <div>
-          <Date> 작성날짜 : {post.writeDate}</Date>
-          <Views>조회수 : {post.viewCount}</Views>
-          <Likes>추천수 : {post.likeCount}</Likes>
+          <Date> 작성날짜 : {postDetail.writeDate}</Date>
+          <Views>조회수 : {postDetail.viewCount}</Views>
+          <Likes>추천수 : {postDetail.likeCount}</Likes>
         </div>
       </Info>
     </Wrapper>
+   
   );
 };
 
-export { PostInfo, post };
+
 export default PostInfo;
