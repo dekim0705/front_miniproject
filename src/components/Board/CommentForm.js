@@ -8,10 +8,10 @@ import TextField from '@mui/material/TextField';
 const CommentFormWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
+  margin-bottom : 50px;
   border-radius : 20px;
-  margin-top: 40px;
-  padding: 20px;
+  padding: 25px;
   border: 1px solid #ccc;
 `;
 

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import styled from 'styled-components';
-import TagList, { dummyTags }  from '../components/Board/TagList';
-import PostInfo,{post} from '../components/Board/PostInfo';
-import Content, {dummyContent} from '../components/Board/PostContent';
+import TagList from '../components/Board/TagList';
+import PostInfo from '../components/Board/PostInfo';
+import Content from '../components/Board/PostContent';
 import LikeButton from '../components/Board/LikeButton';
 import CommentForm from '../components/Board/CommentForm';
 import CommentList, {comments} from '../components/Board/CommentList';
 import EditButton from '../components/Board/EditButton';
 import Footer from '../components/Footer';
+import boardAxiosApi from "../api/BoardAxiosApi";
 
 
 const Wrapper = styled.div`
@@ -34,30 +36,60 @@ const TagListWrapper = styled.div`
 
 const CommentWrapper = styled.div`
   width: 67%;
-  margin-top: 10px;
+  margin: 20px 0;
+  padding : 20px 0;
   border-top : solid 1px #ccc;
   border-bottom : solid 1px #ccc;
 `;
 
 const PostDetailPage = () => {
+  const { postNum } = useParams();
+  const [postDetail, setPostDetail] = useState({});
+  const [reply, setReply] = useState([]);
+  
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      const response = await boardAxiosApi.requestPostDetail(postNum);
+      console.log("Response data:", response);
+      setPostDetail(response[0]);
+    };
+
+    const fetchReply = async () => {
+      const response = await boardAxiosApi.requestReply(postNum);
+      console.log("Response data:", response);
+      setReply(response);
+    };
+    const increaseViews = async () => {
+      console.log('increaseViews 실행');
+      await boardAxiosApi.increaseViews(postNum);
+      console.log('increaseViews 완료');
+    };
+    
+
+    fetchPostDetail();
+    fetchReply();
+    increaseViews();
+   
+  }, [postNum]);
+
+
   return (
     <>
       <Header />
-      <Wrapper>
+        <Wrapper>
         <BoardWrapper>
-          <PostInfo post={post} />
-          <Content content={dummyContent} />
+          <PostInfo postDetail={postDetail} />
+          <Content content={postDetail.content} />
           <TagListWrapper>
-            <TagList tags={dummyTags} />
+            <TagList tags={postDetail.tag} />
             <LikeButton />
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>
-        <CommentForm />
-          <CommentList comments={comments}  />
-        </CommentWrapper>
+          <CommentList reply={reply}  />
+          </CommentWrapper>
       </Wrapper>
-      <EditButton />
+        <EditButton />
       <Footer />
     </>
   );

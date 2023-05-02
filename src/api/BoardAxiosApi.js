@@ -31,15 +31,40 @@ const boardAxiosApi = {
   },
 
   // 게시글 상세보기 요청하기
-  requsetPostDetail: async (boardName, postNum) => {
+  requestPostDetail: async (postNum) => {
     try {
-      const response = await axios.get(KH_DOMAIN + `/${boardName}?postNum=${postNum}`)
+      const response = await axios.get(KH_DOMAIN + `/post/${postNum}`)
       return response.data;
     } catch (error) {
       console.error('상세글을 불러올 수 없습니다.',error);
       return[];
     }
+  },
+
+  // 댓글을 불러오기
+requestReply: async (postNum) => {
+  try {
+    const response = await axios.get(KH_DOMAIN + `/reply?postNum=${postNum}`);
+    return response.data;
+  } catch (error) {
+    console.error('댓글을 불러올 수 없습니다.', error);
+    return [];
   }
+},
+
+// 조회수 증가
+increaseViews: async (postNum) => {
+  try {
+    const response = await axios.post(KH_DOMAIN + `/post/${postNum}/views`);
+    console.log('조회수 증가에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('조회수 증가에 실패했습니다.', error);
+    return false;
+  }
+}
+
+
 
 }
 

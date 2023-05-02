@@ -34,7 +34,8 @@ function App() {
           <Route path='/write' element={<WritePage />}></Route>
           <Route path='/mypage' element={<MyProfilePage />}></Route>
           <Route path='/chat' element={<ChatPage />}></Route>
-          <Route path='/post' element={<PostDetailPage />}></Route>
+          <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
+
         </Routes>
       </Router>
     </UserStore>

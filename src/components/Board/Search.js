@@ -12,6 +12,15 @@ const SearchContainer = styled.div`
     padding-top : 30px;
     justify-content: flex-end;
     gap: 5px;
+
+    @media (max-width: 768px) {
+   justify-content :center;
+    margin : 0 auto;
+    text-align: center;
+    padding-left : 0;
+    width : 80%;
+   
+  }
  
   `;
   
@@ -27,7 +36,9 @@ const SearchContainer = styled.div`
   
   @media (max-width: 768px) {
     text-align: center;
-    align-items : center;
+    width: 100%;
+    height : 45px;
+
  
   }
 `;

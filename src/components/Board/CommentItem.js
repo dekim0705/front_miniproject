@@ -38,44 +38,43 @@ const CommentItemContent = styled.span`
   height: 50px;
   font-size: 0.9rem;
 `;
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  margin-top: 5px;
-`;
+// const ButtonWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-left: auto;
+//   margin-top: 5px;
+// `;
 
-const Button = styled.button`
-  border: none;
-  background-color: transparent;
-  margin-left: 10px;
-  cursor: pointer;
-  color: ${({ color }) => color || '#000'};
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+// const Button = styled.button`
+//   border: none;
+//   background-color: transparent;
+//   margin-left: 10px;
+//   cursor: pointer;
+//   color: ${({ color }) => color || '#000'};
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// `;
 
 
-const CommentItem = ({ comment }) => {
-  const { author, content, avatar, id } = comment;
-  const isMyComment = id === 3; //더미 데이터에서 댓글 작성자의 id가 3일 경우에만 true
+const CommentItem = ({ reply }) => {
+  // const isMyComment = id === 3; //더미 데이터에서 댓글 작성자의 id가 3일 경우에만 true
 
-  const handleDelete = () => {
-    console.log('삭제버튼을 누름');
-  };
+  // const handleDelete = () => {
+  //   console.log('삭제버튼을 누름');
+  // };
 
-  const handleEdit = () => {
-    console.log('수정버튼을 누름');
-  };
+  // const handleEdit = () => {
+  //   console.log('수정버튼을 누름');
+  // };
 
   return (
     <CommentItemWrapper>
-      <CommentItemImg src={avatar} />
+      <CommentItemImg src={reply.pfImg} />
       <CommentItemContentWrapper>
-        <CommentItemAuthor>{author}</CommentItemAuthor>
-        <CommentItemContent>{content}</CommentItemContent>
-        {isMyComment && (
+        <CommentItemAuthor>{reply.nickname}</CommentItemAuthor>
+        <CommentItemContent>{reply.replyContent}</CommentItemContent>
+        {/* {isMyComment && (
           <ButtonWrapper>
             <Button onClick={handleEdit}>
             <EditIcon style={{ color: '#707070' }}/>
@@ -84,7 +83,7 @@ const CommentItem = ({ comment }) => {
            <DeleteIcon style={{ color: '#707070' }}/>
             </Button>
             </ButtonWrapper>
-             )}
+             )} */}
       </CommentItemContentWrapper>
     </CommentItemWrapper>
   );
