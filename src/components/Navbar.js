@@ -14,11 +14,11 @@ const StyledNavbar = styled.div`
 
 const options = [
   { path: '/mentor', text: '멘토찾기' },
-  { path: '/information', text: '정보 공유' },
-  { path: '/portfolio', text: '포트폴리오' },
-  { path: '/worker/:pageNum?', text: '직장인' },
-  { path: '/best', text: '베스트' }, 
-  { path: '/qna/:pageNum?', text: 'Q&A' },
+  { path: '/information/1', text: '정보 공유' },
+  { path: '/portfolio/1', text: '포트폴리오' },
+  { path: '/worker/1', text: '직장인' },
+  { path: '/best/1', text: '베스트' },
+  { path: '/qna/1', text: 'Q&A' },
 ];
 
 const ITEM_HEIGHT = 48;
