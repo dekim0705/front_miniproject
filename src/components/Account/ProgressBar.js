@@ -31,7 +31,7 @@ const ProgressBarStep = styled.div`
 `;
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
-  const progress = Math.floor((currentStep / totalSteps) * 100);
+  // const progress = Math.floor((currentStep / totalSteps) * 100);
 
   return (
       <ProgressBarWrapper className="progress-bar">

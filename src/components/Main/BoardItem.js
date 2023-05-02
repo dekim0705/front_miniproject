@@ -22,6 +22,7 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 0.8em;
 `;
 
 const PostInfo = styled.div`
