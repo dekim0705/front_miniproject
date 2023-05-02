@@ -82,11 +82,11 @@ const Header = () => {
         <Logo />
         <ul className="navbar__menu">
           <StyledLink to="/mentor">멘토 찾기</StyledLink>
-          <StyledLink to="/information">정보 공유</StyledLink>
-          <StyledLink to="/portfolio">포트폴리오</StyledLink>
-          <StyledLink to="/worker">직장인</StyledLink>
-          <StyledLink to="/best">베스트</StyledLink>
-          <StyledLink to="/qna">Q&A</StyledLink>
+          <StyledLink to="/information/1">정보 공유</StyledLink>
+          <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
+          <StyledLink to="/worker/1">직장인</StyledLink>
+          <StyledLink to="/best/1">베스트</StyledLink>
+          <StyledLink to="/qna/1">Q&A</StyledLink>
         </ul>
         <TopWriters />
         {isLogin ? (
