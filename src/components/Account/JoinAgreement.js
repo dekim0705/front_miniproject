@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PopUp from "../../util/PopUp";
 import JoinButton from "./JoinButton";
 import { useNavigate } from "react-router-dom";
-import { ParentWrapper, InnerWrapper, FlexRowWrapper } from "./JoinWrappers";
+import { ParentWrapper, InnerWrapper, FlexRowWrapper } from "./Wrappers";
 
 const AgreementWrapper = styled.div`
   display: flex;

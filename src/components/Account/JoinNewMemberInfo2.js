@@ -3,7 +3,7 @@ import AccountAxiosApi from '../../api/AccountAxiosApi';
 import styled from 'styled-components';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexRowWrapper, FlexColumnWrapper } from './JoinWrappers';
+import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexRowWrapper, FlexColumnWrapper } from './Wrappers';
 import JoinButton from './JoinButton';
 import { TextField } from '@mui/material';
 import PopUp from '../../util/PopUp';

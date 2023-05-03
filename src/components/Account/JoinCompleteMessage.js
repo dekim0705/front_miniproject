@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import JoinButton from "./JoinButton";
-import { ParentWrapper, InnerWrapper } from "./JoinWrappers";
+import { ParentWrapper, InnerWrapper } from "./Wrappers";
 
 const Content = styled.div`
   display: flex;
