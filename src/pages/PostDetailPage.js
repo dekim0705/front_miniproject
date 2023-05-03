@@ -79,9 +79,9 @@ const PostDetailPage = () => {
         <Wrapper>
         <BoardWrapper>
           <PostInfo postDetail={postDetail} />
-          <Content content={postDetail} />
+          <Content content={postDetail && postDetail.content} />
           <TagListWrapper>
-            <TagList tags={postDetail.tag} />
+          <TagList tags={postDetail && postDetail.tag} />
             <LikeButton />
           </TagListWrapper>
         </BoardWrapper>

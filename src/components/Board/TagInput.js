@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function TagField() {
+const TagField = ({value, onChange}) => {
   return (
     <Box
       sx={{
@@ -16,7 +16,11 @@ export default function TagField() {
       <TextField
         label="태그"
         id="title"
-        sx={{width: '70%',}}/>
+        sx={{width: '70%',}}
+        value={value}
+        onChange={onChange}/>
     </Box>
   );
 }
+
+export default TagField;

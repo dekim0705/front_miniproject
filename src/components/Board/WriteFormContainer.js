@@ -1,9 +1,22 @@
-import React from 'react';
+import { useState } from 'react';
 import CategorySelect from './CategorySelect';
 import TitleInput from './Title';
 import ContentInput from './ContentInput';
 import styled from 'styled-components';
 import TagField from './TagInput';
+import boardAxiosApi from '../../api/BoardAxiosApi';
+import Button from '@mui/material/Button';
+
+
+
+const ButtonWrapper = styled.div`
+   display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  padding-right : 150px;
+  margin-right : 70px;
+  padding-bottom : 100px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,20 +39,57 @@ const Col = styled.div`
   width: 100%;
 `;
 
-const BoardWrite = () => {
+const WriteForm = ({ userNum, onSubmit}) => {
+  const [post, setPost] = useState({
+    title: '',
+    content: '',
+    tag: '',
+    imgUrl: '',
+    boardNum: '',
+    memberNum: userNum // 회원 번호
+  });
+
+  const handleBoardNumChange = (boardNum) => {
+  setPost((prevPost) => ({ ...prevPost, boardNum }));
+  };
+
+  const handleTitleChange = (event) => {
+    const title = event.target.value;
+    setPost((prevPost) => ({ ...prevPost, title }));
+  };
+
+  const handleContentChange = (event) => {
+    const content = event.target.value;
+    setPost((prevPost) => ({ ...prevPost, content }));
+  };
+
+  const handleTagChange = (event) => {
+    const tag = event.target.value;
+    setPost((prevPost) => ({ ...prevPost, tag }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(post);
+  };
+
+
   return (
     <Wrapper>
       <Row>
         <Col>
-        <CategorySelect /> 
-          <TitleInput />
-          <ContentInput />
-          <TagField/>
-
+        <CategorySelect value={post.boardNum} onChange={handleBoardNumChange} /> 
+        <TitleInput value={post.title} onChange={handleTitleChange} />
+        <ContentInput value={post.content} onChange={handleContentChange} />
+          <TagField value={post.tag} onChange={handleTagChange}/>
         </Col>
       </Row>
+      <ButtonWrapper>
+       <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px"}} onClick={handleSubmit}>등록</Button>
+    </ButtonWrapper>
     </Wrapper>
+    
   );
 };
 
-export default BoardWrite;
+export default WriteForm;

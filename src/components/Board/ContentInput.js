@@ -28,13 +28,15 @@ const StyledTextarea = styled(TextareaAutosize)`
   }
 `;
 
-const ContentInput = () => {
+const ContentInput = ({value, onChange}) => {
   return (
     <StyledBox component="form" noValidate autoComplete="off">
       <StyledTextarea
         placeholder="내용을 입력하세요"
         minRows={13}
         maxRows={16}
+        value={value}
+        onChange={onChange}
       />
     </StyledBox>
   );
