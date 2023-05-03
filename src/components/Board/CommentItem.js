@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import EditIcon from '@mui/icons-material/Edit';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 const CommentItemWrapper = styled.div`
   display: flex;

@@ -1,6 +1,7 @@
-import React from "react";
+import { useState } from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import styled from "styled-components";
+import boardAxiosApi from "../../api/BoardAxiosApi";
 
 const SearchContainer = styled.div`
   width: 50%;
@@ -45,13 +46,33 @@ const SearchContainer = styled.div`
 
 const StyledSearchIcon = styled(SearchIcon)`
   top: 50%;
+  cursor: pointer;
 `;
 
-const SearchInput = () => {
+const handleSearch = async (boardNum, pageNum, keyword) => {
+  try {
+    const response = await boardAxiosApi.searchPosts(boardNum, pageNum, keyword);
+    return response.data; // 검색 결과 반환
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const SearchInput = ({ boardNum, pageNum }) => {
+  const [keyword, setKeyword] = useState('');
+
+  const handleChange = (event) => {
+    setKeyword(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    handleSearch(boardNum, pageNum, keyword);
+  };
+
   return (
     <SearchContainer>
-      <SearchBar type="search" placeholder="  검색어를 입력하세요" />
-      <StyledSearchIcon />
+      <SearchBar type="search" placeholder="  검색어를 입력하세요" onChange={handleChange} />
+      <StyledSearchIcon onClick={handleSubmit} />
     </SearchContainer>
   );
 }

@@ -36,7 +36,7 @@ const InformationPage = () => {
     <>
       <Header />
       <BoardName>정보공유 게시판</BoardName>
-      <SearchInput />
+      <SearchInput boardNum={2} pageNum={pageNum} />
       <BoardList boardName="information" pageNum={pageNum} />
       <WriteButtonWrapper>
         <WriteButton />

@@ -1,5 +1,5 @@
-
-import React from "react";
+import { useEffect } from 'react';
+import boardAxiosApi from '../api/BoardAxiosApi';
 import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -31,6 +31,9 @@ padding-top : 30px;
 
 const BestPage = () => {
   const { pageNum } = useParams();
+  useEffect(() => {
+    boardAxiosApi.moveBestBoard();
+  }, []);
   return (
     <>
       <Header />
