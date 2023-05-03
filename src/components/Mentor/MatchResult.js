@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserInfo';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import ChatAxiosApi from '../../api/ChatAxiosApi';
 
 
 const Container = styled.div`
@@ -101,13 +102,24 @@ const Button = styled.a`
 
 const MatchResult = () => {
   // 🚀 3. Start 컴포넌트에서 저장한 UserContext 가져오기
-  const { mentorNickname, mentorPfImg, menteeNickname, menteePfImg } = useContext(UserContext);
+  const { mentorNickname, mentorPfImg, menteeNickname, menteePfImg, menteeNum, mentorNum } = useContext(UserContext);
 
   const navigate = useNavigate();
   const ReturnButtonClick = () => {
     navigate('/mentor');
   };
-  const ChatButtonClick = () => {
+
+  const saveChatRoom = async() => {
+    try {
+      const response = await ChatAxiosApi.saveChatRoom(mentorNum, menteeNum);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const ChatButtonClick = async () => {
+    await saveChatRoom();
     navigate('/chat');
   }
   return (

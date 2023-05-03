@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import SockJS from 'sockjs-client';
+import { Client } from '@stomp/stompjs';
 import styled from "styled-components";
 import InfoIcon from '@mui/icons-material/Info';
 import CodeIcon from '@mui/icons-material/Code';
 import SendIcon from '@mui/icons-material/Send';
+import ChatAxiosApi from "../../api/ChatAxiosApi";
+
+
+const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const formattedHours = hours >= 10 ? hours : `0${hours}`;
+  const formattedMinutes = minutes >= 10 ? minutes : `0${minutes}`;
+  return `${formattedHours}:${formattedMinutes}`;
+};
 
 const ChatRoomContainer = styled.div`
   display: flex;
@@ -126,6 +139,84 @@ const SendButton = styled(SendIcon)`
 `;
 
 export const ChatRoom = () => {
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    const sock = new SockJS('http://localhost:8111/chat', null, {
+      transports: ['websocket'],
+      headers: {
+        'Origin': 'http://localhost:3000'
+      }
+    });
+    const newClient = new Client({
+      webSocketFactory: () => sock,
+      debug: (str) => {
+        console.log(str);
+      },
+    });
+    setClient(newClient);
+  }, []);
+
+  useEffect(() => {
+    if (client) {
+      const onConnect = () => {
+        console.log('웹소켓..연결????');
+      };
+      const onError = (error) => {
+        console.error("웹소켓 연결 실패.......하...");
+      };
+
+      client.onConnect = onConnect;
+      client.onStompError = onError;
+
+      client.activate();
+    }
+    return () => {
+      if (client) {
+        client.deactivate();
+      }
+    };
+  }, [client]);
+
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
+
+  useEffect(() => {
+    const chatMessages = async (senderId, receiverId) => {
+      const response = await ChatAxiosApi.chatMessages(senderId, receiverId);
+      setMessages(response.data);
+    };
+    chatMessages(1, 16); // 📍 추후 실제 회원 번호 넣을 예정...ㅎㅎ
+  }, []);
+
+  const handleInputChange = e => {
+    setInputMessage(e.target.value);
+  };
+
+  const handleSendMessage = async () => {
+    if (inputMessage === "") {
+      return;
+    }
+
+    try {
+      const response = await ChatAxiosApi.sendChatMessage({
+        chatNum: 1,
+        senderId: 1,
+        receiverId: 16,
+        message: inputMessage,
+        codeBlock: "",
+        messageType: 0,
+        createdAt: "2023-05-02T20:00:00",
+        isRead: "Y"
+    });
+    console.log(response.data);
+
+    setInputMessage("");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
       <ChatRoomContainer>
         <ChatUserContainer>
@@ -134,41 +225,38 @@ export const ChatRoom = () => {
           <InfoIcon style={{color: '4E5968'}} />
         </ChatUserContainer>
         <ChatViewContainer>
-          <MessageContainer>
-            <OtherUserMessage>안녕하세요! 반갑습니다.</OtherUserMessage>
-            <MessageInfoContainer>
-              <CreatedAt>12:23 PM</CreatedAt>
-              <IsRead>읽음</IsRead>
-            </MessageInfoContainer>
-          </MessageContainer>
-          <MessageContainer>
-            <MeMessage>네, 안녕하세요. 만나서 반갑습니다.</MeMessage>
-            <SenderMessageInfoContainer>
-              <CreatedAt>12:45 PM</CreatedAt>
-              <IsRead>읽음</IsRead>
-            </SenderMessageInfoContainer>
-          </MessageContainer>
-          <MessageContainer>
-            <OtherUserMessage>
-              궁금한거 있으시면 편하게 물어보세요~
-            </OtherUserMessage>
-            <MessageInfoContainer>
-              <CreatedAt>12:48 PM</CreatedAt>
-              <IsRead>읽음</IsRead>
-            </MessageInfoContainer>
-          </MessageContainer>
-          <MessageContainer>
-            <MeMessage>취업 준비중인데 면접 관련 궁금한게 있습니다!</MeMessage>
-            <SenderMessageInfoContainer>
-              <CreatedAt>12:50 PM</CreatedAt>
-              <IsRead>읽음</IsRead>
-            </SenderMessageInfoContainer>
-          </MessageContainer>
+          {messages.map((m, index) => (
+            <MessageContainer key={index}>
+              {m.senderId === 1 ? (
+                <>
+                  <MeMessage>{m.message}</MeMessage>
+                  <SenderMessageInfoContainer>
+                    <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                    <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
+                  </SenderMessageInfoContainer>
+                </>
+              ) : (
+                <>
+                  <OtherUserMessage>{m.message}</OtherUserMessage>
+                  <MessageInfoContainer>
+                    <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                    <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
+                  </MessageInfoContainer>
+                </>
+              )}
+            </MessageContainer>
+          ))}
         </ChatViewContainer>
+
         <ChatInputContainer>
-          <MsgInput type="search" placeholder="메시지를 입력하세요." />
+          <MsgInput
+            type="search"
+            placeholder="메시지를 입력하세요."
+            value={inputMessage}
+            onChange={handleInputChange}
+          />
           <CodeBlock sx={{ fontSize: "2rem" }} />
-          <SendButton sx={{ fontSize: "1.5rem" }} />
+          <SendButton sx={{ fontSize: "1.5rem" }} onClick={handleSendMessage} />
         </ChatInputContainer>
       </ChatRoomContainer>
   );

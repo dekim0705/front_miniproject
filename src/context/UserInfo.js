@@ -7,8 +7,10 @@ const UserStore = (props) => {
   const [userPfImgUrl, setUserPfImgUrl] = useState("");
   const [mentorNickname, setMentorNickname] = useState("");
   const [mentorPfImg, setMentorPfImg] = useState("");
+  const [mentorNum, setMentorNum] = useState("");
   const [menteeNickname, setMenteeNickname] = useState("");
   const [menteePfImg, setMenteePfImg] = useState("");
+  const [menteeNum, setMenteeNum] = useState("");
 
   const resetUser = () => {
     setUserEmail('');
@@ -16,7 +18,7 @@ const UserStore = (props) => {
   }
 
   return (
-    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg}}>
+    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum}}>
       {props.children}
     </UserContext.Provider>
   );

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from "react-router-dom";
-import ChatAxiosApi from '../../api/ChatAxiosApi';
+import MatchingAxiosApi from '../../api/MatchingAxiosApi';
 import { UserContext } from '../../context/UserInfo';
 
 const GlobalStyle = createGlobalStyle`
@@ -82,7 +82,7 @@ const Start = () => {
   useEffect(() => {
     const getMenteeMemberNum = async () => {
       try {
-        const response = await ChatAxiosApi.menteeMemberNum(userEmail);
+        const response = await MatchingAxiosApi.menteeMemberNum(userEmail);
         setUserMemberNum(response.data);
         console.log("멘티 회원 정보 : " + response.data);
       } catch (error) {
@@ -93,7 +93,7 @@ const Start = () => {
   }, [userEmail]);
 
   // 🚀 1. UserContext에서 필요한 요소 가져오기
-  const { setMentorNickname, setMentorPfImg, setMenteeNickname, setMenteePfImg } = useContext(UserContext);
+  const { setMentorNickname, setMentorPfImg, setMenteeNickname, setMenteePfImg, setMenteeNum, setMentorNum } = useContext(UserContext);
 
   const navigate = useNavigate();
   const StartButtonClick = async () => {
@@ -101,16 +101,18 @@ const Start = () => {
     setTimeout(async () => {
       try {
         const menteeMemberNum = userMemberNum;
-        const response = await ChatAxiosApi.mentorInfo(menteeMemberNum);
+        const response = await MatchingAxiosApi.mentorInfo(menteeMemberNum);
         console.log(response.data);
-        const response2 = await ChatAxiosApi.menteeInfo(userEmail);
+        const response2 = await MatchingAxiosApi.menteeInfo(userEmail);
         console.log(response2.data);
   
         // 🚀 2. 서버에서 가져온 정보 UserContext에 저장
         setMentorNickname(response.data[0].nickname);
         setMentorPfImg(response.data[0].pfImg);
+        setMentorNum(response.data[0].memberNum);
         setMenteeNickname(response2.data[0].nickname);
         setMenteePfImg(response2.data[0].pfImg);
+        setMenteeNum(response2.data[0].memberNum);
   
         navigate('result');
       } catch(error) {
