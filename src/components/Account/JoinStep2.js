@@ -1,17 +1,17 @@
 import React from 'react';
 import JoinTitle from './JoinTitle';
-import ProgressBar from './ProgressBar';
-import MemberInfoField from './MemberInfoField';
+import ProgressBar from './JoinProgressBar';
+import NewMemberInfo from './JoinNewMemberInfo';
 
-const RealJoinStep2 = () => {
+const JoinStep2 = () => {
+
   return (
     <>
-      <JoinTitle />
+      <JoinTitle>회원가입</JoinTitle>
       <ProgressBar currentStep={2} totalSteps={4} />
-      <MemberInfoField />
+      <NewMemberInfo />
     </>
   );
 };
-
-export default RealJoinStep2;
+export default JoinStep2;
 

@@ -1,35 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "@mui/material";
 import PopUp from "../../util/PopUp";
-
-const ParentContainer = styled.div`
-  width: 40%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-
-  .disable_button {
-    background-color: #eee;
-    border-radius: 20px;
-  }
-  .enable_button {
-    background-color: #3b74ec;
-    border-radius: 20px;
-  }
-  @media (max-width: 768px) {
-    width: 80%;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  gap: 20px;
-`;
+import JoinButton from "./JoinButton";
+import { useNavigate } from "react-router-dom";
+import { ParentWrapper, InnerWrapper, FlexRowWrapper } from "./JoinWrappers";
 
 const AgreementWrapper = styled.div`
   display: flex;
@@ -61,16 +35,19 @@ const Label = styled.label`
   font-weight: bold;
 `;
 
-const ButtonWrapper = styled.div`
+const NextButtonWrapper = styled.div`
+  display: flex;
   align-self: flex-end;
 `;
 
 const Agreement = () => {
+  const navigate = useNavigate();
+
   const [isCheckedAgreement1, setIsCheckedAgreement1] = useState(false);
   const [isCheckedAgreement2, setIsCheckedAgreement2] = useState(false);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
-  // 모든 약관에 동의 체크박스
+  // 모든 약관 동의 체크박스
   const handleAllCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     setIsCheckedAgreement1(isChecked);
@@ -78,27 +55,33 @@ const Agreement = () => {
     setIsAllChecked(isChecked);
   };
 
-  // 개발러스 이용약관 동의 체크박스
-  const handleCheckboxChangeAgreement1 = (event) => {
-    setIsCheckedAgreement1(event.target.checked);
-    setIsAllChecked(event.target.checked && isCheckedAgreement2);
+  // 1) 개발러스 이용약관 동의 체크박스
+  const handleCheckboxChangeAgreement1 = (e) => {
+    setIsCheckedAgreement1(e.target.checked);
+    setIsAllChecked(e.target.checked && isCheckedAgreement2);
   };
 
-  // 개인정보 수집 및 이용 동의 체크박스
-  const handleCheckboxChangeAgreement2 = (event) => {
-    setIsCheckedAgreement2(event.target.checked);
-    setIsAllChecked(event.target.checked && isCheckedAgreement1);
+  // 2) 개인정보 수집 및 이용 동의 체크박스
+  const handleCheckboxChangeAgreement2 = (e) => {
+    setIsCheckedAgreement2(e.target.checked);
+    setIsAllChecked(e.target.checked && isCheckedAgreement1);
   };
 
-  // 버튼 (모든 약관에 동의하지 않으면 disable)
-  const handleButtonClick = () => {
+  // '다음'버튼
+  const handleNextButtonClick = () => {
     if(isAllChecked) {
       console.log("Step2로 이동");
+      navigate('step2');
     } else {
-      console.log("체크박스 확인 요청 팝업")
+      console.log("체크박스 확인 요청 팝업!")
       setPopUpOpen(true);
     }
   };
+
+  // '이전'버튼
+  const handlePrevButtonClick = () => {
+    navigate('/');
+  }
 
   // 체크박스 확인 요청 팝업
   const [PopUpOpen, setPopUpOpen] = useState(false);
@@ -106,20 +89,25 @@ const Agreement = () => {
     setPopUpOpen(false);
   };
 
+
+
   return (
-    <ParentContainer>
-      <Wrapper>
-        <div className="checkbox_container">
+    <ParentWrapper width="40">
+      <InnerWrapper width="90" gap="20">
+
+        {/* 모든 약관 동의 체크박스&문구 */}
+        <FlexRowWrapper>
           <Checkbox type="checkbox" checked={isAllChecked} onChange={handleAllCheckboxChange} />
-          <Label>개발러스 이용약관, 개인정보 수집 및 이용에 &nbsp;<u>모두 동의</u>합니다. </Label>
-        </div>
+          <Label>개발러스 이용약관, 개인정보 수집 및 이용에 &nbsp; <u>모두 동의</u>합니다. </Label>
+        </FlexRowWrapper>
+
+        {/* 개발러스 이용약관 */}
         <AgreementWrapper>
           <AgreementTitle>
             <Checkbox type="checkbox" checked={isCheckedAgreement1} onChange={handleCheckboxChangeAgreement1} />
             개발러스 이용약관 동의(필수) 
           </AgreementTitle>
           <AgreementContent>
-          <div className="agreement1">
             <p>제 1 장 총 칙</p>
                 <p>제 1 조 (목적)<br/>이 약관은 개발러스(이하 "사이트"라 합니다)에서 제공하는 인터넷서비스(이하 "서비스"라 합니다)의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을 목적으로 합니다.</p>
                 <p>제 2 조 (약관의 효력 및 변경)<br/>
@@ -200,17 +188,16 @@ const Agreement = () => {
                 <p>제 15 조 (관할법원)</p>
                 <p>서비스와 관련하여 사이트와 회원간에 분쟁이 발생할 경우 사이트의 본사 소재지를 관할하는 법원을 관할법원으로 합니다.</p>
                 <p>(시행일)이 개인정보처리방침은 2023년 4월 30일부터 적용됩니다.</p>
-          </div>
           </AgreementContent>
         </AgreementWrapper>
   
+        {/* 개인정보 수집 및 이용약관 */}
         <AgreementWrapper>
           <AgreementTitle>
             <Checkbox type="checkbox" checked={isCheckedAgreement2} onChange={handleCheckboxChangeAgreement2} />
               개인정보 수집 및 이용 동의(필수) 
           </AgreementTitle>
           <AgreementContent>
-          <div className="agreement2">
             <p>&lt; 개발러스 &gt;('http://gaevalers.com'이하 '개발러스')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.</p>
             <p>○ 이 개인정보처리방침은 2023년 4월 30일부터 적용됩니다.</p>
             <p>제1조(개인정보의 처리 목적)<br/>
@@ -327,37 +314,47 @@ const Agreement = () => {
             <p>제15조(개인정보 처리방침 변경)<br/>
             ① 이 개인정보처리방침은 2023년 4월 30일부터 적용됩니다.
             </p>
-            </div>
           </AgreementContent>
         </AgreementWrapper>
-      </Wrapper>
-      <ButtonWrapper>
-      {isAllChecked ? (
-            <Button
-              className="enable_button"
-              type="button"
-              onClick={handleButtonClick}
-              variant="contained"
-              size="large"
+
+      </InnerWrapper>
+
+      {/* 버튼 */}
+      <NextButtonWrapper>
+        {isAllChecked ? (
+          <JoinButton
+            onClick={handleNextButtonClick}
+            sx={{ 
+              backgroundColor:"#3B74EC",
+              color: "#E5E7EA",
+              fontWeight: "bold",
+              }}
+          >
+            다음
+          </JoinButton>
+        ) : (
+          <JoinButton
+            onClick={handleNextButtonClick}
+            sx={{ 
+              backgroundColor:"#E5E7EA",
+              color: "#1E2B4D",
+                "&:hover": { 
+                  backgroundColor: "#E5E7EA",
+                  // color: "#E5E7EA"
+                  }
+              }}
             >
-              다음
-            </Button>
-          ) : (
-            <Button
-              className="disable_button"
-              type="button"
-              onClick={handleButtonClick}
-              variant="contained"
-              size="large"
-              >
-              다음
-            </Button>
-          )}
-      </ButtonWrapper>
+            다음
+          </JoinButton>
+        )}
+      </NextButtonWrapper>
+      
+      {/* 팝업 */}
       <PopUp open={PopUpOpen} close={closePopUp} type={false} header="오류">
           모든 이용약관에 동의해주세요 🥹
       </PopUp>
-    </ParentContainer>
+    </ParentWrapper>
+
   );
 };
 export default Agreement;
