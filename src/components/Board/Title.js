@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function TitleTextField() {
+const TitleTextField = ({value, onChange}) => {
   return (
     <Box
       sx={{
@@ -17,7 +17,11 @@ export default function TitleTextField() {
         label="제목"
         id="title"
         sx={{ width: '70%',}}
+        value={value}
+        onChange={onChange}
       />
     </Box>
   );
 }
+
+export default TitleTextField;

@@ -19,13 +19,17 @@ const StyledCategorySelect = styled(FormControl)`
 `;
 
 const SelectCategory = ({value, onChange}) => {
+  console.log('CategorySelect rendered');
   const options = [
     { boardNum: 1, text: 'Q&A' },
     { boardNum: 2, text: '정보 공유' },
     { boardNum: 3, text: '포트폴리오' },
     { boardNum: 4, text: '직장인' },
-    { boardNum: 5, text: '베스트' },
   ];
+  const handleChange = (event) => {
+    const selectedBoardNum = event.target.value;
+    onChange(selectedBoardNum);
+  };
 
   return (
     <Wrapper>
@@ -35,7 +39,7 @@ const SelectCategory = ({value, onChange}) => {
           labelId="category-select-label"
           id="category-select"
           value={value}
-          onChange={onChange}
+          onChange={(event) => handleChange(event)}
           label="게시판 선택"
         >
           {options.map((option) => (

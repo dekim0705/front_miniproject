@@ -39,7 +39,7 @@ const StyledImg =  styled.img`
 
 
 const Content = ({ content }) => {
-  return (
+  return content  (
     <Wrapper>
       <Board>
         <StyledContent>{content.content}</StyledContent>

@@ -78,9 +78,9 @@ const BoardNames = (boardName) => {
 
 const PostInfo = ({ postDetail }) => {
   console.log(postDetail);
-  return  (
+  return postDetail ? (
     <Wrapper>
-      <Category>{BoardNames(postDetail.boardName)}</Category>
+     <Category>{BoardNames(postDetail.boardName)}</Category>
       <Title>{postDetail.title}</Title>
       <Info>
       <AuthorWrapper>
@@ -95,7 +95,7 @@ const PostInfo = ({ postDetail }) => {
       </Info>
     </Wrapper>
    
-  );
+  ) : null;
 };
 
 

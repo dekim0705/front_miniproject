@@ -1,5 +1,8 @@
-import React from 'react';
+import React from "react";
 import styled from 'styled-components';
+import Button from '@mui/material/Button';
+
+
 
 const ButtonWrapper = styled.div`
    display: flex;
@@ -11,21 +14,13 @@ const ButtonWrapper = styled.div`
 `;
 
 
-const Button = styled.button`
-  padding: 8px 16px;
-  font-size:18px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-`;
 
 const WriteButton = ({onClick}) => {
+ 
+
   return (
     <ButtonWrapper>
-      <Button onClick={onClick}>등록</Button>
+       <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px"}} onClick={onClick}>등록</Button>
     </ButtonWrapper>
   );
 };

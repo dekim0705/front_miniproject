@@ -9,6 +9,7 @@ import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
 import Logo from "../Logo";
 import MainAxiosApi from "../../api/MainAxiosApi";
+import boardAxiosApi from "../../api/BoardAxiosApi";
 
 const StyledLoginField = styled.div`
   * {
@@ -97,7 +98,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd, setUserPfImgUrl} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -128,6 +129,13 @@ const Login = () => {
       if (pfImgResponse.data) {
         setUserPfImgUrl(pfImgResponse.data);
       }
+
+      // 🔥 회원번호 가져오기
+      const numResponse = await boardAxiosApi.userNum(inputEmail);
+      if (numResponse.data) {
+       setUserNum(numResponse.data);
+      }
+     
 
       navigate("/");
     } else {

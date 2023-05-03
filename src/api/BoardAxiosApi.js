@@ -2,6 +2,15 @@ import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
 const boardAxiosApi = {
+
+  // 회원이메일로 회원번호 가져오기
+  userNum : async(email) => {
+    const memberNum = {
+      email : email
+    };
+    return await axios.post(KH_DOMAIN + "/member/number", memberNum);
+  },
+
   // 전체 개시물 개수 요청
   getPostCount: async (boardNum) => {
     return await axios.get(KH_DOMAIN + `/posts?boardNum=${boardNum}`);
@@ -66,17 +75,17 @@ const boardAxiosApi = {
     }
   },
 
-  // 게시글 작성
-  writePost: async (post) => {
-    try {
-      const response = await axios.post(KH_DOMAIN + "/post", post);
-      console.log("게시글 작성에 성공했습니다.", response);
-      return response.data;
-    } catch (error) {
-      console.error("게시글 작성에 실패했습니다.", error);
-      return false;
-    }
-  },
+ // 게시글 작성
+ writePost: async (post) => {
+  try {
+    const response = await axios.post(KH_DOMAIN + '/post', post);
+    console.log('게시글 작성에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('게시글 작성에 실패했습니다.', error);
+    return false;
+  }
+},
 
   // 게시글 수정
   updatePost: async (post) => {
