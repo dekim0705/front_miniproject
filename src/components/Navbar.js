@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ChatContext } from '../context/ChatInfo';
 
 const StyledNavbar = styled.div`
   @media screen and (min-width: 769px) {
@@ -13,6 +14,7 @@ const StyledNavbar = styled.div`
 `;
 
 const options = [
+  
   { path: '/mentor', text: '멘토찾기' },
   { path: '/information/1', text: '정보 공유' },
   { path: '/portfolio/1', text: '포트폴리오' },

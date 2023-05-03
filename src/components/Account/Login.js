@@ -133,9 +133,9 @@ const Login = () => {
       // 🔥 회원번호 가져오기
       const numResponse = await boardAxiosApi.userNum(inputEmail);
       if (numResponse.data) {
-       setUserNum(numResponse.data);
+        console.log(numResponse.data);
+        setUserNum(numResponse.data);
       }
-     
 
       navigate("/");
     } else {

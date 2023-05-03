@@ -72,7 +72,6 @@ const Header = () => {
   useEffect(() => {
     if(userEmail && userPwd) {
       setIsLogin(true);
-      console.log("뭐냐");
     } else setIsLogin(false);
   }, [userEmail, userPwd]);
 
