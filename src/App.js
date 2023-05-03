@@ -8,6 +8,7 @@ import WorkerPage from './pages/WorkerPage';
 import BestPage from './pages/BestPage';
 import QnAPage from './pages/QnAPage';
 import LoginPage from './pages/LoginPage';
+import FindAccountPage from './pages/FindAccountPage';
 import JoinPage from './pages/JoinPage';
 import WritePage from './pages/WritePage';
 import PostDetailPage from './pages/PostDetailPage';
@@ -32,6 +33,7 @@ function App() {
             <Route path='/best/:pageNum' element={<BestPage />}></Route>
             <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/findaccount' element={<FindAccountPage />}></Route>
             <Route path='/join/*' element={<JoinPage />}></Route>
             <Route path='/write' element={<WritePage />}></Route>
             <Route path='/mypage' element={<MyProfilePage />}></Route>
