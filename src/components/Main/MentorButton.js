@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from 'styled-components';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserInfo";
 
 const StyledQuestionAnswerIcon = styled(QuestionAnswerIcon)`
   color: #3B74EC;
@@ -14,10 +15,12 @@ const StyledQuestionAnswerIcon = styled(QuestionAnswerIcon)`
   }
 `;
 const MentorButton = () => {
+  const { userNum, matchNum } = useContext(UserContext);
+  const mentorPath = matchNum.includes(userNum) ? '/chat' : '/mentor';
 
   return (
     <div>
-      <Link to="/mentor">
+      <Link to={mentorPath}>
         <StyledQuestionAnswerIcon sx={{ fontSize: "3rem" }} />
       </Link>
     </div>

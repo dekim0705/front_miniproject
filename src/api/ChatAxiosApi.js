@@ -2,7 +2,7 @@ import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
 const ChatAxiosApi = {
-  // 📩 채팅 시작 요청 (채팅방 저장)
+  // ✅ 채팅 시작 요청 (채팅방 저장)
   saveChatRoom: async (mentorMemberNum, menteeMemberNum) => {
     const chatUserInfo = {
       mentorMemberNum : mentorMemberNum,
@@ -11,7 +11,7 @@ const ChatAxiosApi = {
     return await axios.post(KH_DOMAIN + "/chat", chatUserInfo);
   },
 
-  // 📩 채팅 메시지 전송 요청
+  // ✅ 채팅 메시지 전송 요청
   sendChatMessage: async (chatNum, senderId, receiverId, message, codeBlock, messageType, createdAt, isRead) => {
     const data = {
       chatNum : chatNum,
@@ -24,6 +24,11 @@ const ChatAxiosApi = {
       isRead : isRead.toString()
     };
     return await axios.post(KH_DOMAIN + "/chat/message", data);
+  },
+
+  // 🤮 매칭된 모든 회원의 회원 번호 요청
+  allMentorMenteeNum: async () => {
+    return await axios.get(KH_DOMAIN + "/mentor-mentee");
   },
 
   // 📩 채팅 메시지 조회 요청

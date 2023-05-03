@@ -7,7 +7,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 import ChatAxiosApi from '../../api/ChatAxiosApi';
 import { ChatContext } from '../../context/ChatInfo';
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;

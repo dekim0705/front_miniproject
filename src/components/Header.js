@@ -67,7 +67,9 @@ const StyledHeader = styled.header`
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
   const context = useContext(UserContext);
-  const {userEmail, userPwd} = context;
+  const {userEmail, userPwd, userNum, matchNum } = context;
+
+  const mentorPath = matchNum.includes(userNum) ? '/chat' : '/mentor';
 
   useEffect(() => {
     if(userEmail && userPwd) {
@@ -80,7 +82,7 @@ const Header = () => {
       <nav className="navbar">
         <Logo />
         <ul className="navbar__menu">
-          <StyledLink to="/mentor">멘토 찾기</StyledLink>
+          <StyledLink to={mentorPath}>멘토 찾기</StyledLink>
           <StyledLink to="/information/1">정보 공유</StyledLink>
           <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
           <StyledLink to="/worker/1">직장인</StyledLink>

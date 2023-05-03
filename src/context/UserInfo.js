@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import ChatAxiosApi from "../api/ChatAxiosApi";
 export const UserContext = createContext(null);
 
 const UserStore = (props) => {
@@ -12,6 +13,21 @@ const UserStore = (props) => {
   const [menteePfImg, setMenteePfImg] = useState("");
   const [menteeNum, setMenteeNum] = useState("");
   const [userNum, setUserNum] = useState("");
+  const [matchNum, setMatchNum] = useState([]);
+
+  useEffect(() => {
+    const allMatchNum = async() => {
+      const response = await ChatAxiosApi.allMentorMenteeNum();
+      const arrayNum = [];
+
+      response.data.forEach(data => {
+        arrayNum.push(data.mentorNum);
+        arrayNum.push(data.menteeNum);
+      });
+      setMatchNum(arrayNum);
+    }
+    allMatchNum();
+  }, []);
 
   const resetUser = () => {
     setUserEmail('');
@@ -19,7 +35,7 @@ const UserStore = (props) => {
   }
 
   return (
-    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum}}>
+    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum, matchNum, setMatchNum }}>
       {props.children}
     </UserContext.Provider>
   );
