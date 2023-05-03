@@ -1,102 +1,36 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import AccountAxiosApi from "../../api/AccountAxiosApi";
+import TextField from "@mui/material/TextField";
 import { Button, MenuItem, Select} from "@mui/material";
+import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexColumnWrapper, FlexRowWrapper } from "./JoinWrappers";
+import JoinButton from "./JoinButton";
 import PopUp from "../../util/PopUp";
+import styled from "styled-components";
 
 
 
-const ParentWrapper = styled.div`
-  width: 40%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-
-  @media (max-width: 768px) {
-    width: 80%;
-  }
-  .input_container {
-    margin: 0 auto;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-
-    @media (max-width: 768px) {
-    width: 100%;
-  }
-  }
-  .hint {
-    margin-left: 10px;
-    font-size: 0.7rem;
-    color: #999;
-  }
+const HintWrapper = styled.div`
+  margin-left: 10px;
+  font-size: 0.7rem;
+  color:#999;
   .success {
     color: #3b74ec;
   }
   .error {
     color: red;
   }
-  .nickname_enable_button {
-    border-radius: 12px;
-    height: 40px;
-    align-self: center;
-    color: #3b74ec;
-  }
-  .nickname_disable_button {
-    border-radius: 12px;
-    height: 40px;
-    align-self: center;
-    color: #ffffff;
-  }
-  .nickname_input {
-    display: flex;
-    flex-direction: column;
-  }
-  .nickname_button {
-    display: flex;
-    gap: 10px; 
-  }
-  .pwd_input_all {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .email_input {
-    display: flex;
-    gap: 5px;
-  }
-  .prev_button {
-    border-radius: 20px;
-    background-color: #eee;
-    color: black;
-  }
-  .disable_button {
-    border-radius: 20px;
-    background-color: #eee;
-  }
-  .enable_button {
-    border-radius: 20px;
-    background-color: #3b74ec;
-  }
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-
-const MemberInfoField = () => {
+const NewMemberInfo = () => {
+  const navigate = useNavigate();
 
   // 키보드 입력
   const [inputNickname, setInputNickname] = useState("");
   const [inputPwd, setInputPwd] = useState("");
   const [inputConPwd, setInputConPwd] = useState("");
   const [inputEmail, setInputEmail] = useState("");
+  
   const [emailDomain, setEmailDomain] = useState('@gmail.com');
 
   // 오류 메세지
@@ -156,7 +90,7 @@ const MemberInfoField = () => {
   const onChangeEmail = (e) => {
     setInputEmail(e.target.value);
   }
-
+// 이메일 도메인
   const handleEmailDomainChange = (event) => {
     setEmailDomain(event.target.value);
   };
@@ -168,6 +102,7 @@ const MemberInfoField = () => {
     setPopUpOpen(false);
   };
 
+  // 닉네임 중복 확인
   const onClickNicknameDoubleCheck = async() => {
     console.log("Click -> 닉네임 중복확인");
     // 가입 여부 우선 확인
@@ -184,14 +119,21 @@ const MemberInfoField = () => {
       setInputNickname(''); // 인풋 창 초기화
     }
   }
+
+    // '이전' 버튼
+    const handlePrevButtonClick = () => {
+      navigate('/join');
+    }
   
-  // '다음' 버튼 (모든 필드가 입력되어 있지 않으면 disable)
-  const handleButtonClick = () => {
+  // '다음' 버튼
+  const handleNextButtonClick = () => {
     if(inputNickname && inputPwd && inputConPwd && inputEmail) {
       console.log("Step3로 이동");
       console.log('Nickname:', inputNickname);
       console.log('Password:', inputConPwd);
       console.log('Email:', inputEmail + emailDomain);
+      navigate('/join/step3');
+
     } else {
       console.log("모든 필드 입력 요망")
       setPopUpOpen(true);
@@ -199,16 +141,15 @@ const MemberInfoField = () => {
     }
   };
 
-
-
   return(
-    <ParentWrapper>
-      <div className="input_container">
-        <div className="nickname_input">
-          <div className="nickname_button">
+    <ParentWrapper width="40">
+      <InnerWrapper width="60" gap="30">
+
+        {/* 닉네임 */}
+        <FlexColumnWrapper>
+          <FlexRowWrapper gap="10">
             <TextField 
               size="small"
-              className="input_field" 
               label="닉네임" 
               value={inputNickname} 
               onChange={onChangeNickname} 
@@ -217,24 +158,25 @@ const MemberInfoField = () => {
               InputProps={{ sx: { borderRadius: 4 } }} 
             /> 
             {isNickname ? (
-              <Button className="nickname_enable_button" type="button" onClick={onClickNicknameDoubleCheck} variant="outlined" size="small">
+              <Button onClick={onClickNicknameDoubleCheck} variant="outlined" type="button" size="small" sx={{borderRadius: 4}}>
                 중복확인
               </Button>
-              ) : (
-              <Button className="nickname_disable_button" type="button" size="small">
+            ) : (
+              <Button type="button" size="small" sx={{color: '#ffffff'}}>
                 중복확인
               </Button>
             )}
-          </div>
-          <div className="hint"> 
+          </FlexRowWrapper>
+          <HintWrapper> 
             {inputNickname.length > 0 && <span className={`message ${isNickname ? 'success' : 'error'}`}>{nicknameMessage}</span>} 
-          </div>
-        </div>
-        <div className="pwd_input_all">
+          </HintWrapper>
+        </FlexColumnWrapper>
+
+        {/* 비밀번호 */}
+        <FlexColumnWrapper gap="10">
           <div className="pwd_input">
             <TextField 
               size="small" 
-              className="input_field"
               type="password"
               label="비밀번호"
               value={inputPwd}
@@ -243,31 +185,31 @@ const MemberInfoField = () => {
               required 
               InputProps={{ sx: { borderRadius: 4 } }} 
             />
-            <div className="hint"> 
+            <HintWrapper> 
               {inputPwd.length > 0 && <span className={`message ${isPwd ? 'success' : 'error'}`}>{pwdMessage}</span>} 
-            </div>
+            </HintWrapper>
           </div>
-          <div className="conPwd_input">
+          <div className="con_pwd_input">
             <TextField 
               size="small"
-              className="input_field" 
               type="password" 
               label="비밀번호 확인" 
               value={inputConPwd} 
               onChange={onChangeConPwd} 
-              placeholder="비밀번호를 다시입력하세요" 
+              placeholder="비밀번호를 다시 입력하세요" 
               required 
               InputProps={{ sx: { borderRadius: 4 } }} 
             />
-            <div className="hint"> 
+            <HintWrapper> 
               {inputConPwd.length > 0 && <span className={`message ${isConPwd ? 'success' : 'error'}`}>{conPwdMessage}</span>} 
-            </div>
+            </HintWrapper>
           </div>
-        </div>
-        <div className="email_input">
+        </FlexColumnWrapper>
+
+        {/* 이메일 */}
+        <FlexRowWrapper gap="2">
           <TextField 
             size="small" 
-            className="input_field" 
             label="이메일주소" 
             value={inputEmail} 
             onChange={onChangeEmail} 
@@ -286,45 +228,43 @@ const MemberInfoField = () => {
               <MenuItem sx={{ borderRadius: 4 }} value="@naver.com">@naver.com</MenuItem>
               <MenuItem sx={{ borderRadius: 4 }} value="@nate.com">@nate.com</MenuItem>
           </Select>
-        </div>
-      </div>
+        </FlexRowWrapper>
+      </InnerWrapper>
+
+      {/* 버튼 */}
       <ButtonWrapper>
-        <Button
-        className="prev_button"
-        type="button"
-        onClick={handleButtonClick}
-        variant="contained"
-        size="large"
-      >
-        이전
-      </Button>
+        <JoinButton onClick={handlePrevButtonClick}>이전</JoinButton>
         {inputNickname && inputPwd && inputConPwd && inputEmail ? (
-          <Button
-            className="enable_button"
-            type="button"
-            onClick={handleButtonClick}
-            variant="contained"
-            size="large"
+          <JoinButton
+            onClick={handleNextButtonClick}
+            sx={{ 
+              backgroundColor:"#3B74EC",
+              color: "#E5E7EA",
+              fontWeight: "bold",
+              }}
           >
             다음
-          </Button>
+          </JoinButton>
         ) : (
-          <Button
-            className="disable_button"
-            type="button"
-            onClick={handleButtonClick}
-            variant="contained"
-            size="large"
+          <JoinButton
+            onClick={handleNextButtonClick}
+            sx={{ 
+              backgroundColor:"#E5E7EA",
+              color: "#1E2B4D",
+                "&:hover": { 
+                  backgroundColor: "#E5E7EA",
+                  // color: "#E5E7EA"
+                  }
+              }}
           >
             다음
-          </Button>
+          </JoinButton>
         )}
-      </ButtonWrapper>   
-      <PopUp open={PopUpOpen} close={closePopUp} header="❗️"> 
-        {PopUpText}
-      </PopUp> 
+      </ButtonWrapper>
+
+      {/* 모든 필드 입력요망 팝업 */}
+      <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
     </ParentWrapper>
-    
   );
 }
-export default MemberInfoField;
+export default NewMemberInfo;

@@ -32,7 +32,7 @@ function App() {
             <Route path='/best/:pageNum' element={<BestPage />}></Route>
             <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/join' element={<JoinPage />}></Route>
+            <Route path='/join/*' element={<JoinPage />}></Route>
             <Route path='/write' element={<WritePage />}></Route>
             <Route path='/mypage' element={<MyProfilePage />}></Route>
             <Route path='/chat' element={<ChatPage />}></Route>
