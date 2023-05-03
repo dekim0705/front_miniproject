@@ -39,10 +39,10 @@ const StyledImg =  styled.img`
 
 
 const Content = ({ content }) => {
-  return content  (
+  return content && (
     <Wrapper>
       <Board>
-        <StyledContent>{content.content}</StyledContent>
+        <StyledContent>{content}</StyledContent>
         {content.imgUrl && <StyledImg src={content.imgUrl} alt="첨부 이미지" />}
       </Board>
     </Wrapper>
