@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ProgressBarWrapper = styled.div`
-  margin: 0 auto;
+  margin: 20px auto;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  padding: 20px auto;
 `;
 
 const ProgressBarFill = styled.div`
@@ -30,8 +30,8 @@ const ProgressBarStep = styled.div`
   width: 24%;
 `;
 
-const ProgressBar = ({ currentStep, totalSteps }) => {
-  // const progress = Math.floor((currentStep / totalSteps) * 100);
+const JoinProgressBar = ({ currentStep, totalSteps }) => {
+  const progress = Math.floor((currentStep / totalSteps) * 100);
 
   return (
       <ProgressBarWrapper className="progress-bar">
@@ -45,4 +45,4 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-export default ProgressBar;
+export default JoinProgressBar;

@@ -20,8 +20,8 @@ const ChatAxiosApi = {
       message : message,
       codeBlock : codeBlock,
       messageType : messageType,
-      createdAt : createdAt,
-      isRead : isRead
+      createdAt : createdAt.toISOString(),
+      isRead : isRead.toString()
     };
     return await axios.post(KH_DOMAIN + "/chat/message", data);
   },
@@ -54,6 +54,14 @@ const ChatAxiosApi = {
   // 📩 채팅 상대방 회원 정보 요청
   userDetails: async (memberNum) => {
     return await axios.get(KH_DOMAIN + `chat/${memberNum}/details`);
+  },
+
+  // ⛑️ 채팅방 개설 API
+  chatRoomOpen: async (name) => {
+    const chatObject = {
+      "name" : name
+    }
+    return await axios.post(KH_DOMAIN + "test", chatObject);
   }
 };
 

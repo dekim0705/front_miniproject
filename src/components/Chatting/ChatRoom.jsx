@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
+import React, { useState, useEffect, useContext } from "react";
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 import styled from "styled-components";
-import InfoIcon from '@mui/icons-material/Info';
-import CodeIcon from '@mui/icons-material/Code';
-import SendIcon from '@mui/icons-material/Send';
+import InfoIcon from "@mui/icons-material/Info";
+import CodeIcon from "@mui/icons-material/Code";
+import SendIcon from "@mui/icons-material/Send";
 import ChatAxiosApi from "../../api/ChatAxiosApi";
-
+import { ChatContext } from "../../context/ChatInfo";
+import { UserContext } from "../../context/UserInfo";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
@@ -39,13 +40,6 @@ const ChatUserContainer = styled.div`
   gap: 10px;
   padding: 0 10px 15px 10px;
   border-bottom: 1px solid #eee;
-`;
-
-const PfImg = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 2px solid #c6def7;
-  border-radius: 50%;
 `;
 
 const Nickname = styled.div`
@@ -82,7 +76,7 @@ const Message = styled.div`
 
 const OtherUserMessage = styled(Message)`
   align-self: flex-start;
-  background-color: #E5E7EA;
+  background-color: #e5e7ea;
   color: #000;
 `;
 
@@ -130,23 +124,26 @@ const MsgInput = styled.input`
 
 const CodeBlock = styled(CodeIcon)`
   cursor: pointer;
-  color: #1E2B4D;
+  color: #1e2b4d;
 `;
 
 const SendButton = styled(SendIcon)`
   cursor: pointer;
-  color: #1E2B4D;
+  color: #1e2b4d;
 `;
 
 export const ChatRoom = () => {
+  const { chatNumber } = useContext(ChatContext);
+  const { menteeNum, mentorNum, mentorNickname, mentorPfImg } =
+    useContext(UserContext);
   const [client, setClient] = useState(null);
 
   useEffect(() => {
-    const sock = new SockJS('http://localhost:8111/chat', null, {
-      transports: ['websocket'],
+    const sock = new SockJS("http://localhost:8111/chat", null, {
+      transports: ["websocket"],
       headers: {
-        'Origin': 'http://localhost:3000'
-      }
+        Origin: "http://localhost:3000",
+      },
     });
     const newClient = new Client({
       webSocketFactory: () => sock,
@@ -160,7 +157,7 @@ export const ChatRoom = () => {
   useEffect(() => {
     if (client) {
       const onConnect = () => {
-        console.log('웹소켓..연결????');
+        console.log("웹소켓..연결????");
       };
       const onError = (error) => {
         console.error("웹소켓 연결 실패.......하...");
@@ -186,10 +183,10 @@ export const ChatRoom = () => {
       const response = await ChatAxiosApi.chatMessages(senderId, receiverId);
       setMessages(response.data);
     };
-    chatMessages(1, 16); // 📍 추후 실제 회원 번호 넣을 예정...ㅎㅎ
-  }, []);
+    chatMessages(menteeNum, mentorNum);
+  }, [menteeNum, mentorNum]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     setInputMessage(e.target.value);
   };
 
@@ -198,67 +195,84 @@ export const ChatRoom = () => {
       return;
     }
 
-    try {
-      const response = await ChatAxiosApi.sendChatMessage({
-        chatNum: 1,
-        senderId: 1,
-        receiverId: 16,
-        message: inputMessage,
-        codeBlock: "",
-        messageType: 0,
-        createdAt: "2023-05-02T20:00:00",
-        isRead: "Y"
-    });
-    console.log(response.data);
+    const newMessage = {
+      chatNumber,
+      senderId: menteeNum,
+      receiverId: mentorNum,
+      message: inputMessage,
+      isRead: 'N',
+      createdAt: new Date()
+    };
 
-    setInputMessage("");
-  } catch (error) {
-    console.log(error);
-  }
-};
+    try {
+      await ChatAxiosApi.sendChatMessage(
+        chatNumber,
+        menteeNum,
+        mentorNum,
+        inputMessage,
+        "",
+        0,
+        new Date(),
+        'Y'
+      );
+      setMessages([...messages, newMessage]);
+      setInputMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-      <ChatRoomContainer>
-        <ChatUserContainer>
-          <PfImg />
-          <Nickname>양갱좋아</Nickname>
-          <InfoIcon style={{color: '4E5968'}} />
-        </ChatUserContainer>
-        <ChatViewContainer>
-          {messages.map((m, index) => (
-            <MessageContainer key={index}>
-              {m.senderId === 1 ? (
-                <>
-                  <MeMessage>{m.message}</MeMessage>
-                  <SenderMessageInfoContainer>
-                    <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
-                    <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
-                  </SenderMessageInfoContainer>
-                </>
-              ) : (
-                <>
-                  <OtherUserMessage>{m.message}</OtherUserMessage>
-                  <MessageInfoContainer>
-                    <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
-                    <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
-                  </MessageInfoContainer>
-                </>
-              )}
-            </MessageContainer>
-          ))}
-        </ChatViewContainer>
+    <ChatRoomContainer>
+      <ChatUserContainer>
+        <img
+          src={mentorPfImg}
+          alt="Profile"
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: "50%",
+            border: "2px solid #c6def7",
+          }}
+        />
+        <Nickname>{mentorNickname}</Nickname>
+        <InfoIcon style={{ color: "4E5968" }} />
+      </ChatUserContainer>
+      <ChatViewContainer>
+        {messages.map((m, index) => (
+          <MessageContainer key={index}>
+            {m.senderId === menteeNum ? (
+              <>
+                <MeMessage>{m.message}</MeMessage>
+                <SenderMessageInfoContainer>
+                  <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                  <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
+                </SenderMessageInfoContainer>
+              </>
+            ) : (
+              <>
+                <OtherUserMessage>{m.message}</OtherUserMessage>
+                <MessageInfoContainer>
+                  <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                  <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
+                </MessageInfoContainer>
+              </>
+            )}
+          </MessageContainer>
+        ))}
+      </ChatViewContainer>
 
-        <ChatInputContainer>
-          <MsgInput
-            type="search"
-            placeholder="메시지를 입력하세요."
-            value={inputMessage}
-            onChange={handleInputChange}
-          />
-          <CodeBlock sx={{ fontSize: "2rem" }} />
-          <SendButton sx={{ fontSize: "1.5rem" }} onClick={handleSendMessage} />
-        </ChatInputContainer>
-      </ChatRoomContainer>
+      <ChatInputContainer>
+        <MsgInput
+          type="search"
+          placeholder="메시지를 입력하세요."
+          value={inputMessage}
+          onChange={handleInputChange}
+        />
+        <CodeBlock sx={{ fontSize: "2rem" }} />
+        <SendButton sx={{ fontSize: "1.5rem" }} onClick={handleSendMessage} />
+      </ChatInputContainer>
+    </ChatRoomContainer>
   );
 };
 
