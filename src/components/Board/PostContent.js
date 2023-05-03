@@ -17,7 +17,7 @@ const Board = styled.div`
   background-color: white;
   border: 1px solid #ccc;
   border-radius : 10px;
-  padding: 5px 30px;
+  padding: 20px 40px;
   min-height: 390px; 
   max-height: 800px; 
   overflow-y: auto; /* 스크롤바 */
@@ -29,12 +29,21 @@ const StyledContent = styled.p`
   white-space: pre-line;
 `;
 
+const StyledImg =  styled.img`
+  max-width : 70%;
+  height: auto;
+  margin-top: 1.5rem;
+  border-radius: 5px; 
+
+`;
+
 
 const Content = ({ content }) => {
   return (
     <Wrapper>
       <Board>
-        <StyledContent>{content}</StyledContent>
+        <StyledContent>{content.content}</StyledContent>
+        {content.imgUrl && <StyledImg src={content.imgUrl} alt="첨부 이미지" />}
       </Board>
     </Wrapper>
   );

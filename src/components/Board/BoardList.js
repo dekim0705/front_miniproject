@@ -66,8 +66,6 @@ const StyledLink = styled(Link)`
 `;
 
 
-
-
 const BoardList = ({ boardName, pageNum }) => {
   const [boardItem, setBoardItem] = useState([]);
   

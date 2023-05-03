@@ -56,17 +56,116 @@ requestReply: async (postNum) => {
 increaseViews: async (postNum) => {
   try {
     const response = await axios.post(KH_DOMAIN + `/post/${postNum}/views`);
-    console.log('조회수 증가에 성공했습니다.', response);
     return response.data;
   } catch (error) {
     console.error('조회수 증가에 실패했습니다.', error);
     return false;
   }
-}
+},
+
+ // 게시글 작성
+ writePost: async (post) => {
+  try {
+    const response = await axios.post(KH_DOMAIN + '/post', post);
+    console.log('게시글 작성에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('게시글 작성에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 게시글 수정
+updatePost: async (post) => {
+  try {
+    const response = await axios.put(KH_DOMAIN + '/post', post);
+    console.log('게시글 수정에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('게시글 수정에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 게시글 삭제
+deletePost: async (postNum) => {
+  try {
+    const response = await axios.delete(KH_DOMAIN + `/post/${postNum}`);
+    console.log('게시글 삭제에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('게시글 삭제에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 댓글 작성
+writeReply: async (postNum, memberNum, replyContent) => {
+  try {
+    const response = await axios.post(KH_DOMAIN + '/reply', { postNum, memberNum, replyContent });
+    console.log('댓글 작성에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('댓글 작성에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 댓글 수정
+updateReply: async (replyNum, content) => {
+  try {
+    const response = await axios.put(KH_DOMAIN + '/reply', { replyNum, content });
+    console.log('댓글 수정에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('댓글 수정에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 댓글 삭제
+deleteReply: async (replyNum) => {
+  try {
+    const response = await axios.delete(KH_DOMAIN + `/reply?replyNum=${replyNum}`);
+    console.log('댓글 삭제에 성공했습니다.', response);
+    return response.data;
+  } catch (error) {
+    console.error('댓글 삭제에 실패했습니다.', error);
+    return false;
+  }
+},
+
+// 베스트 게시판 이동
+moveBestBoard: async () => {
+  try {
+    const response = await axios.post(KH_DOMAIN + "/board/best");
+    console.log("Response data:", response);
+    return true;
+  } catch (error) {
+    console.error("베스트 게시판으로 이동에 실패했습니다.", error);
+    return false;
+  }
+},
+
+// 글 검색
+searchPosts: async (boardNum, pageNum, keyword) => {
+  try {
+    const response = await axios.get(
+      KH_DOMAIN + `/search?boardNum=${boardNum}&pageNum=${pageNum}&keyword=${keyword}`
+    );
+    console.log("Response data:", response);
+    return response.data;
+  } catch (error) {
+    console.error("게시판 검색에 실패했습니다.", error);
+    return [];
+  }
+},
+
+
+};
 
 
 
-}
 
 
 export default boardAxiosApi;
