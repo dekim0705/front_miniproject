@@ -3,6 +3,14 @@ const KH_DOMAIN = "http://localhost:8111";
 
 const boardAxiosApi = {
 
+  // 회원이메일로 회원번호 가져오기
+  userNum : async(email) => {
+    const memberNum = {
+      email : email
+    };
+    return await axios.post(KH_DOMAIN + "/member/number", memberNum);
+  },
+
   // 전체 개시물 개수 요청
   getPostCount: async (boardNum) => {
     return await axios.get(KH_DOMAIN + `/posts?boardNum=${boardNum}`);
