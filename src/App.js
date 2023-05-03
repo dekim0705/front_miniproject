@@ -12,6 +12,7 @@ import JoinPage from './pages/JoinPage';
 import WritePage from './pages/WritePage';
 import PostDetailPage from './pages/PostDetailPage';
 import UserStore from './context/UserInfo';
+import ChatStore from './context/ChatInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
 
@@ -20,24 +21,25 @@ function App() {
   /* 강사님 React '리액트 라우터로 SPA' 참고 */
   return (
     <UserStore>
-      <Router>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/mentor/*' element={<MentorPage />}></Route>
-          <Route path='/information/:pageNum' element={<InformationPage />}></Route>
-          <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
-          <Route path='/worker/:pageNum' element={<WorkerPage />} />
-          <Route path='/best/:pageNum' element={<BestPage />}></Route>
-          <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
-          <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/join' element={<JoinPage />}></Route>
-          <Route path='/write' element={<WritePage />}></Route>
-          <Route path='/mypage' element={<MyProfilePage />}></Route>
-          <Route path='/chat' element={<ChatPage />}></Route>
-          <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
-
-        </Routes>
-      </Router>
+      <ChatStore>
+        <Router>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/mentor/*' element={<MentorPage />}></Route>
+            <Route path='/information/:pageNum' element={<InformationPage />}></Route>
+            <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
+            <Route path='/worker/:pageNum' element={<WorkerPage />} />
+            <Route path='/best/:pageNum' element={<BestPage />}></Route>
+            <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
+            <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/join' element={<JoinPage />}></Route>
+            <Route path='/write' element={<WritePage />}></Route>
+            <Route path='/mypage' element={<MyProfilePage />}></Route>
+            <Route path='/chat' element={<ChatPage />}></Route>
+            <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
+          </Routes>
+        </Router>
+      </ChatStore>
     </UserStore>
   );
 }

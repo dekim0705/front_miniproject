@@ -5,6 +5,7 @@ import { UserContext } from '../../context/UserInfo';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import ChatAxiosApi from '../../api/ChatAxiosApi';
+import { ChatContext } from '../../context/ChatInfo';
 
 
 const Container = styled.div`
@@ -101,6 +102,7 @@ const Button = styled.a`
 `;
 
 const MatchResult = () => {
+  const { setChatNumber } = useContext(ChatContext);
   // 🚀 3. Start 컴포넌트에서 저장한 UserContext 가져오기
   const { mentorNickname, mentorPfImg, menteeNickname, menteePfImg, menteeNum, mentorNum } = useContext(UserContext);
 
@@ -113,7 +115,7 @@ const MatchResult = () => {
     try {
       const response = await ChatAxiosApi.saveChatRoom(mentorNum, menteeNum);
       console.log(response.data);
-      
+      setChatNumber(response.data);
     } catch (error) {
       console.log(error);
     }

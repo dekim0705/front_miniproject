@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import styled from "styled-components";
@@ -6,6 +6,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import CodeIcon from '@mui/icons-material/Code';
 import SendIcon from '@mui/icons-material/Send';
 import ChatAxiosApi from "../../api/ChatAxiosApi";
+import { ChatContext } from "../../context/ChatInfo";
+import { UserContext } from "../../context/UserInfo";
 
 
 const formatTimestamp = (timestamp) => {
@@ -139,6 +141,8 @@ const SendButton = styled(SendIcon)`
 `;
 
 export const ChatRoom = () => {
+  const { chatNumber } = useContext(ChatContext);
+  const { menteeNum, mentorNum } = useContext(UserContext);
   const [client, setClient] = useState(null);
 
   useEffect(() => {
@@ -200,14 +204,14 @@ export const ChatRoom = () => {
 
     try {
       const response = await ChatAxiosApi.sendChatMessage({
-        chatNum: 1,
-        senderId: 1,
-        receiverId: 16,
+        chatNum: chatNumber,
+        senderId: menteeNum,
+        receiverId: mentorNum,
         message: inputMessage,
         codeBlock: "",
         messageType: 0,
-        createdAt: "2023-05-02T20:00:00",
-        isRead: "Y"
+        createdAt: new Date().toISOString(),
+        isRead: 'Y'
     });
     console.log(response.data);
 

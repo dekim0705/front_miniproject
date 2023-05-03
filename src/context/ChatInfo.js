@@ -2,10 +2,10 @@ import { createContext, useState } from "react";
 export const ChatContext = createContext(null);
 
 const ChatStore = (props) => {
-  const [chatNum, setChatNum] = useState("");
+  const [chatNumber, setChatNumber] = useState("");
 
   return (
-    <ChatContext.Provider value = {{ chatNum, setChatNum }}>
+    <ChatContext.Provider value = {{ chatNumber, setChatNumber }}>
       {props.children}
     </ChatContext.Provider>
   );
