@@ -2,12 +2,28 @@ import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
 const MainAxiosApi = {
-  // 🚀 사용자 프로필 요청
+  // 🚀 사용자 프로필 요청(email)
   userPfImg : async(email) => {
     const pfImg = {
       email : email
     };
     return await axios.post(KH_DOMAIN + "/member/pfImg", pfImg);
+  },
+
+  // 🤮 사용자 프로필 요청(memberNum)
+  userPfImgByNum : async(memberNum) => {
+    const pfImg = {
+      memberNum : memberNum
+    };
+    return await axios.post(KH_DOMAIN + "/memberNum/pfImg", pfImg);
+  },
+
+  // 🤮 사용자 닉네임 요청(memberNum)
+  userNicknameByNum : async(memberNum) => {
+    const nickname = {
+      memberNum : memberNum
+    };
+    return await axios.post(KH_DOMAIN + "/memberNum/nickname", nickname);
   },
 
   // 🚀 글 작성 많은 상위 5명 요청

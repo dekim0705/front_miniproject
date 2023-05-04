@@ -16,7 +16,11 @@ import UserStore from './context/UserInfo';
 import ChatStore from './context/ChatInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
+<<<<<<< HEAD
 import EditPage from './pages/EditPage';
+=======
+import ResetPwdPage from './pages/ResetPwdPage';
+>>>>>>> 3de1ceb63283d9e0106d87c49e62f0d964651202
 
 function App() {
   
@@ -35,6 +39,7 @@ function App() {
             <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
             <Route path='/findaccount' element={<FindAccountPage />}></Route>
+            <Route path='/resetpassword' element={<ResetPwdPage />}></Route>
             <Route path='/join/*' element={<JoinPage />}></Route>
             <Route path='/write' element={<WritePage />}></Route>
             <Route path='/edit' element={<EditPage />}></Route>
