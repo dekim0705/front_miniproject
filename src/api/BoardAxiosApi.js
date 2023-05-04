@@ -11,6 +11,13 @@ const boardAxiosApi = {
     return await axios.post(KH_DOMAIN + "/member/number", memberNum);
   },
 
+  // 회원이메일로 회원 닉네임 가져오기(경미님)
+  userNickname: async (email) => {
+    const body = { email };
+    const response = await axios.post(KH_DOMAIN + "/member/nickname", body);
+    return response.data;
+  },
+
   // 전체 개시물 개수 요청
   getPostCount: async (boardNum) => {
     return await axios.get(KH_DOMAIN + `/posts?boardNum=${boardNum}`);
@@ -79,8 +86,8 @@ const boardAxiosApi = {
  writePost: async (post) => {
   try {
     const response = await axios.post(KH_DOMAIN + '/post', post);
-    console.log('게시글 작성에 성공했습니다.', response);
-    return response.data.postNum;
+    console.log('게시글 작성에 성공했습니다.posNum:', response.data);
+    return response.data;
   } catch (error) {
     console.error('게시글 작성에 실패했습니다.', error);
     return false;

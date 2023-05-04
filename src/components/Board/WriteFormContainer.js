@@ -4,19 +4,7 @@ import TitleInput from './Title';
 import ContentInput from './ContentInput';
 import styled from 'styled-components';
 import TagField from './TagInput';
-import boardAxiosApi from '../../api/BoardAxiosApi';
 import Button from '@mui/material/Button';
-
-
-
-const ButtonWrapper = styled.div`
-   display: flex;
-  justify-content: flex-end;
-  margin-top: 18px;
-  padding-right : 150px;
-  margin-right : 70px;
-  padding-bottom : 100px;
-`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,6 +26,15 @@ const Col = styled.div`
   flex-direction: column;
   width: 100%;
 `;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-right : 220px;
+  padding-bottom : 80px;
+`;
+
 
 const WriteForm = ({ userNum, onSubmit}) => {
   const [post, setPost] = useState({
@@ -75,7 +72,8 @@ const WriteForm = ({ userNum, onSubmit}) => {
 
 
   return (
-    <Wrapper>
+    <>
+      <Wrapper>
       <Row>
         <Col>
         <CategorySelect value={post.boardNum} onChange={handleBoardNumChange} /> 
@@ -84,10 +82,13 @@ const WriteForm = ({ userNum, onSubmit}) => {
           <TagField value={post.tag} onChange={handleTagChange}/>
         </Col>
       </Row>
+      </Wrapper>
       <ButtonWrapper>
        <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px"}} onClick={handleSubmit}>등록</Button>
     </ButtonWrapper>
-    </Wrapper>
+    </>
+
+    
     
   );
 };

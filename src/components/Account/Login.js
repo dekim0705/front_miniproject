@@ -98,7 +98,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -136,6 +136,14 @@ const Login = () => {
         console.log(numResponse.data);
         setUserNum(numResponse.data);
       }
+
+      // 🔥 닉네임 가져오기
+      const nicknameResponse = await boardAxiosApi.userNickname(inputEmail);
+      if (nicknameResponse) {
+        console.log(nicknameResponse);
+        setUserNickname(nicknameResponse);
+      }
+     
 
       navigate("/");
     } else {

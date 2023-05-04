@@ -14,6 +14,7 @@ const UserStore = (props) => {
   const [menteeNum, setMenteeNum] = useState("");
   const [userNum, setUserNum] = useState("");
   const [matchNum, setMatchNum] = useState([]);
+  const [userNickname, setUserNickname] = useState("");
 
   useEffect(() => {
     const allMatchNum = async() => {
@@ -29,13 +30,15 @@ const UserStore = (props) => {
     allMatchNum();
   }, []);
 
+
   const resetUser = () => {
     setUserEmail('');
     setUserPwd('');
   }
+  
 
   return (
-    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum, matchNum, setMatchNum }}>
+    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum, matchNum, setMatchNum, userNickname, setUserNickname }}>
       {props.children}
     </UserContext.Provider>
   );
