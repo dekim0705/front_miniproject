@@ -8,6 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import ChatAxiosApi from "../../api/ChatAxiosApi";
 import { ChatContext } from "../../context/ChatInfo";
 import { UserContext } from "../../context/UserInfo";
+import MainAxiosApi from "../../api/MainAxiosApi";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
@@ -132,9 +133,9 @@ const SendButton = styled(SendIcon)`
   color: #1e2b4d;
 `;
 
-export const ChatRoom = () => {
-  const { chatNumber } = useContext(ChatContext);
-  const { menteeNum, mentorNum, mentorNickname, mentorPfImg } =
+const ChatRoom = () => {
+  const { chatNumber, chatRoom, chatMessages } = useContext(ChatContext);
+  const { menteeNum, mentorNum, mentorNickname, mentorPfImg, userNum } =
     useContext(UserContext);
   const [client, setClient] = useState(null);
 
@@ -178,17 +179,45 @@ export const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
+  // 📍 채팅 메시지 정보 가져오기
   useEffect(() => {
-    const chatMessages = async (senderId, receiverId) => {
-      const response = await ChatAxiosApi.chatMessages(senderId, receiverId);
+    const chatMessages = async (chatRoomNum) => {
+      const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setMessages(response.data);
     };
-    chatMessages(menteeNum, mentorNum);
-  }, [menteeNum, mentorNum]);
+    chatMessages(chatRoom);
+  }, [chatRoom]);
 
   const handleInputChange = (e) => {
     setInputMessage(e.target.value);
   };
+
+  // 📍 채팅 상대 회원 번호
+  const otherUserId = chatMessages.find(
+    (message) => message.senderId !== userNum
+  )?.senderId || chatMessages.find(
+    (message) => message.receiverId !== userNum
+  )?.receiverId;
+  
+  // 📍 채팅 상대 프로필 사진
+  const [otherUserPfImg, setOtherUserPfImg] = useState(""); 
+  useEffect(() => {
+    const userPfImgNum = async (memberNum) => {
+      const response = await MainAxiosApi.userPfImgByNum(memberNum);
+      setOtherUserPfImg(response.data);
+    };
+    userPfImgNum(otherUserId);
+  },[otherUserId]);
+
+  // 📍 채팅 상대 닉네임
+  const [otherUserNickname, setOtherUserNickname] = useState("");
+  useEffect(() => {
+    const userNicknameNum = async (memberNum) => {
+      const response = await MainAxiosApi.userNicknameByNum(memberNum);
+      setOtherUserNickname(response.data);
+    };
+    userNicknameNum(otherUserId);
+  }, [otherUserId]);
 
   const handleSendMessage = async () => {
     if (inputMessage === "") {
@@ -196,9 +225,9 @@ export const ChatRoom = () => {
     }
 
     const newMessage = {
-      chatNumber,
-      senderId: menteeNum,
-      receiverId: mentorNum,
+      chatNumber: chatRoom,
+      senderId: userNum,
+      receiverId: otherUserId,
       message: inputMessage,
       isRead: 'N',
       createdAt: new Date()
@@ -206,9 +235,9 @@ export const ChatRoom = () => {
 
     try {
       await ChatAxiosApi.sendChatMessage(
-        chatNumber,
-        menteeNum,
-        mentorNum,
+        chatRoom,
+        userNum,
+        otherUserId,
         inputMessage,
         "",
         0,
@@ -226,7 +255,7 @@ export const ChatRoom = () => {
     <ChatRoomContainer>
       <ChatUserContainer>
         <img
-          src={mentorPfImg}
+          src={otherUserPfImg}
           alt="Profile"
           style={{
             width: 50,
@@ -235,13 +264,13 @@ export const ChatRoom = () => {
             border: "2px solid #c6def7",
           }}
         />
-        <Nickname>{mentorNickname}</Nickname>
+        <Nickname>{otherUserNickname}</Nickname>
         <InfoIcon style={{ color: "4E5968" }} />
       </ChatUserContainer>
       <ChatViewContainer>
         {messages.map((m, index) => (
           <MessageContainer key={index}>
-            {m.senderId === menteeNum ? (
+            {m.senderId === userNum ? (
               <>
                 <MeMessage>{m.message}</MeMessage>
                 <SenderMessageInfoContainer>

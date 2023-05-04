@@ -26,15 +26,28 @@ const ChatAxiosApi = {
     return await axios.post(KH_DOMAIN + "/chat/message", data);
   },
 
-  // 🤮 매칭된 모든 회원의 회원 번호 요청
+  // ✅ 매칭된 모든 회원의 회원 번호 요청
   allMentorMenteeNum: async () => {
     return await axios.get(KH_DOMAIN + "/mentor-mentee");
   },
 
-  // 📩 채팅 메시지 조회 요청
-  chatMessages: async (senderId, receiverId) => {
-    return await axios.get(KH_DOMAIN + `/chat/messages/${senderId}/${receiverId}`);
+  // 🤮 로그인 한 유저가 속한 채팅방 요청
+  chatRoomNum: async (userNum) => {
+    return await axios.get(KH_DOMAIN + `/chat/${userNum}/room`);
   },
+
+  // 🤮 채팅방 메시지 정보 요청
+  chatMessages: async (chatRoom) => {
+    const data = {
+      chatRoom: chatRoom
+    };
+    return await axios.post(KH_DOMAIN + '/chat/messages', data);
+  },
+
+  // 📩 채팅 메시지 조회 요청
+  // chatMessages: async (senderId, receiverId) => {
+  //   return await axios.get(KH_DOMAIN + `/chat/messages/${senderId}/${receiverId}`);
+  // },
 
   // 📩 안읽은 메시지 조회 요청
   unreadMessages: async (memberNum) => {

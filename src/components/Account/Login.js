@@ -139,11 +139,9 @@ const Login = () => {
 
       // 🔥 닉네임 가져오기
       const nicknameResponse = await boardAxiosApi.userNickname(inputEmail);
-      if (nicknameResponse) {
-        console.log(nicknameResponse);
-        setUserNickname(nicknameResponse);
-      }
-     
+      console.log(nicknameResponse.data);
+      setUserNickname(nicknameResponse);
+      
 
       navigate("/");
     } else {
