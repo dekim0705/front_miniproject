@@ -16,6 +16,7 @@ import UserStore from './context/UserInfo';
 import ChatStore from './context/ChatInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
+import EditPage from './pages/EditPage';
 
 function App() {
   
@@ -36,6 +37,7 @@ function App() {
             <Route path='/findaccount' element={<FindAccountPage />}></Route>
             <Route path='/join/*' element={<JoinPage />}></Route>
             <Route path='/write' element={<WritePage />}></Route>
+            <Route path='/edit' element={<EditPage />}></Route>
             <Route path='/mypage' element={<MyProfilePage />}></Route>
             <Route path='/chat' element={<ChatPage />}></Route>
             <Route path='/post/:postNum' element={<PostDetailPage />}></Route>

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo";
 import Header from "../components/Header";
-import WriteForm from "../components/Board/WriteFormContainer";
+import WriteForm from "../components/Board/WriteForm";
 import boardAxiosApi from "../api/BoardAxiosApi";
 import ImgUploadButton from "../components/Board/FileUpload";
 import Footer from "../components/Footer";

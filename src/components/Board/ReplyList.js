@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommentItem from './CommentItem';
-import CommentFrom from './CommentForm';
+import CommentItem from './ReplyItem';
+import ReplyForm from './ReplyForm';
 
 const CommentListWrapper = styled.div`
   margin: 0;
@@ -16,14 +16,14 @@ const CommentListTitle = styled.h2`
 `;
 
 
-const CommentList = ({ reply = []  }) => {
+const ReplyList = ({ reply = []  }) => {
 
   const commentCount = reply.length;
   return (
     
     <CommentListWrapper>
       <CommentListTitle> {commentCount}개의 댓글  </CommentListTitle>
-        <CommentFrom />
+        <ReplyForm />
       {reply.map((reply) => (
         <CommentItem key={reply.nickname} reply={reply} />
       ))}
@@ -31,4 +31,4 @@ const CommentList = ({ reply = []  }) => {
   );
 };
 
-export default CommentList;
+export default ReplyList;
