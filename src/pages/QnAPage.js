@@ -1,4 +1,3 @@
-// QnA Page
 import React from "react";
 import BoardList from "../components/Board/BoardList";
 import { useParams } from "react-router-dom";
@@ -8,7 +7,6 @@ import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
 import WriteButton from "../components/Board/WriteButton";
-
 
 const BoardName = styled.div`
   font-size: 2rem;

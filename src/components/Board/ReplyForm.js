@@ -58,7 +58,7 @@ const CommentFormTextField = styled(TextField)`
 
 
 
-const CommentFrom = () => {
+const ReplyForm = () => {
   return(
   
     <>
@@ -76,4 +76,4 @@ const CommentFrom = () => {
 
 }
 
-export default CommentFrom;
+export default ReplyForm;

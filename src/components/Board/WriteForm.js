@@ -55,8 +55,7 @@ const WriteForm = ({ userNum, onSubmit}) => {
     setPost((prevPost) => ({ ...prevPost, title }));
   };
 
-  const handleContentChange = (event) => {
-    const content = event.target.value;
+  const handleContentChange = (content) => {
     setPost((prevPost) => ({ ...prevPost, content }));
   };
 

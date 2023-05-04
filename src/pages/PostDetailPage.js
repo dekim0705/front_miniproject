@@ -7,10 +7,10 @@ import TagList from '../components/Board/TagList';
 import PostInfo from '../components/Board/PostInfo';
 import Content from '../components/Board/PostContent';
 import LikeButton from '../components/Board/LikeButton';
-import CommentList from '../components/Board/CommentList';
 import EditButton from '../components/Board/EditButton';
 import Footer from '../components/Footer';
 import boardAxiosApi from "../api/BoardAxiosApi";
+import ReplyList from "../components/Board/ReplyList";
 
 
 const Wrapper = styled.div`
@@ -99,7 +99,7 @@ const PostDetailPage = () => {
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>
-          <CommentList reply={reply}  />
+          <ReplyList reply={reply}  />
           </CommentWrapper>
       </Wrapper>
       {showEditButton && <EditButton />}

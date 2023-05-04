@@ -1,4 +1,3 @@
-
 import React from "react";
 import BoardList from "../components/Board/BoardList";
 import { useParams } from "react-router-dom";
