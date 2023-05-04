@@ -22,18 +22,19 @@ const WrtiePage = () => {
   const handleWritePost = async (post) => {
     try {
       const postNum = await boardAxiosApi.writePost(post);
-      console.log('게시글 작성에 성공했습니다.');
-      if (postNum) {
-        navigate(`/post/${postNum}`);
+      if (postNum > 0) {
+          console.log('게시글 작성에 성공했습니다.',postNum);
+          navigate(`/post/${postNum}`);
       } else {
-        console.error('게시글 작성에 실패했습니다.');
+          console.error('게시글 작성에 실패했습니다.');
       }
-    } catch (error) {
+  } catch (error) {
       console.error('게시글 작성에 실패했습니다.', error);
-    }
+  }
   };
 
   const handleSubmit = (post) => {
+    console.log(post);
     handleWritePost(post);
   }
    
@@ -42,8 +43,7 @@ const WrtiePage = () => {
     <>
       <Header />
     <WriteForm userNum={userNum} onSubmit={handleSubmit}  />
-    <ImgUploadButton/>
-   
+    {/* <ImgUploadButton/> */}
     <Footer />
     </>
   );

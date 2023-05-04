@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/UserInfo";
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import styled from 'styled-components';
@@ -6,8 +7,7 @@ import TagList from '../components/Board/TagList';
 import PostInfo from '../components/Board/PostInfo';
 import Content from '../components/Board/PostContent';
 import LikeButton from '../components/Board/LikeButton';
-import CommentForm from '../components/Board/CommentForm';
-import CommentList, {comments} from '../components/Board/CommentList';
+import CommentList from '../components/Board/CommentList';
 import EditButton from '../components/Board/EditButton';
 import Footer from '../components/Footer';
 import boardAxiosApi from "../api/BoardAxiosApi";
@@ -46,32 +46,45 @@ const PostDetailPage = () => {
   const { postNum } = useParams();
   const [postDetail, setPostDetail] = useState({});
   const [reply, setReply] = useState([]);
+  const [showEditButton, setShowEditButton] = useState(false);
+  const { userNickname } = useContext(UserContext);
+  console.log('로그인시 닉네임 가져오기!!:' ,userNickname);
+
+ 
   
   useEffect(() => {
+    
     const fetchPostDetail = async () => {
       const response = await boardAxiosApi.requestPostDetail(postNum);
-      console.log("Response data:", response);
       setPostDetail(response[0]);
     };
 
     const fetchReply = async () => {
       const response = await boardAxiosApi.requestReply(postNum);
-      console.log("Response data:", response);
       setReply(response);
     };
+
     const increaseViews = async () => {
       console.log('increaseViews 실행');
       await boardAxiosApi.increaseViews(postNum);
       console.log('increaseViews 완료');
     };
-    
 
     fetchPostDetail();
     fetchReply();
     increaseViews();
-   
   }, [postNum]);
 
+  useEffect(() => {
+    console.log("User nickname:", userNickname);
+    console.log("Post detail nickname:", postDetail.nickname);
+
+    if (userNickname && postDetail && postDetail.nickname && userNickname.trim() === postDetail.nickname.trim()) {
+      setShowEditButton(true);
+    } else {
+      setShowEditButton(false);
+    }
+  }, [userNickname, postDetail]);
 
   return (
     <>
@@ -89,7 +102,7 @@ const PostDetailPage = () => {
           <CommentList reply={reply}  />
           </CommentWrapper>
       </Wrapper>
-        <EditButton />
+      {showEditButton && <EditButton />}
       <Footer />
     </>
   );

@@ -17,7 +17,7 @@ const Board = styled.div`
   background-color: white;
   border: 1px solid #ccc;
   border-radius : 10px;
-  padding: 20px 40px;
+  padding: 15px 30px;
   min-height: 390px; 
   max-height: 800px; 
   overflow-y: auto; /* 스크롤바 */
