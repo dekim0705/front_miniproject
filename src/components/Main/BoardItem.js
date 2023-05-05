@@ -2,8 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TextsmsIcon from '@mui/icons-material/Textsms';
+import { Link } from 'react-router-dom';
 
-const BoardItemContainer = styled.div`
+const BoardItemContainer = styled(Link)`
+  text-decoration: none;
+  color : black;
   padding: 0 10px;
   &:hover {
     background-color: #eee;
@@ -49,7 +52,7 @@ const Title = styled.p`
 
 const BoardItem = ({post}) => {
   return (
-    <BoardItemContainer>
+    <BoardItemContainer to={`/post/${post.postNum}`}>
       <BoardItem1>
         <UserInfo>
           <img
