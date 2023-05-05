@@ -67,7 +67,7 @@ const Board = ({ name, category }) => {
       </BoardName>
       <BoardBodyContainer>
         {posts.map((post) => (
-          <BoardItem key={post.id} post={post} />
+          <BoardItem key={post.postNum} post={post} />
         ))}
       </BoardBodyContainer>
     </BoardContainer>

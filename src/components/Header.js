@@ -116,7 +116,10 @@ const Header = () => {
         </ul>
         <TopWriters />
         {isLogin ? (
-          <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
+          <>
+            <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
+            <Navbar />
+          </>
         ) : (
           <div className="member">
             <div className="box login">

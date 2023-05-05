@@ -75,6 +75,7 @@ const Start = () => {
   const [userMemberNum, setUserMemberNum] = useState(0);
   // 🔴 로그인 정보 가져오기
   const { userEmail } = useContext(UserContext);
+  const navigate = useNavigate();
   // 🔴 로그인 유저 회원번호 가져오기
   useEffect(() => {
     const getMenteeMemberNum = async () => {
@@ -83,16 +84,16 @@ const Start = () => {
         setUserMemberNum(response.data);
         console.log("멘티 회원 정보 : " + response.data);
       } catch (error) {
+        navigate('resultFail');
         console.log("멘티 회원정보 가져오기 오류 🥹", error);
       }
     };
     getMenteeMemberNum();
-  }, [userEmail]);
+  }, [userEmail, navigate]);
 
   // 🚀 1. UserContext에서 필요한 요소 가져오기
   const { setMentorNickname, setMentorPfImg, setMenteeNickname, setMenteePfImg, setMenteeNum, setMentorNum } = useContext(UserContext);
 
-  const navigate = useNavigate();
   const StartButtonClick = async () => {
     navigate('loading');
     setTimeout(async () => {
@@ -114,8 +115,9 @@ const Start = () => {
   
         navigate('result');
       } catch(error) {
+        navigate('resultFail');
         console.error("멘토 정보 불러오기 실패. . 🥹", error);
-        navigate('result');
+        // navigate('result');
       }
     }, 3000);
   };
