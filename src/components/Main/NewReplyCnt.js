@@ -25,15 +25,15 @@ const NewReplyCnt = () => {
   const [replyCount, setReplyCount] = useState(0);
 
   useEffect(() => {
-    const getTodayPostCount = async () => {
+    const getTodayReplyCount = async () => {
       try {
-        const response = await MainAxiosApi.todayPostCount();
+        const response = await MainAxiosApi.todayReplyCount();
         setReplyCount(response.data);
       } catch (error) {
         console.error("오늘 올라온 댓글 갯수 불러오기 오류!😱", error);
       }
     };
-    getTodayPostCount();
+    getTodayReplyCount();
   }, []);
 
   return (

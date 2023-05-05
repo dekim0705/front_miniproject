@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import { UserContext } from '../../context/UserInfo';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import boardAxiosApi from '../../api/BoardAxiosApi';
 import EditPopUp from '../../util/EditPopUp';
+import AlarmAxiosApi from '../../api/AlarmAxiosApi';
 
 
 const CommentFormWrapper = styled.div`
@@ -79,7 +79,7 @@ const ReplyForm = ({ postNum, fetchReply }) => {
       return;
     }
     const memberNum = context.userNum;
-    const success = await boardAxiosApi.writeReply(postNum, memberNum, replyContent);
+    const success = await AlarmAxiosApi.replyAlarm(postNum, memberNum, replyContent);
     if (success) {
       setContent('');
       setIsModalOpen(true);
