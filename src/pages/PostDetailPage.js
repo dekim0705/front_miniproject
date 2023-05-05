@@ -102,7 +102,7 @@ const PostDetailPage = () => {
           <ReplyList reply={reply}  />
           </CommentWrapper>
       </Wrapper>
-      {showEditButton && <EditButton />}
+      {showEditButton && <EditButton postNum={postNum} />}
       <Footer />
     </>
   );

@@ -4,7 +4,6 @@ import { UserContext } from "../context/UserInfo";
 import Header from "../components/Header";
 import WriteForm from "../components/Board/WriteForm";
 import boardAxiosApi from "../api/BoardAxiosApi";
-import ImgUploadButton from "../components/Board/FileUpload";
 import Footer from "../components/Footer";
 
 
@@ -23,15 +22,13 @@ const WrtiePage = () => {
     try {
       const postNum = await boardAxiosApi.writePost(post);
       if (postNum > 0) {
-          console.log('게시글 작성에 성공했습니다.',postNum);
-          navigate(`/post/${postNum}`);
-      } else {
-          console.error('게시글 작성에 실패했습니다.');
+        navigate(`/post/${postNum}`);
       }
-  } catch (error) {
+    } catch (error) {
       console.error('게시글 작성에 실패했습니다.', error);
-  }
+    }
   };
+  
 
   const handleSubmit = (post) => {
     console.log(post);

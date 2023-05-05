@@ -86,7 +86,7 @@ const boardAxiosApi = {
  writePost: async (post) => {
   try {
     const response = await axios.post(KH_DOMAIN + '/post', post);
-    console.log('게시글 작성에 성공했습니다.posNum:', response.data);
+    console.log('게시글 작성에 성공했습니다', response.data);
     return response.data;
   } catch (error) {
     console.error('게시글 작성에 실패했습니다.', error);
