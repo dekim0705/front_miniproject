@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledPopUp = styled.div`
@@ -59,6 +59,7 @@ const StyledPopUp = styled.div`
     background-color: #6c757d;
     border-radius: 5px;
     font-size: 13px;
+    margin: 0 5px;
   }
   .modal.openModal {
     display: flex;
@@ -88,7 +89,7 @@ const StyledPopUp = styled.div`
 
 const PopUp = (props) => {
 
-  const {open, confirm, close, type, header, children} = props;
+  const {open, confirm, close, typeExit, header, children} = props;
 
   return (
     <StyledPopUp>
@@ -103,7 +104,7 @@ const PopUp = (props) => {
             </header>
             <main>{children}</main>
             <footer>
-              {type && <button onClick={confirm}>필요할 때😁</button>}
+              {typeExit && <button onClick={confirm}>종료하기</button>}
               <button onClick={close}>돌아가기</button>
             </footer>
           </section>

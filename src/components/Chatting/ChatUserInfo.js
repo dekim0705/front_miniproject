@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import LogoutIcon from '@mui/icons-material/Logout';
-import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 import { ChatContext } from '../../context/ChatInfo';
+import ChatAxiosApi from '../../api/ChatAxiosApi';
+import PopUp from '../../util/PopUp';
 
 const ChatUserInfoContainer = styled.div`
   display: flex;
@@ -28,26 +30,10 @@ const DetailContainer = styled.div`
   gap: 8px;
 `;
 
-const PfImg = styled.div`
-  width: 150px;
-  height: 150px;
-  background-color: blue;
-  border-radius: 50%;
-`;
-
-const IsOnline = styled.div`
-  color: green;
-  font-weight: bold;
-`;
-
 const NicknameContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 5px;
-`;
-
-const Grade = styled.div`
-  font-weight: bold;
-  color: #777;
 `;
 
 const Nickname = styled.div`
@@ -87,41 +73,99 @@ const ChatButtonContainer = styled.div`
   gap: 30px;
 `;
 
-const MinimizeButton = styled(TransitEnterexitIcon)`
-  color: #1E2B4D;
-  cursor: pointer;
-`;
-
 const ExitButton = styled(LogoutIcon)`
   color: #1E2B4D;
   cursor: pointer;
 `;
 
 const ChatUserInfo = () => {
-  const { otherUserNumber } = useContext(ChatContext);
+  const { otherUserNumber, chatRoom } = useContext(ChatContext);
+  const [userInfo, setUserInfo] = useState([]);
+  const [PopUpOpen, setPopUpOpen] = useState(false);
+  const closePopUp = () => {
+    setPopUpOpen(false);
+  };
+  const navigate = useNavigate();
+
+  const handleExitChat = async () => {
+    try {
+      await ChatAxiosApi.deleteChatMessages(chatRoom);
+      await ChatAxiosApi.deleteChatRoom(chatRoom);
+      setPopUpOpen(false);
+      navigate('/');
+    } catch(error) {
+      console.log(error);
+    }
+  };
+
+  // 📍 채팅 상대 회원 정보 가져오기(detail)
+  useEffect(() => {
+    const chatUserInfo = async (memberNum) => {
+      const response = await ChatAxiosApi.userDetails(memberNum);
+      setUserInfo(response.data);
+    };
+    chatUserInfo(otherUserNumber);
+  }, [otherUserNumber]);
 
   return (
       <ChatUserInfoContainer>
         <DetailContainer>
-          <PfImg />
-          <IsOnline>online</IsOnline>
+          <img
+            src={userInfo.pfImg}
+            alt="Profile"
+            style={{
+              width: 150,
+              height: 150,
+              borderRadius: "50%"
+            }}
+          />
           <NicknameContainer>
-            <Grade>ff</Grade>
-            <Nickname>양갱좋아</Nickname>
+            <img
+              src={userInfo.gradeIconUrl}
+              alt='gradeBadge'
+              style={{
+                width: 30,
+                height: 30
+              }}
+              />
+            <Nickname>{userInfo.nickname}</Nickname>
           </NicknameContainer>
           <TechStacksContainer>
-            <TechStack>Java</TechStack>
-            <TechStack>SpringBoot</TechStack>
-            <TechStack>JavaScript</TechStack>
+            {
+              userInfo.stackIconUrls &&
+                userInfo.stackIconUrls.map((stackIconUrl, index) => (
+                  <TechStack key={index}>
+                    <img
+                      src={stackIconUrl}
+                      alt='stack Icon'
+                      style={{
+                        width: 30,
+                        height: 30
+                      }}
+                    />
+                  </TechStack>
+                ))
+            }
           </TechStacksContainer>
           <JobContainer>
-            <Job>백엔드</Job>
-            <Year>3년차</Year>
+            <Job>{userInfo.job}</Job>
+            <Year>{userInfo.year}년차</Year>
           </JobContainer>
         </DetailContainer>
         <ChatButtonContainer>
-          <MinimizeButton sx={{ fontSize: "2.5rem" }} />
-          <ExitButton sx={{ fontSize: "2.5rem" }} />
+          <ExitButton
+            sx={{ fontSize: "2.5rem" }}
+            onClick={() => setPopUpOpen(true)}  
+          />
+          <PopUp
+            open={PopUpOpen}
+            close={closePopUp}
+            typeExit={true}
+            header="대화 종료"
+            confirm={handleExitChat}>
+              대화 종료시 모든 데이터가 사라집니다.
+              종료하시겠습니까?
+          </PopUp>
         </ChatButtonContainer>
       </ChatUserInfoContainer>
   );

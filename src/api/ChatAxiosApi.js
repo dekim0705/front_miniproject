@@ -49,24 +49,9 @@ const ChatAxiosApi = {
     return await axios.get(KH_DOMAIN + `/chat/chatRoom/${chatRoom}`);
   },
 
-  // 📩 채팅 상대방 회원 정보 요청
+  // ✅ 채팅 상대방 회원 정보 요청
   userDetails: async (memberNum) => {
-    return await axios.get(KH_DOMAIN + `chat/${memberNum}/details`);
-  },
-
-  // 📩 채팅 메시지 조회 요청
-  // chatMessages: async (senderId, receiverId) => {
-  //   return await axios.get(KH_DOMAIN + `/chat/messages/${senderId}/${receiverId}`);
-  // },
-
-  // 📩 안읽은 메시지 조회 요청
-  unreadMessages: async (memberNum) => {
-    return await axios.get(KH_DOMAIN + `/chat/${memberNum}/unread-messsages`);
-  },
-
-  // 📩 메시지 읽었다고 알리기
-  updateMessageReadStatus: async (messageId) => {
-    return await axios.patch(KH_DOMAIN + `/chat/messages/${messageId}`);
+    return await axios.get(KH_DOMAIN + `/chat/${memberNum}/details`);
   },
 
   // 📩 대화 종료 -> 대화방 삭제

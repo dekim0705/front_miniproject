@@ -81,7 +81,6 @@ const Header = () => {
     const chatRoomNum = async (memberNum) => {
       const response = await ChatAxiosApi.chatRoomNum(memberNum);
       setChatRoom(response.data);
-      console.log("로그인 한 유저의 채팅방 번호 : " + response.data);
     };
     if (userNum) {
       chatRoomNum(userNum);
@@ -93,7 +92,6 @@ const Header = () => {
     const chatMsg = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setChatMessages(response.data);
-      console.log(response.data);
     };
     chatMsg(chatRoom);
   }, [chatRoom, setChatMessages]);

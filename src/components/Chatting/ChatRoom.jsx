@@ -9,6 +9,7 @@ import ChatAxiosApi from "../../api/ChatAxiosApi";
 import { ChatContext } from "../../context/ChatInfo";
 import { UserContext } from "../../context/UserInfo";
 import MainAxiosApi from "../../api/MainAxiosApi";
+import ChatDrawer from "./ChatDrawer";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
@@ -134,6 +135,15 @@ const SendButton = styled(SendIcon)`
 `;
 
 const ChatRoom = () => {
+  // 📍 Drawer 테스트
+  const [drawerState, setDrawerState] = useState({ right: false });
+  const toggleDrawer = (anchor, open) => e => {
+    if(e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
+      return;
+    }
+    setDrawerState({ ...drawerState, [anchor]: open});
+  };
+
   const { chatRoom, chatMessages, setOtherUserPfImg, setOtherUserNickname, otherUserNickname, otherUserPfImg, setOtherUserNumber, otherUserNumber } = useContext(ChatContext);
   const { userNum } = useContext(UserContext);
   const [client, setClient] = useState(null);
@@ -273,7 +283,11 @@ const ChatRoom = () => {
           }}
         />
         <Nickname>{otherUserNickname}</Nickname>
-        <InfoIcon style={{ color: "4E5968" }} />
+        <InfoIcon 
+          style={{ color: "4E5968" }}
+          onClick={toggleDrawer("right", true)}
+        />
+        <ChatDrawer drawerState={drawerState} toggleDrawer={toggleDrawer} />
       </ChatUserContainer>
       <ChatViewContainer>
         {messages.map((m, index) => (
