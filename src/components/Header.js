@@ -9,13 +9,14 @@ import AuthDropDown from './AuthDropDown';
 import MemberDropDown from './MemberDropDown';
 import TopWriters from './Main/TopWriters';
 import ChatAxiosApi from '../api/ChatAxiosApi';
+import { getPath } from '../util/getPath';
+import useCheckUserMatched from '../util/useCheckUserMatched';
 
 const StyledLink = styled(Link)`
   width: 100px;
   height: 40px;
   line-height: 40px;
   font-size: 0.8em;
-
   &:hover {
     background-color: #1E2B4D;
     border-radius: 20px;
@@ -70,14 +71,16 @@ const Header = () => {
   const { chatRoom, setChatRoom, setChatMessages } = useContext(ChatContext);
   const [isLogin, setIsLogin] = useState(false);
   const context = useContext(UserContext);
-  const {userEmail, userPwd, userNum, matchNum } = context;
+  const {userEmail, userPwd, userNum } = context;
+
+  const isMatched = useCheckUserMatched(userNum);
+  const mentorPath = getPath("/mentor", isMatched);
 
   // 📍 로그인 한 유저가 속한 채팅방 번호 가져오기
   useEffect(() => {
     const chatRoomNum = async (memberNum) => {
       const response = await ChatAxiosApi.chatRoomNum(memberNum);
       setChatRoom(response.data);
-      console.log("로그인 한 유저의 채팅방 번호 : " + response.data);
     };
     if (userNum) {
       chatRoomNum(userNum);
@@ -89,12 +92,9 @@ const Header = () => {
     const chatMsg = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setChatMessages(response.data);
-      console.log(response.data);
     };
     chatMsg(chatRoom);
   }, [chatRoom, setChatMessages]);
-
-  const mentorPath = matchNum.includes(userNum) ? '/chat' : '/mentor';
 
   useEffect(() => {
     if(userEmail && userPwd) {

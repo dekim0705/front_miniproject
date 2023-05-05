@@ -20,7 +20,6 @@ const StyledContainer = styled.div`
   flex-wrap: nowrap;
   gap: 100px;
   margin: 120px 0;
-
   @media screen and (max-width: 768px) {
     gap: 40px;
     margin: 60px 0;
@@ -35,7 +34,6 @@ const ItemTitle = styled.h1`
   font-size: 3rem;
   line-height: 80px;
   font-weight: bold;
-
   @media screen and (max-width: 768px) {
     font-size: 1.2em;
     line-height: 40px;
@@ -60,7 +58,6 @@ const Button = styled.a`
   box-shadow: 0px 8px 0px 0px #002081;
   text-decoration: none;
   font-size: 2em;
-
   &:hover {
     margin-top: 15px;
     margin-bottom: 5px;
@@ -106,10 +103,11 @@ const Start = () => {
         const response2 = await MatchingAxiosApi.menteeInfo(userEmail);
         console.log(response2.data);
   
-        // 🚀 2. 서버에서 가져온 정보 UserContext에 저장
+        // 🚀 2. 서버에서 가져온 정보 UserContext, ChatContext에 저장
         setMentorNickname(response.data[0].nickname);
         setMentorPfImg(response.data[0].pfImg);
         setMentorNum(response.data[0].memberNum);
+
         setMenteeNickname(response2.data[0].nickname);
         setMenteePfImg(response2.data[0].pfImg);
         setMenteeNum(response2.data[0].memberNum);
