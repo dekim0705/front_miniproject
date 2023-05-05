@@ -42,7 +42,7 @@ const Content = ({ content }) => {
   return content && (
     <Wrapper>
       <Board>
-       <div dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div dangerouslySetInnerHTML={{ __html: content }}></div>
         {content.imgUrl && <StyledImg src={content.imgUrl} alt="첨부 이미지" />}
       </Board>
     </Wrapper>
