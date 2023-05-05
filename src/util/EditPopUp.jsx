@@ -59,7 +59,12 @@ const StyledPopUp = styled.div`
     background-color: #6c757d;
     border-radius: 5px;
     font-size: 13px;
+    margin-right : 10px;
   }
+  .modal > section > footer button:last-child {
+  margin-right: 0;
+}
+
   .modal.openModal {
     display: flex;
     align-items: center;
@@ -86,9 +91,9 @@ const StyledPopUp = styled.div`
   }
 `;
 
-const PopUp = (props) => {
+const EditPopUp = (props) => {
 
-  const {open, confirm, close, type, header, children} = props;
+  const {open, confirm, close, type, header, children, exit} = props;
 
   return (
     <StyledPopUp>
@@ -103,8 +108,14 @@ const PopUp = (props) => {
             </header>
             <main>{children}</main>
             <footer>
-              {type && <button onClick={confirm}>필요할 때😁</button>}
-              <button onClick={close}>돌아가기</button>
+            {type === "confirm" ? (
+                <>
+                  <button onClick={confirm}>네 😭</button>
+                  <button onClick={close}>돌아가기</button>
+                </>
+              ) : (
+                <button onClick={close}>확인</button>
+              )}
             </footer>
           </section>
           }
@@ -113,4 +124,4 @@ const PopUp = (props) => {
   );
 }
 
-export default PopUp;
+export default EditPopUp;

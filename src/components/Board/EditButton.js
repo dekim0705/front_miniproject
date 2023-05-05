@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import PopUp from "../../util/PopUp";
+import EditPopUp from "../../util/EditPopUp";
 import boardAxiosApi from "../../api/BoardAxiosApi";
 import { useNavigate } from "react-router-dom";
 
@@ -48,14 +48,14 @@ const EditButton = ({postNum}) => {
         <Button variant="contained" sx={{ width: '80px' }} onClick={() => setIsModalOpen(true)}>삭제</Button>
       </Stack>
     </Wrapper>
-     <PopUp
+     <EditPopUp
      open={isModalOpen} confirm={handleDeletePost}close={handleCloseModal}type="confirm" header="게시글 삭제">
      <p>게시글을 삭제하시겠습니까?</p>
-   </PopUp>
-   <PopUp
-     open={popUpOpen} close={closePopUp} type={false} header="삭제 완료">
+   </EditPopUp>
+   <EditPopUp
+     open={popUpOpen} close={closePopUp} type="exit" header="삭제 완료">
       글이 삭제되었습니다! 😆
-  </PopUp>
+  </EditPopUp>
    </>
   );
 };

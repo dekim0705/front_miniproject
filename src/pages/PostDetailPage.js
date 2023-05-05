@@ -79,7 +79,7 @@ const PostDetailPage = () => {
     console.log("User nickname:", userNickname);
     console.log("Post detail nickname:", postDetail.nickname);
 
-    if (userNickname && postDetail && postDetail.nickname && userNickname.trim() === postDetail.nickname.trim()) {
+    if (userNickname && postDetail && postDetail.nickname) {
       setShowEditButton(true);
     } else {
       setShowEditButton(false);
