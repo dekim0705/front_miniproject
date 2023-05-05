@@ -9,6 +9,10 @@ const StyledChatContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 15px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 10px;
+  }
 `;
 const ChatPage = () => {
 
