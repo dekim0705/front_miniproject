@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CategorySelect from './CategorySelect';
+import SelectCategory from './Category';
 import TitleInput from './Title';
 import ContentInput from './ContentInput';
 import styled from 'styled-components';
@@ -75,7 +75,7 @@ const WriteForm = ({ userNum, onSubmit}) => {
       <Wrapper>
       <Row>
         <Col>
-        <CategorySelect value={post.boardNum} onChange={handleBoardNumChange} /> 
+        <SelectCategory value={post.boardNum} onChange={handleBoardNumChange} /> 
         <TitleInput value={post.title} onChange={handleTitleChange} />
         <ContentInput value={post.content} onChange={handleContentChange} />
           <TagField value={post.tag} onChange={handleTagChange}/>
