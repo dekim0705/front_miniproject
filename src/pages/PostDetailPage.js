@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserInfo";
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -10,7 +10,7 @@ import LikeButton from '../components/Board/LikeButton';
 import EditButton from '../components/Board/EditButton';
 import Footer from '../components/Footer';
 import boardAxiosApi from "../api/BoardAxiosApi";
-import ReplyList from "../components/Board/ReplyList";
+import ReplyBoard from "../components/Board/ReplyBoard";
 
 
 const Wrapper = styled.div`
@@ -50,22 +50,17 @@ const PostDetailPage = () => {
   const { userNickname } = useContext(UserContext);
   console.log('로그인시 닉네임 가져오기!!:' ,userNickname);
 
- 
+  const fetchReply = useCallback(async () => {
+    const response = await boardAxiosApi.requestReply(postNum);
+    setReply(response);
+  }, [postNum]);
   
   useEffect(() => {
-    
     const fetchPostDetail = async () => {
       const response = await boardAxiosApi.requestPostDetail(postNum);
       setPostDetail(response[0]);
     };
-
-    const fetchReply = async () => {
-      const response = await boardAxiosApi.requestReply(postNum);
-      setReply(response);
-    };
-
     const increaseViews = async () => {
-      console.log('increaseViews 실행');
       await boardAxiosApi.increaseViews(postNum);
       console.log('increaseViews 완료');
     };
@@ -73,7 +68,7 @@ const PostDetailPage = () => {
     fetchPostDetail();
     fetchReply();
     increaseViews();
-  }, [postNum]);
+  }, [postNum, fetchReply]);
 
   useEffect(() => {
     console.log("User nickname:", userNickname);
@@ -85,6 +80,8 @@ const PostDetailPage = () => {
       setShowEditButton(false);
     }
   }, [userNickname, postDetail]);
+
+
 
   return (
     <>
@@ -99,7 +96,7 @@ const PostDetailPage = () => {
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>
-          <ReplyList reply={reply}  />
+        <ReplyBoard postNum={postNum} reply={reply} fetchReply={fetchReply} />
           </CommentWrapper>
       </Wrapper>
       {showEditButton && <EditButton postNum={postNum} />}

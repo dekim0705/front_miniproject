@@ -1,8 +1,11 @@
-// 댓글 작성 창
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
-
+import { UserContext } from '../../context/UserInfo';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import boardAxiosApi from '../../api/BoardAxiosApi';
+import EditPopUp from '../../util/EditPopUp';
 
 
 const CommentFormWrapper = styled.div`
@@ -22,7 +25,6 @@ const CommentFormAvatar = styled.img`
   margin-right: 10px;
 `;
 
-
 const CommentFormButton = styled.button`
   background-color: rgb(73,115,228);
   color: white;
@@ -38,8 +40,6 @@ const CommentFormButton = styled.button`
   height : 70px;
   text-align : center;
   width : 80px;
-  
-
   &:hover {
     background-color: rgb(53, 85, 168);
   }
@@ -51,29 +51,70 @@ const CommentFormTextField = styled(TextField)`
   }
   & .MuiOutlinedInput-root {
     border-radius: 20px;
-
   }
-  
 `;
 
 
-
-const ReplyForm = () => {
-  return(
+const ReplyForm = ({ postNum, fetchReply }) => {
+  const context = useContext(UserContext);
+  const { userEmail, userPwd, userPfImgUrl } = context;
+  const navigate = useNavigate();
+  const [replyContent, setContent] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
+  const handleReplyChange = (event) => {
+    setContent(event.target.value);
+  };
+
+  const handleClick = () => {
+    if (!userEmail || !userPwd) {
+      alert('댓글을 작성하려면 로그인이 필요합니다.');
+      navigate('/login', { replace: true });
+    }
+  };
+
+  const handleReplySubmit = async () => {
+    if (!replyContent) {
+      alert('댓글 내용을 입력해주세요.');
+      return;
+    }
+    const memberNum = context.userNum;
+    const success = await boardAxiosApi.writeReply(postNum, memberNum, replyContent);
+    if (success) {
+      setContent('');
+      setIsModalOpen(true);
+      fetchReply();
+    } else {
+      console.log(replyContent)
+      alert('댓글 작성에 실패했습니다.');
+    }
+  };
+
+  return (
     <>
-  <CommentFormWrapper>
-      <CommentFormAvatar src="https://via.placeholder.com/40" />
-   
-      <CommentFormTextField fullWidth label="댓글 작성" id="fullWidth" />
-  
-      <CommentFormButton>등록</CommentFormButton>
-    </CommentFormWrapper>
-
+      <CommentFormWrapper>
+        {userPfImgUrl ? (
+          <CommentFormAvatar src={userPfImgUrl} />
+        ) : (
+          <AccountCircleIcon style={{ marginRight: '10px', fontSize: 45, color: '#3B74EC' }} />
+        )}
+        <CommentFormTextField
+          fullWidth
+          label="댓글 작성"
+          id="fullWidth"
+          onChange={handleReplyChange}
+          onClick={handleClick}
+          value={replyContent}
+        />
+        <CommentFormButton onClick={handleReplySubmit}>등록</CommentFormButton>
+      </CommentFormWrapper>
+      {isModalOpen && (
+     <EditPopUp open={isModalOpen} close={() => setIsModalOpen(false)} type="exit" header="댓글 등록">
+        댓글이 성공적으로 등록되었습니다 😆
+      </EditPopUp>
+      )}
     </>
-
-  )
-
-}
+  );
+};
 
 export default ReplyForm;
