@@ -8,7 +8,7 @@ const FooterContainer = styled.footer`
   color: #616161;
 `;
 
-const Sitemap = styled.ul`
+const Sitemap = styled.li`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -16,9 +16,10 @@ const Sitemap = styled.ul`
   font-size: 0.7em;
   text-decoration: none;
 
-  a {
-    text-decoration: none;
+  li, a {
+    list-style: none;
     color: inherit;
+    text-decoration: none;
   }
 `;
 
@@ -38,14 +39,6 @@ const Language = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
-`;
-
-const Etc = styled.li`
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: auto;
-  gap: 20px;
 `;
 
 const Footer = () => {
@@ -75,16 +68,6 @@ const Footer = () => {
         <Language>
           <PublicIcon />한국어(대한민국)
         </Language>
-        <Etc>
-          <ul>
-            <li>개발러스 문의</li>
-            <li>개인정보처리방침 및 위치정보이용약관</li>
-            <li>사용약관</li>
-            <li>상표</li>
-            <li>광고 정보</li>
-            <li>ⓒ Developer Community 2023</li>
-          </ul>
-        </Etc>
       </FooterInfo>
     </FooterContainer>
   );

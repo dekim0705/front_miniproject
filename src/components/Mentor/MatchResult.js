@@ -18,6 +18,9 @@ const Text = styled.div`
   font-size: 4em;
   font-weight: bolder;
   color: #1E2B4D;
+  @media screen and (max-width: 768px) {
+    font-size: 3em;
+  }
 `;
 
 const MemberContainer = styled.div`
@@ -94,7 +97,7 @@ const Button = styled.a`
   @media screen and (max-width: 768px) {
     width: 150px;
     height: 60px;
-    font-size: 1.5em;
+    font-size: 1.5\em;
     line-height: 60px;
   }
 `;

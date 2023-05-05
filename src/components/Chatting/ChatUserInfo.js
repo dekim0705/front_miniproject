@@ -19,7 +19,8 @@ const ChatUserInfoContainer = styled.div`
   padding: 20px;
   overflow-y: auto;
   @media screen and (max-width: 768px) {
-    width: 90%;
+    width: 83%;
+    margin: 30px 0 0 3px;
   }
 `;
 
@@ -71,6 +72,8 @@ const Year = styled.div`
 const ChatButtonContainer = styled.div`
   display: flex;
   gap: 30px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ExitButton = styled(LogoutIcon)`
