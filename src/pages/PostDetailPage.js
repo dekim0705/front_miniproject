@@ -59,6 +59,7 @@ const PostDetailPage = () => {
     const fetchPostDetail = async () => {
       const response = await boardAxiosApi.requestPostDetail(postNum);
       setPostDetail(response[0]);
+      setShowEditButton(userNickname && response[0] && response[0].nickname === userNickname);
     };
     const increaseViews = async () => {
       await boardAxiosApi.increaseViews(postNum);
@@ -68,19 +69,7 @@ const PostDetailPage = () => {
     fetchPostDetail();
     fetchReply();
     increaseViews();
-  }, [postNum, fetchReply]);
-
-  useEffect(() => {
-    console.log("User nickname:", userNickname);
-    console.log("Post detail nickname:", postDetail.nickname);
-
-    if (userNickname && postDetail && postDetail.nickname) {
-      setShowEditButton(true);
-    } else {
-      setShowEditButton(false);
-    }
-  }, [userNickname, postDetail]);
-
+  }, [postNum, fetchReply, userNickname]);
 
 
   return (
