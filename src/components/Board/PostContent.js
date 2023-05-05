@@ -38,12 +38,12 @@ const StyledImg =  styled.img`
 `;
 
 
-const Content = ({ content }) => {
+const Content = ({ content,imgUrl }) => {
   return content && (
     <Wrapper>
       <Board>
       <div dangerouslySetInnerHTML={{ __html: content }}></div>
-        {content.imgUrl && <StyledImg src={content.imgUrl} alt="첨부 이미지" />}
+        {imgUrl && <StyledImg src={imgUrl} alt="첨부 이미지" />}
       </Board>
     </Wrapper>
   );

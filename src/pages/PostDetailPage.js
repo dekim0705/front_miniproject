@@ -92,7 +92,7 @@ const PostDetailPage = () => {
         <Wrapper>
         <BoardWrapper>
           <PostInfo postDetail={postDetail} />
-          <Content content={postDetail && postDetail.content} />
+          <Content content={postDetail && postDetail.content} imgUrl={postDetail && postDetail.imgUrl} />
           <TagListWrapper>
           <TagList tags={postDetail && postDetail.tag} />
             <LikeButton />
