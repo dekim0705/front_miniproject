@@ -87,7 +87,7 @@ const StyledPopUp = styled.div`
   }
 `;
 
-const PopUp = (props) => {
+const ChatPopUp = (props) => {
 
   const {open, confirm, close, typeExit, header, children} = props;
 
@@ -114,4 +114,4 @@ const PopUp = (props) => {
   );
 }
 
-export default PopUp;
+export default ChatPopUp;

@@ -21,6 +21,7 @@ const formatTimestamp = (timestamp) => {
 };
 
 const ChatRoomContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,7 +32,7 @@ const ChatRoomContainer = styled.div`
   padding: 20px 20px 20px 20px;
   border-radius: 30px;
   @media screen and (max-width: 768px) {
-    margin: 0 10px;
+    width: 90%;
   }
 `;
 
@@ -287,7 +288,6 @@ const ChatRoom = () => {
           style={{ color: "4E5968" }}
           onClick={toggleDrawer("right", true)}
         />
-        <ChatDrawer drawerState={drawerState} toggleDrawer={toggleDrawer} />
       </ChatUserContainer>
       <ChatViewContainer>
         {messages.map((m, index) => (
@@ -323,6 +323,7 @@ const ChatRoom = () => {
         <CodeBlock sx={{ fontSize: "2rem" }} />
         <SendButton sx={{ fontSize: "1.5rem" }} onClick={handleSendMessage} />
       </ChatInputContainer>
+      <ChatDrawer drawerState={drawerState} toggleDrawer={toggleDrawer} />
     </ChatRoomContainer>
   );
 };

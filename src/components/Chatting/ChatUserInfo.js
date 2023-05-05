@@ -19,7 +19,7 @@ const ChatUserInfoContainer = styled.div`
   padding: 20px;
   overflow-y: auto;
   @media screen and (max-width: 768px) {
-    display: none;
+    width: 90%;
   }
 `;
 
