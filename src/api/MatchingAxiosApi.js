@@ -24,6 +24,14 @@ const MatchingAxiosApi = {
       menteeEmail : menteeEmail
     };
     return await axios.post(KH_DOMAIN + "/mentee", menteeInfo);
+  },
+
+  // 🙏 매칭 되어있는지 확인 요청
+  isMatched: async(memberNum) => {
+    const data = {
+      memberNum : memberNum
+    };
+    return await axios.post(KH_DOMAIN + "/checkUserMatched", data);
   }
 };
 

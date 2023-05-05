@@ -134,9 +134,8 @@ const SendButton = styled(SendIcon)`
 `;
 
 const ChatRoom = () => {
-  const { chatNumber, chatRoom, chatMessages } = useContext(ChatContext);
-  const { menteeNum, mentorNum, mentorNickname, mentorPfImg, userNum } =
-    useContext(UserContext);
+  const { chatRoom, chatMessages, setOtherUserPfImg, setOtherUserNickname, otherUserNickname, otherUserPfImg, setOtherUserNumber, otherUserNumber } = useContext(ChatContext);
+  const { userNum } = useContext(UserContext);
   const [client, setClient] = useState(null);
 
   useEffect(() => {
@@ -179,6 +178,15 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
+  // 📍 채팅방 회원 정보 가져오기
+  useEffect(() => {
+    const chatInfo = async (chatRoomNum) => {
+      const response = await ChatAxiosApi.chatRoomInfo(chatRoomNum);
+      setOtherUserNumber(response.data[0].mentor === userNum ? response.data[0].mentee : response.data[0].mentor);
+    };
+    chatInfo(chatRoom);
+  }, [chatRoom, userNum, setOtherUserNumber]);
+
   // 📍 채팅 메시지 정보 가져오기
   useEffect(() => {
     const chatMessages = async (chatRoomNum) => {
@@ -198,26 +206,26 @@ const ChatRoom = () => {
   )?.senderId || chatMessages.find(
     (message) => message.receiverId !== userNum
   )?.receiverId;
+
+  console.log(otherUserId);
   
   // 📍 채팅 상대 프로필 사진
-  const [otherUserPfImg, setOtherUserPfImg] = useState(""); 
   useEffect(() => {
     const userPfImgNum = async (memberNum) => {
       const response = await MainAxiosApi.userPfImgByNum(memberNum);
       setOtherUserPfImg(response.data);
     };
-    userPfImgNum(otherUserId);
-  },[otherUserId]);
+    userPfImgNum(otherUserNumber);
+  },[setOtherUserPfImg, otherUserNumber]);
 
   // 📍 채팅 상대 닉네임
-  const [otherUserNickname, setOtherUserNickname] = useState("");
   useEffect(() => {
     const userNicknameNum = async (memberNum) => {
       const response = await MainAxiosApi.userNicknameByNum(memberNum);
       setOtherUserNickname(response.data);
     };
-    userNicknameNum(otherUserId);
-  }, [otherUserId]);
+    userNicknameNum(otherUserNumber);
+  }, [setOtherUserNickname, otherUserNumber]);
 
   const handleSendMessage = async () => {
     if (inputMessage === "") {
@@ -227,7 +235,7 @@ const ChatRoom = () => {
     const newMessage = {
       chatNumber: chatRoom,
       senderId: userNum,
-      receiverId: otherUserId,
+      receiverId: otherUserNumber,
       message: inputMessage,
       isRead: 'N',
       createdAt: new Date()
@@ -237,7 +245,7 @@ const ChatRoom = () => {
       await ChatAxiosApi.sendChatMessage(
         chatRoom,
         userNum,
-        otherUserId,
+        otherUserNumber,
         inputMessage,
         "",
         0,

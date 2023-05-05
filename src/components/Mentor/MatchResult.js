@@ -86,7 +86,6 @@ const Button = styled.a`
   background: ${props => props.lightBlue ? '#3B74EC' : ''};
   box-shadow: ${props => props.push && props.lightBlue ? '0px 8px 0px 0px #002E96' : ''};
   font-size: 2em;
-
   &:hover {
     margin-top: 15px;
     margin-bottom: 5px;

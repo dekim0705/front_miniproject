@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import LogoutIcon from '@mui/icons-material/Logout';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
+import { ChatContext } from '../../context/ChatInfo';
 
 const ChatUserInfoContainer = styled.div`
   display: flex;
@@ -96,7 +97,9 @@ const ExitButton = styled(LogoutIcon)`
   cursor: pointer;
 `;
 
-export const ChatUserInfo = () => {
+const ChatUserInfo = () => {
+  const { otherUserNumber } = useContext(ChatContext);
+
   return (
       <ChatUserInfoContainer>
         <DetailContainer>

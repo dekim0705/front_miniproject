@@ -6,6 +6,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
+import { getPath } from '../util/getPath';
+import useCheckUserMatched from "../util/useCheckUserMatched";
 
 const StyledNavbar = styled.div`
   @media screen and (min-width: 769px) {
@@ -14,7 +16,7 @@ const StyledNavbar = styled.div`
 `;
 
 const getOptions = (mentorPath) => [
-  { path: mentorPath, text: "멘토찾기" },
+  { path: "/mentor", text: "멘토찾기" },
   { path: "/information/1", text: "정보 공유" },
   { path: "/portfolio/1", text: "포트폴리오" },
   { path: "/worker/1", text: "직장인" },
@@ -26,10 +28,13 @@ const getOptions = (mentorPath) => [
 const ITEM_HEIGHT = 48;
 
 const Navbar = () => {
-  const { userNum, matchNum } = useContext(UserContext);
-  const mentorPath = matchNum.includes(userNum) ? '/chat' : '/mentor';
+  const { userNum } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const isMatched = useCheckUserMatched(userNum);
+  const mentorPath = getPath("/mentor", isMatched);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
