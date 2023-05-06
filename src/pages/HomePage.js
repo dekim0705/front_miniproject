@@ -23,10 +23,10 @@ const HomePage = () => {
       <Header />
       <Main />
       <BoardContainer>
-        <Board name="정보공유" category="information" />
+        <Board name="Q&A" category="qna" />
+        <Board name="정보 공유" category="information" />
         <Board name="포트폴리오" category="portfolio" />
         <Board name="베스트" category="best" />
-        <Board name="Q&A" category="qna" />
       </BoardContainer>
       <Footer />
       <WriteButton />

@@ -36,14 +36,15 @@ const Board = ({ name, category }) => {
     const fetchLatestPosts = async () => {
       try {
         const boardNum = {
-          information: 1,
-          portfolio: 2,
-          best: 3,
-          qna: 4
+          qna: 1,
+          information: 2,
+          portfolio: 4,
+          best: 5
         }[category];
 
         const response = await MainAxiosApi.latestPosts(boardNum);
         setPosts(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("😱"+category, error);
       }
