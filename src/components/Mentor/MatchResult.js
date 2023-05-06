@@ -115,7 +115,6 @@ const MatchResult = () => {
   const saveChatRoom = async() => {
     try {
       const response = await ChatAxiosApi.saveChatRoom(mentorNum, menteeNum);
-      console.log(response.data);
       setChatNumber(response.data);
     } catch (error) {
       console.log(error);

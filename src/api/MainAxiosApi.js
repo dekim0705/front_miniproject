@@ -56,24 +56,9 @@ const MainAxiosApi = {
     return await axios.get(KH_DOMAIN + "/post/count");
   },
 
-  // ✅ 정보공유 게시판 최근 게시글 5개 요청
-  latest5InformationPosts : async() => {
-    return await axios.get(KH_DOMAIN + "/post/information-latest-5");
-  },
-
-  // ✅ 포트폴리오 게시판 최근 게시글 5개 요청
-  latest5PortfolioPosts : async() => {
-    return await axios.get(KH_DOMAIN + "/post/portfolio-latest-5");
-  },
-
-  // ✅ 베스트 게시판 최근 게시글 5개 요청
-  latest5BestPosts : async() => {
-    return await axios.get(KH_DOMAIN + "/post/best-latest-5");
-  },
-
-  // ✅ Q&A 게시판 최근 게시글 5개 요청
-  latest5QnAPosts : async() => {
-    return await axios.get(KH_DOMAIN + "/post/qna-latest-5");
+  // ✅ 각 게시판 별 최근 게시글 5개 요청
+  latestPosts: async(boardNum) => {
+    return await axios.get(KH_DOMAIN + `/post/latest/${boardNum}`);
   }
 };
 

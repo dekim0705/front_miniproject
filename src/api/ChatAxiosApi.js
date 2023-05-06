@@ -54,12 +54,12 @@ const ChatAxiosApi = {
     return await axios.get(KH_DOMAIN + `/chat/${memberNum}/details`);
   },
 
-  // 📩 대화 종료 -> 대화방 삭제
+  // ✅ 대화 종료 -> 대화방 삭제
   deleteChatRoom: async (chatNum) => {
     return await axios.delete(KH_DOMAIN + `/chat`, { params: { chatNum }});
   },
 
-  // 📩 대화 종료 -> 채팅 메시지 삭제
+  // ✅ 대화 종료 -> 채팅 메시지 삭제
   deleteChatMessages: async (chatNum) => {
     return await axios.delete(KH_DOMAIN + `/chat/messages`, { params: { chatNum }});
   },

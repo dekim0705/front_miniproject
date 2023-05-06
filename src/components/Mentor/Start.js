@@ -82,7 +82,6 @@ const Start = () => {
       try {
         const response = await MatchingAxiosApi.menteeMemberNum(userEmail);
         setUserMemberNum(response.data);
-        console.log("멘티 회원 정보 : " + response.data);
       } catch (error) {
         navigate('resultFail');
         console.log("멘티 회원정보 가져오기 오류 🥹", error);
@@ -100,9 +99,7 @@ const Start = () => {
       try {
         const menteeMemberNum = userMemberNum;
         const response = await MatchingAxiosApi.mentorInfo(menteeMemberNum);
-        console.log(response.data);
         const response2 = await MatchingAxiosApi.menteeInfo(userEmail);
-        console.log(response2.data);
   
         // 🚀 2. 서버에서 가져온 정보 UserContext, ChatContext에 저장
         setMentorNickname(response.data[0].nickname);

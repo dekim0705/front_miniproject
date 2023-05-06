@@ -35,23 +35,14 @@ const Board = ({ name, category }) => {
   useEffect(() => {
     const fetchLatestPosts = async () => {
       try {
-        let response;
-        switch (category) {
-          case 'information':
-            response = await MainAxiosApi.latest5InformationPosts();
-            break;
-          case 'portfolio':
-            response = await MainAxiosApi.latest5PortfolioPosts();
-            break;
-          case 'best':
-            response = await MainAxiosApi.latest5BestPosts();
-            break;
-          case 'qna':
-            response = await MainAxiosApi.latest5QnAPosts();
-            break;
-          default:
-            throw new Error(category);
-        }
+        const boardNum = {
+          information: 1,
+          portfolio: 2,
+          best: 3,
+          qna: 4
+        }[category];
+
+        const response = await MainAxiosApi.latestPosts(boardNum);
         setPosts(response.data);
       } catch (error) {
         console.error("😱"+category, error);

@@ -8,7 +8,7 @@ const FooterContainer = styled.footer`
   color: #616161;
 `;
 
-const Sitemap = styled.li`
+const Sitemap = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
