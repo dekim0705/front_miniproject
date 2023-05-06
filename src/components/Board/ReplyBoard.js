@@ -22,7 +22,7 @@ const ReplyBoard = ({ postNum, reply = [], fetchReply}) => {
       <CommentListTitle> {commentCount}개의 댓글 </CommentListTitle>
       <ReplyForm postNum={postNum} fetchReply={fetchReply} />
       {reply.map((reply) => (
-        <CommentItem key={reply.nickname} reply={reply} />
+        <CommentItem key={reply.nickname} reply={reply} fetchReply={fetchReply} />
       ))}
     </CommentListWrapper>
   );
