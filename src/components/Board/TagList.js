@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const TagListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding : 23px;
+  gap: ${({ searchPage }) => (searchPage ? '5px' : '0')};
+  padding: ${({ searchPage }) => (searchPage ? '0' : '23px')};
 `;
 
 const TagItem = styled.span`
@@ -19,11 +20,11 @@ const TagItem = styled.span`
 `;
 
 
-const TagList = ({ tags }) => {
+const TagList = ({ tags, searchPage }) => {
   const tagArray = tags ? tags.split(' ') : [''];
 
   return (
-    <TagListWrapper>
+    <TagListWrapper searchPage={searchPage}>
       {tagArray.map((tag, index) => (
         <TagItem key={index}>{tag}</TagItem>
       ))}

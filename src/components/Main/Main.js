@@ -78,6 +78,12 @@ const Main = () => {
     }
   };
 
+  const handleKeyDown = e => {
+    if (e.key === "Enter") {
+      handleSearchInconClick();
+    }
+  }
+
   return (
       <StyledMainContainer>
       <WelcomeMessage />
@@ -87,6 +93,7 @@ const Main = () => {
           className="search-bar"
           value={searchInput}
           onChange={handleSearchInputChange}
+          onKeyDown={handleKeyDown}
         />
         <SearchIcon
           style={{fontSize: 50}}
