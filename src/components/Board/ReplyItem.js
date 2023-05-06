@@ -1,7 +1,14 @@
-import React from 'react';
+import React,{useContext, useState} from 'react';
 import styled from 'styled-components';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { UserContext } from '../../context/UserInfo';
+import EditPopUp from '../../util/EditPopUp';
+import boardAxiosApi from '../../api/BoardAxiosApi';
+import TextField from '@mui/material/TextField';
+import SaveIcon from '@mui/icons-material/Save';
+
+
 
 const CommentItemWrapper = styled.div`
   display: flex;
@@ -38,6 +45,17 @@ const CommentItemContent = styled.span`
   height: 50px;
   font-size: 0.9rem;
 `;
+
+const StyledTextField = styled(TextField)`
+  .MuiOutlinedInput-root {
+    border-radius: 15px;
+    font-size: 0.9rem;
+    margin-top : 5px;
+    padding: 15px;
+
+  }
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -57,33 +75,94 @@ const Button = styled.button`
 `;
 
 
-const CommentItem = ({ reply ,currentUser }) => {
-  const isMyComment = currentUser && currentUser.nickname === reply.nickname;
+const CommentItem = ({ reply ,fetchReply}) => {
+  const context = useContext(UserContext);
+  const { userNickname } = context;
+  const [popUpOpen, setPopUpOpen] = useState(false);
+  const [deletePopUpOpen, setDeletePopUpOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [replyContent, setReplyContent] = useState(reply.replyContent);
 
-  const handleDelete = () => {
-    console.log('삭제버튼을 누름');
+  const isMyComment = userNickname === reply.nickname;
+
+  const handleDelete = async () => {
+    try {
+      await boardAxiosApi.deleteReply(reply.replyNum);
+      console.log(reply);
+      setDeletePopUpOpen(false);
+      setPopUpOpen(true);
+      await fetchReply();
+  } catch (error) {
+    console.error('댓글 삭제 실패:', error);
+  }
   };
 
-  const handleEdit = () => {
-    console.log('수정버튼을 누름');
+  const handleEdit = async () => {
+    try {
+      await boardAxiosApi.updateReply(reply.replyNum, replyContent);
+      console.log('댓글 수정 성공');
+      setIsEditMode(false);
+      await fetchReply();
+    } catch (error) {
+      console.error('댓글 수정 실패:', error);
+    }
   };
 
+  const handleEditClick = () => {
+    setIsEditMode(true);
+    setReplyContent(reply.replyContent);
+    
+  };
+  
+
+  const handleDeltetPopUp = () => {
+    setDeletePopUpOpen(true);
+  };
+
+  
+  const handleReplyChange = (e) => {
+    setReplyContent(e.target.value );
+  };
+  
+  
   return (
     <CommentItemWrapper>
       <CommentItemImg src={reply.pfImg} />
       <CommentItemContentWrapper>
         <CommentItemAuthor>{reply.nickname}</CommentItemAuthor>
-        <CommentItemContent>{reply.replyContent}</CommentItemContent>
+        {isEditMode ? (
+          <StyledTextField
+          multiline
+          rows={2.5}
+          fullWidth
+          variant="outlined"
+          value={replyContent}
+          onChange={handleReplyChange}
+        />
+    ) : (
+        <CommentItemContent>{reply.replyContent}</CommentItemContent> )}
         {isMyComment && (
           <ButtonWrapper>
-            <Button onClick={handleEdit}>
+             {isEditMode ? (
+                <Button onClick={handleEdit}>
+                  <SaveIcon style={{ color: '#707070' }} />
+                </Button>
+            ) : (
+              <>
+            <Button onClick={handleEditClick}>
             <EditIcon style={{ color: '#707070' }}/>
             </Button>
-            <Button onClick={handleDelete}>
+            <Button onClick={handleDeltetPopUp}>
            <DeleteIcon style={{ color: '#707070' }}/>
             </Button>
+            </>
+            )}
             </ButtonWrapper>
              )}
+               <EditPopUp open={deletePopUpOpen} 
+              confirm={handleDelete}
+               close={handleDeltetPopUp}type="confirm" header="삭제">
+                <p>댓글을 삭제하시겠습니까?</p> </EditPopUp>
       </CommentItemContentWrapper>
     </CommentItemWrapper>
   );
