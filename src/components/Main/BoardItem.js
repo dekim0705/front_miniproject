@@ -30,7 +30,10 @@ const UserInfo = styled.div`
 
 const PostInfo = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
+  color: #696969;
+  font-size: 0.8em;
 `;
 
 const ViewCount = styled.div`
@@ -48,9 +51,36 @@ const ReplyCount = styled.div`
 const Title = styled.p`
   padding: 5px 0;
   margin: 0;
+  font-weight: bolder;
+`;
+
+const WriteDate = styled.div`
+  margin-left: 10px;
 `;
 
 const BoardItem = ({post}) => {
+  const formatter = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
+
+  const getRelativeTime = () => {
+    const currentDate = new Date();
+    const postDate = new Date(post.writeDate);
+
+    const seconds = Math.floor((currentDate - postDate) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return formatter.format(-days, "day");
+    } else if (hours > 0) {
+      return formatter.format(-hours, "hour");
+    } else if (minutes > 0) {
+      return formatter.format(-minutes, "minute");
+    } else {
+      return formatter.format(-seconds, "second");
+    }
+  };
+
   return (
     <BoardItemContainer to={`/post/${post.postNum}`}>
       <BoardItem1>
@@ -66,14 +96,15 @@ const BoardItem = ({post}) => {
             }}
           />
           {post.nickname}
+          <WriteDate>‣ {getRelativeTime()}</WriteDate>
         </UserInfo>
         <PostInfo>
           <ViewCount>
-            <VisibilityIcon />
+            <VisibilityIcon sx={{ fontSize: "1rem" }} />
             <p>{post.viewCount}</p>
           </ViewCount>
           <ReplyCount>
-            <TextsmsIcon />
+            <TextsmsIcon sx={{ fontSize: "1rem" }} />
             <p>{post.commentCount}</p>
           </ReplyCount>
         </PostInfo>

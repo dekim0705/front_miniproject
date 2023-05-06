@@ -115,8 +115,6 @@ const Login = () => {
   };
 
   const onClickLogin = async () => {
-    console.log(inputEmail);
-    console.log(inputPwd);
     try {
     const response = await AccountAxiosApi.loginMember(inputEmail, inputPwd);
     if (response.data === true) {
@@ -205,7 +203,7 @@ const Login = () => {
         <div>
           {isEmail && isPwd ? (
             <Button
-              className="enable_button"
+              className={isEmail && isPwd ? "enable_button" : "disable_button"}
               type="button"
               onClick={onClickLogin}
               variant="contained"
