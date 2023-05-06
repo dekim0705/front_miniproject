@@ -49,7 +49,7 @@ const ReplyContent = styled.p`
   font-weight: bold;
   font-size: 0.9rem;
   margin-top: 10px;
-  width: 60%;
+  width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; 
@@ -66,10 +66,6 @@ const ExtraInfo = styled.p`
 const NoResult = styled.p`
   padding: 20%;
   font-size: 1.2rem;
-`;
-
-const PostTitle = styled.p`
-  font-size: 0.9rem;
 `;
 
 const MemberLatestReply = ({ userMemberNum }) => {
@@ -90,14 +86,14 @@ const MemberLatestReply = ({ userMemberNum }) => {
   return (
     <ParentContainer>
     <Title>내가 작성한 댓글</Title>
-    <StyledLink href='/mypage/myreply'><u>전체보기</u></StyledLink>
+    <StyledLink><Link to='/mypage/myreply'><u>전체보기</u></Link></StyledLink>
     {memberLatestReply.length === 0 ? (
       <NoResult style={{textAlign: "center"}}>😱작성된 댓글이 없습니다. </NoResult>
     ) : (
       <MyReplyContainer>
         {memberLatestReply.map((memberReply) => (
           <Link key={memberReply.postNum} to={`/post/${memberReply.postNum}`}>
-            <ReplyContent className='ellipsis'>{memberReply.replyContent}</ReplyContent>
+            <ReplyContent>{memberReply.replyContent}</ReplyContent>
             <ExtraInfo>
               <i>{memberReply.boardName} {memberReply.writeDate}</i>
             </ExtraInfo>

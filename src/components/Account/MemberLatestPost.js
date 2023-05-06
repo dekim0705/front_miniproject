@@ -21,7 +21,7 @@ const Title = styled.h3`
   margin-bottom: 10px;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled.span`
   position: absolute;
   font-size: 0.9rem;
   color: #1E2B4D;
@@ -45,33 +45,27 @@ const MyPostContainer = styled.div`
   }
 `;
 
-  const PostTitle = styled.p`
+const PostTitle = styled.p`
   font-weight: bold;
   font-size: 0.9rem;
   margin-top: 10px;
-  width: 60%;
+  width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; 
   &:hover {
     text-decoration: underline;
   }
-
-
   `;
 
-  const ExtraInfo = styled.p`
-    text-align: end;
-    font-size: 0.8rem;
-  `;
+const ExtraInfo = styled.p`
+  text-align: end;
+  font-size: 0.8rem;
+`;
   
 const NoResult = styled.p`
   padding: 20%;
   font-size: 1.2rem;
-`;
-
-const PostContent = styled.p`
-font-size: 0.9rem;
 `;
 
 const MemberLatestPost= ({ userMemberNum }) => {
@@ -93,15 +87,14 @@ const MemberLatestPost= ({ userMemberNum }) => {
   return (
       <ParentContainer>
       <Title>내가 작성한 글</Title>
-      <StyledLink href='/mypage/mypost'><u>전체보기</u></StyledLink>
+      <StyledLink><Link to='/mypage/mypost'>전체보기</Link></StyledLink>
       {memberLatestPost.length === 0 ? (
         <NoResult style={{textAlign: "center"}}>😱작성된 글이 없습니다. </NoResult>
       ) : (
         <MyPostContainer>
         {memberLatestPost.map((memberPost) => (
         <Link key={memberPost.postNum} to={`/post/${memberPost.postNum}`}>
-          <PostTitle className='ellipsis'>{memberPost.postTitle}</PostTitle>
-          {/* <PostContent>{memberPost.postContent}</PostContent> */}
+          <PostTitle>{memberPost.postTitle}</PostTitle>
           <ExtraInfo>
             <i>{memberPost.boardName} {memberPost.writeDate}</i>
           </ExtraInfo>
