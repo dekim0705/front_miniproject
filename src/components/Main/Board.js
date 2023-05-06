@@ -44,7 +44,6 @@ const Board = ({ name, category }) => {
 
         const response = await MainAxiosApi.latestPosts(boardNum);
         setPosts(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("😱"+category, error);
       }

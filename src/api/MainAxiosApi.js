@@ -51,7 +51,7 @@ const MainAxiosApi = {
     return await axios.get(KH_DOMAIN + "/post/portfolio-count");
   },
   
-  // ✅ 포트폴리오 글 갯수 요청
+  // ✅ 총 글 갯수 요청
   totalPostCount : async() => {
     return await axios.get(KH_DOMAIN + "/post/count");
   },
@@ -59,6 +59,11 @@ const MainAxiosApi = {
   // ✅ 각 게시판 별 최근 게시글 5개 요청
   latestPosts: async(boardNum) => {
     return await axios.get(KH_DOMAIN + `/post/latest/${boardNum}`);
+  },
+
+  // 📍 제목, 본문, 태그 검색 결과 요청
+  mainSearch: async(keyword) => {
+    return await axios.get(KH_DOMAIN + `/main/search?keyword=${keyword}`);
   }
 };
 

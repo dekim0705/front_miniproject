@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import { UserContext } from "../context/UserInfo";
-import { Route, Routes } from "react-router-dom";
 import Header from "../components/Header";
 import Start from "../components/Mentor/Start";
 import Loading from "../components/Mentor/Loading";

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 import WelcomeMessage from './WelcomeMessage';
@@ -6,6 +7,8 @@ import NewPostCnt from './NewPostCnt';
 import NewReplyCnt from './NewReplyCnt';
 import PortfolioCnt from './PortfolioCnt';
 import TotalPostCnt from './TotalPostCnt';
+import MainAxiosApi from '../../api/MainAxiosApi';
+import { SearchContext } from '../../context/SearchInfo';
 
 const ValueContainer = styled.div`
   display: flex;
@@ -59,12 +62,36 @@ const StyledMainContainer = styled.div`
 `;
 
 const Main = () => {
+  const [searchInput, setSearchInput] = useState('');
+  const { setResultData } = useContext(SearchContext);
+  const navigate = useNavigate();
+
+  const handleSearchInputChange = e => setSearchInput(e.target.value);
+
+  const handleSearchInconClick = async () => {
+    try {
+      const response = await MainAxiosApi.mainSearch(searchInput);
+      setResultData(response.data);
+      navigate(`/search?q=${searchInput}`);
+    } catch (error) {
+      console.error("검색 결과 없음" + error);
+    }
+  };
+
   return (
       <StyledMainContainer>
       <WelcomeMessage />
       <div className="search">
-        <input type="search" className="search-bar" />
-        <SearchIcon style={{fontSize: 50}} />
+        <input
+          type="search"
+          className="search-bar"
+          value={searchInput}
+          onChange={handleSearchInputChange}
+        />
+        <SearchIcon
+          style={{fontSize: 50}}
+          onClick={handleSearchInconClick}
+        />
       </div>
       <ValueContainer>
         <NewPostCnt />

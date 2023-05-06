@@ -14,10 +14,12 @@ import WritePage from './pages/WritePage';
 import PostDetailPage from './pages/PostDetailPage';
 import UserStore from './context/UserInfo';
 import ChatStore from './context/ChatInfo';
+import SearchStore from './context/SearchInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
 import EditPage from './pages/EditPage';
 import ResetPwdPage from './pages/ResetPwdPage';
+import SearchResultPage from './pages/SearchResultPage';
 
 function App() {
   
@@ -25,26 +27,29 @@ function App() {
   return (
     <UserStore>
       <ChatStore>
-        <Router>
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/mentor/*' element={<MentorPage />}></Route>
-            <Route path='/information/:pageNum' element={<InformationPage />}></Route>
-            <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
-            <Route path='/worker/:pageNum' element={<WorkerPage />} />
-            <Route path='/best/:pageNum' element={<BestPage />}></Route>
-            <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
-            <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/findaccount' element={<FindAccountPage />}></Route>
-            <Route path='/resetpassword' element={<ResetPwdPage />}></Route>
-            <Route path='/join/*' element={<JoinPage />}></Route>
-            <Route path='/write' element={<WritePage />}></Route>
-            <Route path="/edit/:postNum" element={<EditPage />} />
-            <Route path='/mypage' element={<MyProfilePage />}></Route>
-            <Route path='/chat' element={<ChatPage />}></Route>
-            <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
-          </Routes>
-        </Router>
+        <SearchStore>
+          <Router>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/mentor/*' element={<MentorPage />}></Route>
+              <Route path='/information/:pageNum' element={<InformationPage />}></Route>
+              <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
+              <Route path='/worker/:pageNum' element={<WorkerPage />} />
+              <Route path='/best/:pageNum' element={<BestPage />}></Route>
+              <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
+              <Route path='/login' element={<LoginPage />}></Route>
+              <Route path='/findaccount' element={<FindAccountPage />}></Route>
+              <Route path='/resetpassword' element={<ResetPwdPage />}></Route>
+              <Route path='/join/*' element={<JoinPage />}></Route>
+              <Route path='/write' element={<WritePage />}></Route>
+              <Route path="/edit/:postNum" element={<EditPage />} />
+              <Route path='/mypage' element={<MyProfilePage />}></Route>
+              <Route path='/chat' element={<ChatPage />}></Route>
+              <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
+              <Route path='/search' element={<SearchResultPage />}></Route>
+            </Routes>
+          </Router>
+        </SearchStore>
       </ChatStore>
     </UserStore>
   );
