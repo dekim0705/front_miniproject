@@ -43,7 +43,7 @@ function App() {
               <Route path='/join/*' element={<JoinPage />}></Route>
               <Route path='/write' element={<WritePage />}></Route>
               <Route path="/edit/:postNum" element={<EditPage />} />
-              <Route path='/mypage' element={<MyProfilePage />}></Route>
+              <Route path='/mypage/*' element={<MyProfilePage />}></Route>
               <Route path='/chat' element={<ChatPage />}></Route>
               <Route path='/post/:postNum' element={<PostDetailPage />}></Route>
               <Route path='/search' element={<SearchResultPage />}></Route>

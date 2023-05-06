@@ -73,9 +73,55 @@ const AccountAxiosApi = {
       console.log("🤦🏻‍♀️ 회원 최근 댓글 5개 조회 실패 : ", error);
       return{};
     }
+  },
+
+  // ✅ 내 모든 게시글 호출
+  getMemberAllPost: async(memberNum) => {
+    try{
+      const response = await axios.get(KH_DOMAIN + `/mypage/my-all-post?memberNum=${memberNum}`)
+      return response.data;
+    } catch (error) {
+      console.log("🤦🏻‍♀️ 회원의 모든 게시글 조회 실패 : ", error);
+      return{};
+    }
+  },
+  
+  // ✅ 내 모든 댓글 호출
+  getMemberAllReply: async(memberNum) => {
+    try{
+      const response = await axios.get(KH_DOMAIN + `/mypage/my-all-reply?memberNum=${memberNum}`)
+      console.log(response)
+      return response.data;
+    } catch (error) {
+      console.log("🤦🏻‍♀️ 회원의 모든 댓글 조회 실패 : ", error);
+      return{};
+    }
+  },
+
+  // ✅ 내 게시글 (다중)삭제
+  deleteMyPost: async (postNums) => {
+    return await axios.delete(KH_DOMAIN + `/mypage/mypost`, {
+      headers: {
+        'Content-Type': 'application/json' // 요청 본문의 데이터 타입 설정
+      },
+      data: postNums // 배열 전달
+    });
+  },
+
+    // ✅ 내 댓글 (다중)삭제
+    deleteMyReply: async (replyNums) => {
+      return await axios.delete(KH_DOMAIN + `/mypage/myreply`, {
+        headers: {
+          'Content-Type': 'application/json' // 요청 본문의 데이터 타입 설정
+        },
+        data: replyNums // 배열 전달
+      });
   }
+  
+
 
 
 };
+
 
 export default AccountAxiosApi;

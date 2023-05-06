@@ -159,7 +159,7 @@ const MemberInformation = ({ userMemberNum }) => {
             <Content>Since {info.regDate}</Content>
             <Content>{info.email}</Content>
             <Content>
-            {info.job}{info.year !== 0 && `/ ${info.year}년차`}
+            {info.job}{info.year !== 0 && `   ${info.year}년차`}
             </Content>
           </MemberInfoContainer>
         </MemberInfoContainer>
