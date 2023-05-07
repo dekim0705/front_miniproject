@@ -10,6 +10,7 @@ import { ChatContext } from "../../context/ChatInfo";
 import { UserContext } from "../../context/UserInfo";
 import MainAxiosApi from "../../api/MainAxiosApi";
 import ChatDrawer from "./ChatDrawer";
+import CodeBlockItem from "./CodeBlockItem";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
@@ -137,7 +138,65 @@ const SendButton = styled(SendIcon)`
 `;
 
 const ChatRoom = () => {
-  // 📍 Drawer 테스트
+  // 💙 코드 블럭 관련 상태 정의
+  const [showCodeInput, setShowCodeInput] = useState(false);
+  const [codeBlockInput, setCodeBlockInput] = useState("");
+  const [selectLanguage, setSelectLanguage] = useState("javascript");
+  // 💙 CodeBlock 버튼 클릭 -> 입력창
+  const handleCodeBlockButtonClick = () => {
+    setShowCodeInput(!showCodeInput);
+  };
+  // 💙 코드 메시지 렌더링
+  const renderMessage = (messageType, message, codeMessage) => {
+    if (messageType === 1) { // 코드 블럭
+      const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
+      const parsedCodeBlock = codeMessage.match(codeBlockRegex);
+      const language = parsedCodeBlock[1];
+      const code = parsedCodeBlock[2];
+      return <CodeBlockItem code={code} language={language} />;
+    }
+    // 일반 메시지
+    return message;
+  };
+  
+  // 💙 코드 블럭 전송
+  const handleSendCodeBlock = async () => {
+    if (codeBlockInput === "") {
+      return;
+    }
+    const codeBlockMessage = `\`\`\`${selectLanguage}\n${codeBlockInput}\n\`\`\``;
+
+    const newMessage = {
+      chatNumber: chatRoom,
+      senderId: userNum,
+      receiverId: otherUserNumber,
+      message: codeBlockMessage,
+      isRead: 'N',
+      createdAt: new Date()
+    };
+
+    try {
+      await ChatAxiosApi.sendChatMessage(
+        chatRoom,
+        userNum,
+        otherUserNumber,
+        "",
+        codeBlockMessage,
+        1,
+        new Date(),
+        'Y'
+      );
+      setMessages([...messages, newMessage]);
+      setCodeBlockInput("");
+    } catch (error) {
+      console.log("코드 블럭 에러" + error);
+    }
+
+    setShowCodeInput(false);
+  }
+
+
+  // ✅ Drawer 테스트
   const [drawerState, setDrawerState] = useState({ right: false });
   const toggleDrawer = (anchor, open) => e => {
     if(e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
@@ -190,7 +249,7 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
-  // 📍 채팅방 회원 정보 가져오기
+  // ✅ 채팅방 회원 정보 가져오기
   useEffect(() => {
     const chatInfo = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatRoomInfo(chatRoomNum);
@@ -199,11 +258,12 @@ const ChatRoom = () => {
     chatInfo(chatRoom);
   }, [chatRoom, userNum, setOtherUserNumber]);
 
-  // 📍 채팅 메시지 정보 가져오기
+  // ✅ 채팅 메시지 정보 가져오기
   useEffect(() => {
     const chatMessages = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setMessages(response.data);
+      console.log(response.data);
     };
     chatMessages(chatRoom);
   }, [chatRoom]);
@@ -212,7 +272,7 @@ const ChatRoom = () => {
     setInputMessage(e.target.value);
   };
 
-  // 📍 채팅 상대 회원 번호
+  // ✅ 채팅 상대 회원 번호
   const otherUserId = chatMessages.find(
     (message) => message.senderId !== userNum
   )?.senderId || chatMessages.find(
@@ -221,7 +281,7 @@ const ChatRoom = () => {
 
   console.log(otherUserId);
   
-  // 📍 채팅 상대 프로필 사진
+  // ✅ 채팅 상대 프로필 사진
   useEffect(() => {
     const userPfImgNum = async (memberNum) => {
       const response = await MainAxiosApi.userPfImgByNum(memberNum);
@@ -230,7 +290,7 @@ const ChatRoom = () => {
     userPfImgNum(otherUserNumber);
   },[setOtherUserPfImg, otherUserNumber]);
 
-  // 📍 채팅 상대 닉네임
+  // ✅ 채팅 상대 닉네임
   useEffect(() => {
     const userNicknameNum = async (memberNum) => {
       const response = await MainAxiosApi.userNicknameByNum(memberNum);
@@ -295,7 +355,7 @@ const ChatRoom = () => {
           <MessageContainer key={index}>
             {m.senderId === userNum ? (
               <>
-                <MeMessage>{m.message}</MeMessage>
+                <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</MeMessage>
                 <SenderMessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
@@ -303,7 +363,7 @@ const ChatRoom = () => {
               </>
             ) : (
               <>
-                <OtherUserMessage>{m.message}</OtherUserMessage>
+                <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</OtherUserMessage>
                 <MessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
@@ -321,8 +381,28 @@ const ChatRoom = () => {
           value={inputMessage}
           onChange={handleInputChange}
         />
-        <CodeBlock sx={{ fontSize: "2rem" }} />
-        <SendButton sx={{ fontSize: "1.5rem" }} onClick={handleSendMessage} />
+        <CodeBlock 
+          sx={{ fontSize: "2rem" }}
+          onClick={handleCodeBlockButtonClick}  />
+        <SendButton 
+          sx={{ fontSize: "1.5rem" }} 
+          onClick={handleSendMessage} />
+        {showCodeInput && (
+          <>
+            <select
+              value={selectLanguage}
+              onChange={e => setSelectLanguage(e.target.value)}>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+              </select>
+              <textarea
+                value={codeBlockInput}
+                onChange={e => setCodeBlockInput(e.target.value)}
+                placeholder="코드를 입력하세요."></textarea>
+              <button onClick={handleSendCodeBlock}>코드 전송</button>
+          </>
+        )}
       </ChatInputContainer>
       <ChatDrawer drawerState={drawerState} toggleDrawer={toggleDrawer} />
     </ChatRoomContainer>
