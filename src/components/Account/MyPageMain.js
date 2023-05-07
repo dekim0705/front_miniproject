@@ -8,6 +8,7 @@ import MemberLatestPost from "./MemberLatestPost";
 import MemberLatestReply from "./MemberLatestReply";
 import MemberTotalPost from "./MemberTotalPost"
 import MemberTotalReply from './MemberTotalReply';
+import MemberEditInformation from './MemberEditInformation';
 
 
 const ParentContainer = styled.div`
@@ -68,6 +69,7 @@ const MyPage = () => {
               } />
               <Route path="mypost" element={<MemberTotalPost userMemberNum={userMemberNum} />} />
               <Route path="myreply" element={<MemberTotalReply userMemberNum={userMemberNum} />} />
+              <Route path="edit" element={<MemberEditInformation userMemberNum={userMemberNum} />} />
             </Routes>
           </ColumnContainer>
         </ParentContainer>

@@ -7,6 +7,8 @@ import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexRowWrapper, FlexColumnW
 import JoinButton from './JoinButton';
 import { TextField } from '@mui/material';
 import PopUp from '../../util/PopUp';
+import { MemberInfoContext } from "../../context/MemberInfo";
+import { useContext } from "react";
 
 const ResultField = styled.div`
   display: flex;
@@ -50,15 +52,16 @@ const StackName = styled.p`
 
 const NewMemberInfo2 = () => {
   const navigate = useNavigate();
+  const { memberInfo, setMemberInfo } = useContext(MemberInfoContext);
 
   // 직업&연차
-  const [inputJob, setInputJob] = useState("");
-  const [inputCareerYear, setInputCareerYear] = useState("");
+  const [inputJob, setInputJob] = useState(memberInfo.job || "");
+  const [inputCareerYear, setInputCareerYear] = useState(memberInfo.year || 0);
   const [careerYearDisabled, setCareerYearDisabled] = useState(true);
 
   // 기술스택 
   const [techStacks, setTechStacks] = useState([]);
-  const [selectedStacks, setSelectedStacks] = useState([]);
+  const [selectedStacks, setSelectedStacks] = useState(memberInfo.techStacks || []);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -79,7 +82,7 @@ const NewMemberInfo2 = () => {
       setCareerYearDisabled(false);
     } else {
       setCareerYearDisabled(true);
-      setInputCareerYear("");
+      // setInputCareerYear("");
     }
   }
   // 연차 선택
@@ -87,6 +90,7 @@ const NewMemberInfo2 = () => {
     setInputCareerYear(e.target.value);
     console.log(inputCareerYear);
   }
+  
 
   useEffect(() => {
     const fetchAllTechStacks = async () => {
@@ -135,16 +139,27 @@ const NewMemberInfo2 = () => {
     navigate('/join/step2');
   }
   // '다음' 버튼
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     if (inputJob && (careerYearDisabled || inputCareerYear) && selectedStacks.length >= 1) {
-      console.log('job:', inputJob);
-      console.log('year:', inputCareerYear);
-      console.log('techstacks:', selectedStacks)
-      navigate('/join/step4')
+      setMemberInfo((prevMemberInfo) => ({
+        ...prevMemberInfo,
+        job: inputJob,
+        year: inputCareerYear,
+        techStacks: selectedStacks.map(stackNum => ({ stackNum })),
+      }));
+      
+      try{
+        // 입력된 정보를 서버로 전송
+        await AccountAxiosApi.createMember(memberInfo.email, memberInfo.pwd, memberInfo.nickname, inputJob, inputCareerYear, selectedStacks.map(stackNum => ({ stackNum })));
+      } catch (error) {
+        console.log('회원가입 실패', error);
+      }
+      navigate('/join/step4');
     } else {
       console.log("모든 필드 입력 요망")
       setPopUpOpen(true);
-      setPopUpText("모든 필드를 입력!!!하세요!! 🥹")    }
+      setPopUpText("모든 필드를 입력!!!하세요!! 🥹")    
+    }
   };
   
 

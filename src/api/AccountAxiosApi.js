@@ -108,17 +108,45 @@ const AccountAxiosApi = {
     });
   },
 
-    // ✅ 내 댓글 (다중)삭제
-    deleteMyReply: async (replyNums) => {
-      return await axios.delete(KH_DOMAIN + `/mypage/myreply`, {
-        headers: {
-          'Content-Type': 'application/json' // 요청 본문의 데이터 타입 설정
-        },
-        data: replyNums // 배열 전달
-      });
-  }
+  // ✅ 내 댓글 (다중)삭제
+  deleteMyReply: async (replyNums) => {
+    return await axios.delete(KH_DOMAIN + `/mypage/myreply`, {
+      headers: {
+        'Content-Type': 'application/json' // 요청 본문의 데이터 타입 설정
+      },
+      data: replyNums // 배열 전달
+    });
+  },
   
+  // ✅ 회원가입
+  createMember: async(email, pwd, nickname, job, year, techStacks) => {
+    try {
+      const data = {
+        email : email,
+        pwd : pwd,
+        nickname : nickname,
+        job : job,
+        year : year,
+        techStacks : techStacks,
+      };
+      const response = await axios.post(KH_DOMAIN + "/signup", data);
+      return response.data;
+    } catch (error) {
+      console.log("🤦🏻‍♀️ 회원가입실패");
+      console.error(error);
+    }
+  },
 
+    // 마이페이지 수정용 내 정보 호출
+    getMemberCurrentInfo: async (memberNum) => {
+      try {
+        const response = await axios.get(KH_DOMAIN + `/mypage/edit?memberNum=${memberNum}`)
+        return response.data;
+      } catch (error) {
+        console.log("🤦🏻‍♀️ 수정용 회원 정보 조회 실패 : ", error);
+        return [];
+      }
+    },
 
 
 };

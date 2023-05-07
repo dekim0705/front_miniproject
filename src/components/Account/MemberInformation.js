@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import AccountAxiosApi from '../../api/AccountAxiosApi';
 import styled, { createGlobalStyle } from 'styled-components';
+import { Link } from 'react-router-dom';
+
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -172,7 +174,7 @@ const MemberInformation = ({ userMemberNum }) => {
             alt={techstack.stackName} />
         ))}
       </TechStackContainer>
-      <StyledLink href='/mypage/edit'>내 정보 수정</StyledLink>
+      <StyledLink><Link to='/mypage/edit'>내 정보 수정</Link></StyledLink>
     </ParentContainer>
   );
 };
