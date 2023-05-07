@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
 import Footer from "../components/Footer"
@@ -21,6 +21,9 @@ const Container = styled.div`
     margin: 0;
     box-sizing: border-box;
   }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const KeywordContainer = styled.div`
@@ -35,7 +38,7 @@ const KeywordContainer = styled.div`
 
 const ResultContainer = styled.div`
   border:1px solid #C6DEF7;
-  box-shadow: 1px 1px 1px #696969;
+  box-shadow: 1px 1px 1px #1E2B4D;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -45,6 +48,7 @@ const ResultContainer = styled.div`
   border-radius: 30px;
   gap: 5px;
   margin-bottom: 30px;
+  cursor: pointer;
 `;
 
 const UserInfoContainer = styled.div`
@@ -61,6 +65,10 @@ const PostInfoContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Post1stItem = styled.div`
@@ -84,6 +92,10 @@ const ThumbnailContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -94,6 +106,7 @@ const Content = styled.div`
 
 const SearchResultPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const searchInput = queryParams.get("q");
   const { resultData } = useContext(SearchContext);
@@ -103,11 +116,13 @@ const SearchResultPage = () => {
       <Header />
       <Container>
         <KeywordContainer>
-          <p>💙 검색 결과: </p>
+          <p>검색어 : </p>
           <h1>{searchInput}</h1>
         </KeywordContainer>
         {resultData.map((result) => (
-          <ResultContainer key={result.postNum}>
+          <ResultContainer 
+            key={result.postNum}
+            onClick={() => navigate(`/post/${result.postNum}`)}>
             <UserInfoContainer>
               <img
                 src={result.pfImg}
