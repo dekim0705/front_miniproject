@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import styled from "styled-components";
 import boardAxiosApi from "../../api/BoardAxiosApi";
+// import { useHistory } from 'react-router-dom';
+import { SearchContext } from '../../context/SearchInfo';
 
 const SearchContainer = styled.div`
   width: 50%;
@@ -25,7 +27,6 @@ const SearchContainer = styled.div`
  
   `;
   
-
   const SearchBar = styled.input`
   width : 50%;
   height: 40px;
@@ -49,31 +50,40 @@ const StyledSearchIcon = styled(SearchIcon)`
   cursor: pointer;
 `;
 
-const handleSearch = async (boardNum, pageNum, keyword) => {
-  try {
-    const response = await boardAxiosApi.searchPosts(boardNum, pageNum, keyword);
-    return response.data; // 검색 결과 반환
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-const SearchInput = ({ boardNum, pageNum }) => {
-  const [keyword, setKeyword] = useState('');
+const SearchInput = ({ boardName, pageNum, setResultData}) => {
+  const [keyword, setKeyword] = useState("");
+
+  const handleSearchIconClick = async () => {
+    try {
+      const response = await boardAxiosApi.searchPosts(boardName, pageNum, keyword);
+      setResultData(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const handleChange = (event) => {
     setKeyword(event.target.value);
   };
 
-  const handleSubmit = () => {
-    handleSearch(boardNum, pageNum, keyword);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("테스트2 : ", boardName, pageNum, keyword);
+    handleSearchIconClick();
   };
 
+
+
   return (
-    <SearchContainer>
-      <SearchBar type="search" placeholder="  검색어를 입력하세요" onChange={handleChange} />
-      <StyledSearchIcon onClick={handleSubmit} />
-    </SearchContainer>
+    <>
+       <SearchContainer>
+        <SearchBar type="search" placeholder="검색어를 입력하세요" onChange={handleChange} />
+        <StyledSearchIcon onClick={handleSubmit} />
+      </SearchContainer>
+      
+     </>
   );
 }
 

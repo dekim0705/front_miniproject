@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import boardAxiosApi from '../api/BoardAxiosApi';
 import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
@@ -31,6 +31,14 @@ padding-top : 30px;
 
 const BestPage = () => {
   const { pageNum } = useParams();
+  const [resultData, setResultData] = useState(null);
+  const [totalPosts, setTotalPosts] = useState(0);
+  
+  const handleSetResultData = (data) => {
+    setResultData(data);
+    setTotalPosts(data ? data.totalPosts : 0);
+  };
+
   useEffect(() => {
     boardAxiosApi.moveBestBoard();
   }, []);
@@ -40,13 +48,13 @@ const BestPage = () => {
       <BoardName>
       Best 게시판
     </BoardName>
-
-    <SearchInput />
-    <BoardList boardName="best" pageNum={pageNum} />
-    <WriteButtonWrapper>
-      <WriteButton />
-    </WriteButtonWrapper>
-    <Pages boardNum={5} path="/best" />
+    <SearchInput boardName="best" pageNum={pageNum} setResultData={handleSetResultData} />
+      <BoardList boardName="best" pageNum={pageNum} resultData={resultData}/>
+      <WriteButtonWrapper>
+        <WriteButton />
+      </WriteButtonWrapper>
+      {resultData && <Pages boardNum={5} path="/best" totalPosts={totalPosts} />}
+      {!resultData && <Pages boardNum={5} path="/best" />}
     <Footer />
     </>
   );

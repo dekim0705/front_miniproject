@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -31,17 +31,26 @@ padding-top : 30px;
 
 const InformationPage = () => {
   const { pageNum } = useParams();
+  const [resultData, setResultData] = useState(null);
+  const [totalPosts, setTotalPosts] = useState(0);
+  
+  const handleSetResultData = (data) => {
+    setResultData(data);
+    setTotalPosts(data ? data.totalPosts : 0);
+  };
+  
   
   return (
     <>
       <Header />
       <BoardName>정보공유 게시판</BoardName>
-      <SearchInput boardNum={2} pageNum={pageNum} />
-      <BoardList boardName="information" pageNum={pageNum} />
+      <SearchInput boardName="information" pageNum={pageNum} setResultData={handleSetResultData} />
+      <BoardList boardName="information" pageNum={pageNum} resultData={resultData}/>
       <WriteButtonWrapper>
         <WriteButton />
       </WriteButtonWrapper>
-      <Pages boardNum={2} path="/information" />
+      {resultData && <Pages boardNum={2} path="/information" totalPosts={totalPosts} />}
+      {!resultData && <Pages boardNum={2} path="/information" />}
       <Footer />
     </>
   );

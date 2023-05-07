@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BoardList from "../components/Board/BoardList";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -30,6 +30,14 @@ padding-top : 30px;
 
 const QnAPage = () => {
   const { pageNum } = useParams();
+  const [resultData, setResultData] = useState(null);
+  const [totalPosts, setTotalPosts] = useState(0);
+  
+  const handleSetResultData = (data) => {
+    setResultData(data);
+    setTotalPosts(data ? data.totalPosts : 0);
+  };
+  
   return (
 
   <>
@@ -37,12 +45,13 @@ const QnAPage = () => {
     <BoardName>
       Q&A 
     </BoardName>
-    <SearchInput />
-    <BoardList boardName="qna" pageNum={pageNum} />
+    <SearchInput boardName="qna" pageNum={pageNum} setResultData={handleSetResultData} />
+      <BoardList boardName="qna" pageNum={pageNum} resultData={resultData}/>
     <WriteButtonWrapper>
       <WriteButton />
     </WriteButtonWrapper>
-    <Pages boardNum={1} path="/qna" />
+    {resultData && <Pages boardNum={1} path="/qna" totalPosts={totalPosts} />}
+      {!resultData && <Pages boardNum={1} path="/qna" />}
     <Footer />
   </>
 

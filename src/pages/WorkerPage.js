@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import BoardList from "../components/Board/BoardList";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -30,18 +30,26 @@ padding-top : 30px;
 
 const WorkerPage = () => {
   const { pageNum } = useParams();
+  const [resultData, setResultData] = useState(null);
+  const [totalPosts, setTotalPosts] = useState(0);
+  
+  const handleSetResultData = (data) => {
+    setResultData(data);
+    setTotalPosts(data ? data.totalPosts : 0);
+  };
   return (
     <>
       <Header />
       <BoardName>
       직장인 게시판
     </BoardName>
-    <SearchInput />
-    <BoardList boardName="worker" pageNum={pageNum} />
-    <WriteButtonWrapper>
-      <WriteButton />
-    </WriteButtonWrapper>
-    <Pages boardNum={3} path="/worker" />
+    <SearchInput boardName="worker" pageNum={pageNum} setResultData={handleSetResultData} />
+      <BoardList boardName="worker" pageNum={pageNum} resultData={resultData}/>
+      <WriteButtonWrapper>
+        <WriteButton />
+      </WriteButtonWrapper>
+      {resultData && <Pages boardNum={3} path="/worker" totalPosts={totalPosts} />}
+      {!resultData && <Pages boardNum={3} path="/worker" />}
     <Footer />
     </>
   );

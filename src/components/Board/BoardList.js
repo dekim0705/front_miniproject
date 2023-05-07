@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import boardAxiosApi from "../../api/BoardAxiosApi";
 
-
-
 const ListWrapper = styled.div`
   width: 70%;
   margin: 0 auto;
@@ -29,7 +27,6 @@ const TableBox = styled.table`
 const HeaderCell = styled.th`
   padding: 16px;
 `;
-
 
 const TableHeader = styled.thead`
   background-color: rgb(83,131,236);
@@ -58,29 +55,30 @@ const TableCell = styled.td`
   }
 `;
 
-
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
-
 `;
 
 
-const BoardList = ({ boardName, pageNum }) => {
+const BoardList = ({ boardName, pageNum, resultData }) => {
   const [boardItem, setBoardItem] = useState([]);
   
     useEffect(() => {
       const fetchBoardItems = async () => {
-        const items = await boardAxiosApi.requestGeneralList(boardName, pageNum);
+      let items = [];
+      if (resultData) {
+        items = resultData; 
+      } else {
+        items = await boardAxiosApi.requestGeneralList(boardName, pageNum);
+      }
         setBoardItem(items);
       };
-  
       fetchBoardItems();
-    }, [boardName, pageNum]);
-  
+    }, [boardName, pageNum, resultData]);
 
 
-  return ( 
+  return boardItem.length ?  ( 
         <ListWrapper>
       <TableBox>
         <TableHeader>
@@ -107,8 +105,10 @@ const BoardList = ({ boardName, pageNum }) => {
         </tbody>
       </TableBox>
     </ListWrapper>
-
-
+  ) : (
+    <div style={{ textAlign: "center", padding: "150px" }}>
+      검색 결과가 없습니다 😱
+    </div>
   );
 };
 
