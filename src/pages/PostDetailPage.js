@@ -81,7 +81,7 @@ const PostDetailPage = () => {
           <Content content={postDetail && postDetail.content} imgUrl={postDetail && postDetail.imgUrl} />
           <TagListWrapper>
           <TagList tags={postDetail && postDetail.tag} />
-            <LikeButton />
+            <LikeButton postNum={postNum}/>
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>

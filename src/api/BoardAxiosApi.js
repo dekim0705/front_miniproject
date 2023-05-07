@@ -176,19 +176,29 @@ const boardAxiosApi = {
   },
 
   // 글 검색
-  searchPosts: async (boardNum, pageNum, keyword) => {
+  searchPosts: async (boardName, pageNum, keyword) => {
     try {
       const response = await axios.get(
-        KH_DOMAIN +
-          `/search?boardNum=${boardNum}&pageNum=${pageNum}&keyword=${keyword}`
+        KH_DOMAIN +`/search?boardName=${boardName}&pageNum=${pageNum}&keyword=${encodeURIComponent(keyword)}`
       );
-      console.log("Response data:", response);
+      console.log("검색 데이터:", response);
       return response.data;
     } catch (error) {
       console.error("게시판 검색에 실패했습니다.", error);
       return [];
     }
   },
+
+  // 좋아요 업데이트
+  updateLikes: async (postNum, memberNum) => {
+    try {
+     const response = await axios.post(KH_DOMAIN +`/like/${postNum}?memberNum=${memberNum}`);
+     return response.data;
+    } catch (error) {
+      console.error('추천수 업데이트를 실패했습니다.', error);
+      return null;
+   }
+  }
 };
 
 export default boardAxiosApi;
