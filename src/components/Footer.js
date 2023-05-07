@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const FooterContainer = styled.footer`
   background-color: #eee;
   color: #616161;
+  margin-top: 80px;
 `;
 
 const Sitemap = styled.ul`
