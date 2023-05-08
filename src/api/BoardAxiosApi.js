@@ -194,7 +194,18 @@ const boardAxiosApi = {
     }
   },
 
-  // 좋아요 업데이트
+  // 추천 상태 확인 
+  likeStaus: async (postNum, memberNum) => {
+    try {
+      const response = await axios.get(KH_DOMAIN +`/likeStatus?postNum=${postNum}&memberNum=${memberNum}`);
+     return response.data;
+    } catch (error) {
+      console.error('추천수 업데이트를 실패했습니다.', error);
+      return { isLiked: false };
+   }
+  },
+
+  // 추천수 업데이트
   updateLikes: async (postNum, memberNum) => {
     try {
      const response = await axios.post(KH_DOMAIN +`/like/${postNum}?memberNum=${memberNum}`);

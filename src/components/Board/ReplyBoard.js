@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import CommentItem from './ReplyItem';
 import ReplyForm from './ReplyForm';
-import { useContext } from 'react';
-import { UserContext } from '../../context/UserInfo';
 
 const CommentListWrapper = styled.div`
   margin: 0;

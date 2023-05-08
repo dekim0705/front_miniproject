@@ -48,7 +48,6 @@ const PostDetailPage = () => {
   const [reply, setReply] = useState([]);
   const [showEditButton, setShowEditButton] = useState(false);
   const { userNickname } = useContext(UserContext);
-  console.log('로그인시 닉네임 가져오기!!:' ,userNickname);
 
   const fetchReply = useCallback(async () => {
     const response = await boardAxiosApi.requestReply(postNum);
@@ -62,8 +61,7 @@ const PostDetailPage = () => {
       setShowEditButton(userNickname && response[0] && response[0].nickname === userNickname);
     };
     const increaseViews = async () => {
-      await boardAxiosApi.increaseViews(postNum);
-      console.log('increaseViews 완료');
+      await boardAxiosApi.increaseViews(postNum); // 조회수 증가
     };
 
     fetchPostDetail();
@@ -81,7 +79,7 @@ const PostDetailPage = () => {
           <Content content={postDetail && postDetail.content} imgUrl={postDetail && postDetail.imgUrl} />
           <TagListWrapper>
           <TagList tags={postDetail && postDetail.tag} />
-            <LikeButton postNum={postNum}/>
+          <LikeButton postNum={postNum} />
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>
