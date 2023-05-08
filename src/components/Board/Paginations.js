@@ -4,7 +4,8 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import boardAxiosApi from "../../api/BoardAxiosApi";
 
-const Pages = ({ boardNum, path,resultData }) => {
+
+const Pages = ({ boardNum, path, keyword, resultData}) => {
   const navigate = useNavigate();
   const [totalPosts, setTotalPosts] = useState(0);
 
@@ -12,7 +13,8 @@ const Pages = ({ boardNum, path,resultData }) => {
     const fetchTotalPosts = async () => {
       try {
         if (resultData) {
-          setTotalPosts(resultData.totalPosts);
+          const result = await boardAxiosApi.getSearchCount(boardNum,keyword);
+          setTotalPosts(result.data);
         } else {
           const response = await boardAxiosApi.getPostCount(boardNum);
           setTotalPosts(response.data);
@@ -21,26 +23,27 @@ const Pages = ({ boardNum, path,resultData }) => {
         console.error('전체 게시물 수를 불러올 수 없습니다:', error);
       }
     };
-
     fetchTotalPosts();
-  }, [boardNum, resultData]);
+  }, [boardNum, keyword, resultData]);
 
   const handlePageChange = (event, value) => {
-    navigate(`${path}/${value}`);
+    if (resultData) {
+      navigate(`${path}/${value}?keyword=${keyword}`);
+    } else {
+      navigate(`${path}/${value}`);
+    }
   };
 
+  
+
+
   const postsPerPage = boardNum === 4 ? 6 : 8;
-  const totalPages = resultData ? Math.ceil(resultData.totalPosts / postsPerPage) : 1;
-
-
-
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
 
   return (
     <Stack spacing={2} sx={{ alignItems: 'center', padding: '40px' }}>
-    {totalPages > 0 && (
-      <Pagination count={totalPages} size="large" onChange={handlePageChange} />
-    )}
-     </Stack>
+      <Pagination count={totalPages} size="large" onChange={handlePageChange} key={totalPosts}/>
+    </Stack>
   );
 };
 

@@ -14,16 +14,14 @@ const BoardName = styled.div`
   margin: 30px 0px 10px 130px;
   padding : 10px 0px 0px 100px;
   width: 100%;
-
   @media (max-width: 768px) {
     text-align: center;
     margin: 30px 0 10px 0;
     padding: 10px 0;
   }
-
 `;
-const WriteButtonWrapper = styled.div`
 
+const WriteButtonWrapper = styled.div`
 text-align: right;
 padding-top : 30px;
   margin-right: 220px;
@@ -32,12 +30,14 @@ padding-top : 30px;
 const BestPage = () => {
   const { pageNum } = useParams();
   const [resultData, setResultData] = useState(null);
-  const [totalPosts, setTotalPosts] = useState(0);
+  const [keyword, setKeyword] = useState("");
   
   const handleSetResultData = (data) => {
     setResultData(data);
-    setTotalPosts(data ? data.totalPosts : 0);
   };
+  const handleSetKeyword = (newKeyword) => {
+    setKeyword(newKeyword);
+  }
 
   useEffect(() => {
     boardAxiosApi.moveBestBoard();
@@ -48,12 +48,12 @@ const BestPage = () => {
       <BoardName>
       Best 게시판
     </BoardName>
-    <SearchInput boardName="best" pageNum={pageNum} setResultData={handleSetResultData} />
+    <SearchInput boardName="best" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}/>
       <BoardList boardName="best" pageNum={pageNum} resultData={resultData}/>
       <WriteButtonWrapper>
         <WriteButton />
       </WriteButtonWrapper>
-      {resultData && <Pages boardNum={5} path="/best" totalPosts={totalPosts} />}
+      {resultData && <Pages boardNum={5} path="/best" keyword={keyword} resultData={resultData} />}
       {!resultData && <Pages boardNum={5} path="/best" />}
     <Footer />
     </>

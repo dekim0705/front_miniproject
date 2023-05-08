@@ -31,24 +31,27 @@ padding-top : 30px;
 const WorkerPage = () => {
   const { pageNum } = useParams();
   const [resultData, setResultData] = useState(null);
-  const [totalPosts, setTotalPosts] = useState(0);
+  const [keyword, setKeyword] = useState("");
   
   const handleSetResultData = (data) => {
     setResultData(data);
-    setTotalPosts(data ? data.totalPosts : 0);
   };
+  const handleSetKeyword = (newKeyword) => {
+    setKeyword(newKeyword);
+  };
+
   return (
     <>
       <Header />
       <BoardName>
       직장인 게시판
     </BoardName>
-    <SearchInput boardName="worker" pageNum={pageNum} setResultData={handleSetResultData} />
+    <SearchInput boardName="worker" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}  />
       <BoardList boardName="worker" pageNum={pageNum} resultData={resultData}/>
       <WriteButtonWrapper>
         <WriteButton />
       </WriteButtonWrapper>
-      {resultData && <Pages boardNum={3} path="/worker" totalPosts={totalPosts} />}
+      {resultData && <Pages boardNum={3} path="/worker" keyword={keyword} resultData={resultData} />}
       {!resultData && <Pages boardNum={3} path="/worker" />}
     <Footer />
     </>
