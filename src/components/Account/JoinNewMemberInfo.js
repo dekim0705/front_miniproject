@@ -7,7 +7,8 @@ import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexColumnWrapper, FlexRowW
 import JoinButton from "./JoinButton";
 import PopUp from "../../util/PopUp";
 import styled from "styled-components";
-
+import { MemberInfoContext } from "../../context/MemberInfo";
+import { useContext } from "react";
 
 
 const HintWrapper = styled.div`
@@ -24,14 +25,16 @@ const HintWrapper = styled.div`
 
 const NewMemberInfo = () => {
   const navigate = useNavigate();
+  const { memberInfo, setMemberInfo } = useContext(MemberInfoContext);
+
 
   // 키보드 입력
-  const [inputNickname, setInputNickname] = useState("");
-  const [inputPwd, setInputPwd] = useState("");
+  const [inputNickname, setInputNickname] = useState(memberInfo.nickname);
+  const [inputPwd, setInputPwd] = useState(memberInfo.pwd);
   const [inputConPwd, setInputConPwd] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
+  const [inputEmail, setInputEmail] = useState(memberInfo.email);
   
-  const [emailDomain, setEmailDomain] = useState('@gmail.com');
+  const [emailDomain, setEmailDomain] = useState('');
 
   // 오류 메세지
   const [nicknameMessage, setNicknameMessage] = useState("");
@@ -129,9 +132,15 @@ const NewMemberInfo = () => {
   const handleNextButtonClick = () => {
     if(inputNickname && inputPwd && inputConPwd && inputEmail) {
       console.log("Step3로 이동");
-      console.log('Nickname:', inputNickname);
-      console.log('Password:', inputConPwd);
-      console.log('Email:', inputEmail + emailDomain);
+
+      setMemberInfo(prevState => ({
+        ...prevState,
+        nickname: inputNickname,
+        pwd: inputConPwd,
+        email: inputEmail + emailDomain
+      }));
+      console.log(memberInfo);
+
       navigate('/join/step3');
 
     } else {
