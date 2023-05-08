@@ -35,9 +35,17 @@ const CodeBlockInput = ({ selectLanguage, setSelectLanguage, codeBlockInput, set
       <select
         value={selectLanguage}
         onChange={e => setSelectLanguage(e.target.value)}>
+        <option value="c">C</option>
+        <option value="css">CSS</option>
+        <option value="go">Go</option>
+        <option value="json">JSON</option>
         <option value="javascript">JavaScript</option>
         <option value="java">Java</option>
+        <option value="kotlin">Kotlin</option>
+        <option value="php">PHP</option>
         <option value="python">Python</option>
+        <option value="sql">SQL</option>
+        <option value="swift">Swift</option>
       </select>
       <StyledTextarea
         rows={6}
