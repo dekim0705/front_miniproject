@@ -11,11 +11,15 @@ import { UserContext } from "../../context/UserInfo";
 import MainAxiosApi from "../../api/MainAxiosApi";
 import ChatDrawer from "./ChatDrawer";
 import CodeBlockItem from "./CodeBlockItem";
+import CodeBlockInput from "./CodeBlockInput";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  // const year = date.getUTCFullYear();
+  // const month = date.getUTCMonth() + 1;
+  // const day = date.getUTCDate();
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
   const formattedHours = hours >= 10 ? hours : `0${hours}`;
   const formattedMinutes = minutes >= 10 ? minutes : `0${minutes}`;
   return `${formattedHours}:${formattedMinutes}`;
@@ -151,9 +155,8 @@ const ChatRoom = () => {
     if (messageType === 1) { // 코드 블럭
       const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
       const parsedCodeBlock = codeMessage.match(codeBlockRegex);
-      const language = parsedCodeBlock[1];
       const code = parsedCodeBlock[2];
-      return <CodeBlockItem code={code} language={language} />;
+      return <CodeBlockItem code={code} language={selectLanguage} />;
     }
     // 일반 메시지
     return message;
@@ -373,7 +376,15 @@ const ChatRoom = () => {
           </MessageContainer>
         ))}
       </ChatViewContainer>
-
+      {showCodeInput && (
+          <CodeBlockInput
+            selectLanguage={selectLanguage}
+            setSelectLanguage={setSelectLanguage}
+            codeBlockInput={codeBlockInput}
+            setCodeBlockInput={setCodeBlockInput}
+            handleSendCodeBlock={handleSendCodeBlock}
+          />
+            )}
       <ChatInputContainer>
         <MsgInput
           type="search"
@@ -387,22 +398,6 @@ const ChatRoom = () => {
         <SendButton 
           sx={{ fontSize: "1.5rem" }} 
           onClick={handleSendMessage} />
-        {showCodeInput && (
-          <>
-            <select
-              value={selectLanguage}
-              onChange={e => setSelectLanguage(e.target.value)}>
-                <option value="javascript">JavaScript</option>
-                <option value="java">Java</option>
-                <option value="python">Python</option>
-              </select>
-              <textarea
-                value={codeBlockInput}
-                onChange={e => setCodeBlockInput(e.target.value)}
-                placeholder="코드를 입력하세요."></textarea>
-              <button onClick={handleSendCodeBlock}>코드 전송</button>
-          </>
-        )}
       </ChatInputContainer>
       <ChatDrawer drawerState={drawerState} toggleDrawer={toggleDrawer} />
     </ChatRoomContainer>

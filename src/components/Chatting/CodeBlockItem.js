@@ -1,9 +1,9 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { hybrid } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const CodeBlockItem = ({ code, language }) => {
   return (
-    <SyntaxHighlighter language={language} style={atomOneDark}>
+    <SyntaxHighlighter language={language} style={hybrid}>
       {code}
     </SyntaxHighlighter>
   );

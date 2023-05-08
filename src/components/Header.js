@@ -67,6 +67,11 @@ const StyledHeader = styled.header`
   }
 `;
 
+const StyledMember = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Header = () => {
   const { chatRoom, setChatRoom, setChatMessages } = useContext(ChatContext);
   const [isLogin, setIsLogin] = useState(false);
@@ -116,10 +121,10 @@ const Header = () => {
         </ul>
         <TopWriters />
         {isLogin ? (
-          <>
+          <StyledMember>
             <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
             <Navbar />
-          </>
+          </StyledMember>
         ) : (
           <div className="member">
             <div className="box login">

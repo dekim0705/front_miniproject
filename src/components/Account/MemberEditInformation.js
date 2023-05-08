@@ -140,7 +140,7 @@ const MemberEditInformation = ({ userMemberNum }) => {
       }
     };
     fetchAllTechStacks();
-  }, []);
+  }, [selectedStacks]);
 
 
   // 검색어에 따른 결과 업데이트
