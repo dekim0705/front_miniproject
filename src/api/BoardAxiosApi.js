@@ -23,6 +23,11 @@ const boardAxiosApi = {
     return await axios.get(KH_DOMAIN + `/posts?boardNum=${boardNum}`);
   },
 
+    // 검색결과 개시물 개수 요청
+    getSearchCount: async (boardNum,keyword) => {
+      return await axios.get(KH_DOMAIN + `/search/posts?boardNum=${boardNum}&keyword=${keyword}`);
+    },
+
   // 일반 게시판 글 목록 요청하기
   requestGeneralList: async (boardName, pageNum) => {
     try {

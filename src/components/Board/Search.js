@@ -1,9 +1,7 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState } from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import styled from "styled-components";
 import boardAxiosApi from "../../api/BoardAxiosApi";
-// import { useHistory } from 'react-router-dom';
-import { SearchContext } from '../../context/SearchInfo';
 
 const SearchContainer = styled.div`
   width: 50%;
@@ -21,10 +19,8 @@ const SearchContainer = styled.div`
     margin : 0 auto;
     text-align: center;
     padding-left : 0;
-    width : 80%;
-   
+    width : 80%; 
   }
- 
   `;
   
   const SearchBar = styled.input`
@@ -40,8 +36,6 @@ const SearchContainer = styled.div`
     text-align: center;
     width: 100%;
     height : 45px;
-
- 
   }
 `;
 
@@ -51,11 +45,12 @@ const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 
-const SearchInput = ({ boardName, pageNum, setResultData}) => {
-  const [keyword, setKeyword] = useState("");
+const SearchInput = ({ boardName, pageNum, setResultData,setKeyword }) => {
+  const [keyword, setSearchKeyword] = useState("");
 
   const handleSearchIconClick = async () => {
     try {
+      setKeyword(keyword);
       const response = await boardAxiosApi.searchPosts(boardName, pageNum, keyword);
       setResultData(response);
     } catch (error) {
@@ -63,18 +58,14 @@ const SearchInput = ({ boardName, pageNum, setResultData}) => {
     }
   };
 
-
   const handleChange = (event) => {
-    setKeyword(event.target.value);
+    setSearchKeyword(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("테스트2 : ", boardName, pageNum, keyword);
     handleSearchIconClick();
   };
-
-
 
   return (
     <>

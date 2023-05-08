@@ -31,13 +31,15 @@ padding-top : 30px;
 const QnAPage = () => {
   const { pageNum } = useParams();
   const [resultData, setResultData] = useState(null);
-  const [totalPosts, setTotalPosts] = useState(0);
+  const [keyword, setKeyword] = useState("");
   
   const handleSetResultData = (data) => {
     setResultData(data);
-    setTotalPosts(data ? data.totalPosts : 0);
   };
-  
+  const handleSetKeyword = (newKeyword) => {
+    setKeyword(newKeyword);
+  };
+
   return (
 
   <>
@@ -45,12 +47,12 @@ const QnAPage = () => {
     <BoardName>
       Q&A 
     </BoardName>
-    <SearchInput boardName="qna" pageNum={pageNum} setResultData={handleSetResultData} />
+    <SearchInput boardName="qna" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}  />
       <BoardList boardName="qna" pageNum={pageNum} resultData={resultData}/>
     <WriteButtonWrapper>
       <WriteButton />
     </WriteButtonWrapper>
-    {resultData && <Pages boardNum={1} path="/qna" totalPosts={totalPosts} />}
+    {resultData && <Pages boardNum={1} path="/qna" keyword={keyword} resultData={resultData} />}
       {!resultData && <Pages boardNum={1} path="/qna" />}
     <Footer />
   </>

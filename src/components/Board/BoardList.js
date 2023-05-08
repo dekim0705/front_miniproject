@@ -62,7 +62,7 @@ const StyledLink = styled(Link)`
 
 
 const BoardList = ({ boardName, pageNum, resultData }) => {
-  const [boardItem, setBoardItem] = useState([]);
+  const [boardItem, setBoardItem] = useState([{}]);
   
     useEffect(() => {
       const fetchBoardItems = async () => {
