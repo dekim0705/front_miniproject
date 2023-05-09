@@ -5,6 +5,7 @@ import styled from "styled-components";
 import InfoIcon from "@mui/icons-material/Info";
 import CodeIcon from "@mui/icons-material/Code";
 import SendIcon from "@mui/icons-material/Send";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import ChatAxiosApi from "../../api/ChatAxiosApi";
 import { ChatContext } from "../../context/ChatInfo";
 import { UserContext } from "../../context/UserInfo";
@@ -12,6 +13,7 @@ import MainAxiosApi from "../../api/MainAxiosApi";
 import ChatDrawer from "./ChatDrawer";
 import CodeBlockItem from "./CodeBlockItem";
 import CodeBlockInput from "./CodeBlockInput";
+import ImageInput from "./ImageInput";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
@@ -141,7 +143,20 @@ const SendButton = styled(SendIcon)`
   color: #1e2b4d;
 `;
 
+const ImageButton = styled(PhotoCameraIcon)`
+  cursor: pointer;
+  color: #1e2b4d;
+`;
+
 const ChatRoom = () => {
+  // 🧡 이미지 첨부 관련 상태 정의
+  const [showImageInput, setShowImageInput] = useState(false);
+  // 🧡 PhotoCameraButton 버튼 클릭 -> 첨부창
+  const handleImageButtonClick = () => {
+    setShowImageInput(!showImageInput);
+  };
+
+
   // 💙 코드 블럭 관련 상태 정의
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeBlockInput, setCodeBlockInput] = useState("");
@@ -218,7 +233,7 @@ const ChatRoom = () => {
     const chatMessages = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setMessages(response.data);
-      console.log("⭕️💙" + typeof(response.data[0].messageType));
+      console.log("💩 : " + response.data[0].imgUrl);
     };
     chatMessages(chatRoom);
   }, [chatRoom]);
@@ -277,7 +292,8 @@ const ChatRoom = () => {
         "",
         0,
         new Date(),
-        'Y'
+        'Y',
+        ""
       );
       setMessages([...messages, newMessage]);
       setInputMessage("");
@@ -311,7 +327,8 @@ const ChatRoom = () => {
         codeBlockMessage,
         1,
         new Date(),
-        'Y'
+        'Y',
+        ""
       );
       setMessages([...messages, newMessage]);
       setCodeBlockInput("");
@@ -323,15 +340,15 @@ const ChatRoom = () => {
   };
 
   // 💙 코드 메시지 렌더링
-  const renderMessage = (msgType, message, codeMessage) => {
-    console.log("🧡 : " + message);
-    console.log("🔥 ; " + codeMessage);
+  const renderMessage = (msgType, message, codeMessage, imgMessage) => {
     if (codeMessage != null && message == null) { // 코드 블럭
       const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
       const parsedCodeBlock = codeMessage.match(codeBlockRegex);
       const language = parsedCodeBlock[1];
       const code = parsedCodeBlock[2];
       return <CodeBlockItem code={code} language={language} />;
+    } else if (codeMessage == null && message == null && imgMessage != null) {
+      return <img src={imgMessage} alt="imageUpload" style={{width:150, height:'auto'}} />
     }
     // 일반 메시지
     return message;
@@ -361,7 +378,7 @@ const ChatRoom = () => {
           <MessageContainer key={index}>
             {m.senderId === userNum ? (
               <>
-                <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</MeMessage>
+                <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock, m.imgUrl)}</MeMessage>
                 <SenderMessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
@@ -369,7 +386,7 @@ const ChatRoom = () => {
               </>
             ) : (
               <>
-                <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</OtherUserMessage>
+                <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock, m.imgUrl)}</OtherUserMessage>
                 <MessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
@@ -380,15 +397,27 @@ const ChatRoom = () => {
         ))}
       </ChatViewContainer>
       {showCodeInput && (
-          <CodeBlockInput
-            selectLanguage={selectLanguage}
-            setSelectLanguage={setSelectLanguage}
-            codeBlockInput={codeBlockInput}
-            setCodeBlockInput={setCodeBlockInput}
-            handleSendCodeBlock={handleSendCodeBlock}
+        <CodeBlockInput
+          selectLanguage={selectLanguage}
+          setSelectLanguage={setSelectLanguage}
+          codeBlockInput={codeBlockInput}
+          setCodeBlockInput={setCodeBlockInput}
+          handleSendCodeBlock={handleSendCodeBlock}
           />
             )}
+      {showImageInput && (
+        <ImageInput
+          setShowImageInput={setShowImageInput}
+          chatRoom={chatRoom}
+          userNum={userNum}
+          otherUserNumber={otherUserNumber}
+          setMessages={setMessages}
+          messages={messages}  />
+      )}
       <ChatInputContainer>
+        <ImageButton
+          sx={{ fontSize: "1.8rem" }}
+          onClick={handleImageButtonClick} />
         <MsgInput
           type="search"
           placeholder="메시지를 입력하세요."

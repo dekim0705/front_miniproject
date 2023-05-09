@@ -12,7 +12,7 @@ const ChatAxiosApi = {
   },
 
   // ✅ 채팅 메시지 전송 요청
-  sendChatMessage: async (chatNum, senderId, receiverId, message, codeBlock, messageType, createdAt, isRead) => {
+  sendChatMessage: async (chatNum, senderId, receiverId, message, codeBlock, messageType, createdAt, isRead, imgUrl) => {
     const data = {
       chatNum : chatNum,
       senderId : senderId,
@@ -21,7 +21,8 @@ const ChatAxiosApi = {
       codeBlock : codeBlock,
       messageType : messageType,
       createdAt : createdAt.toISOString(),
-      isRead : isRead.toString()
+      isRead : isRead.toString(),
+      imgUrl : imgUrl
     };
     return await axios.post(KH_DOMAIN + "/chat/message", data);
   },
