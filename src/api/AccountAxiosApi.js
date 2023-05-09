@@ -1,3 +1,4 @@
+import { TrySharp } from "@mui/icons-material";
 import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
@@ -137,7 +138,7 @@ const AccountAxiosApi = {
     }
   },
 
-    // 마이페이지 수정용 내 정보 호출
+    // ✅ 마이페이지 수정용 내 정보 호출
     getMemberCurrentInfo: async (memberNum) => {
       try {
         const response = await axios.get(KH_DOMAIN + `/mypage/edit?memberNum=${memberNum}`)
@@ -148,6 +149,55 @@ const AccountAxiosApi = {
       }
     },
 
+    // ✅ 마이페이지 내 정보 일괄 수정
+    updateMemberInfo: async (memberNum, memberInfo) => {
+      try {
+        const response = await axios.post(KH_DOMAIN + `/mypage/edit`, {
+          memberNum: memberNum,
+          memberNickname: memberInfo.memberNickname,
+          memberPwd: memberInfo.memberPwd,
+          memberJob: memberInfo.memberJob,
+          memberYear: memberInfo.memberYear,
+        });
+        console.log("회원정보 수정 성공: ", response);
+        return response.data;
+      } catch (error) {
+        console.log("🤦🏻‍♀️회원정보 수정 실패: ", error);
+        return [];
+      }
+    },
+
+    // ✅ 마이페이지 기술스택 삭제
+    deleteStack: async (memberNum, memberTechStackNum) => {
+      try {
+        const requestData = {
+          memberNum: memberNum,
+          memberTechStackNum: memberTechStackNum
+        };
+    
+        const response = await axios.delete(KH_DOMAIN + `/mypage/edit/${memberNum}/${memberTechStackNum}`, {
+          data: requestData
+        });
+        
+        return response.data;
+      } catch (error) {
+        throw new Error('🤦🏻‍♀️기술스택 삭제 실패');
+      }
+    },
+    
+    // ✅ 마이페이지 기술스택 추가
+    addStack: async (memberNum, techStackNum) => {
+      try {
+        const requestData = {
+          memberNum: memberNum,
+          techStackNum: techStackNum
+        };
+    
+        await axios.post(KH_DOMAIN + `/mypage/add/${memberNum}/${techStackNum}`, requestData);
+      } catch (error) {
+        throw new Error('🤦🏻‍♀️기술스택 추가 실패');
+      }
+    }    
 
 };
 
