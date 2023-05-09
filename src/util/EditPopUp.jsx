@@ -45,7 +45,7 @@ const StyledPopUp = styled.div`
     background-color: transparent;
   }
   .modal > section > main {
-    padding: 25px;
+    padding: 30px;
     border-bottom: 1px solid #dee2e6;
     border-top: 1px solid #dee2e6;
   }
