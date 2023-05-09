@@ -17,13 +17,13 @@ const StyledQuestionAnswerIcon = styled(QuestionAnswerIcon)`
   }
 `;
 const MentorButton = () => {
-  const { userNum } = useContext(UserContext);
+  const { userNum, isLogin } = useContext(UserContext);
   const isMatched = useCheckUserMatched(userNum);
   const mentorPath = getPath("/mentor", isMatched);
 
   return (
     <div>
-      <Link to={mentorPath}>
+      <Link to={isLogin ? mentorPath : "/login"}>
         <StyledQuestionAnswerIcon sx={{ fontSize: "3rem" }} />
       </Link>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../context/UserInfo';
 import { ChatContext } from '../context/ChatInfo';
 import styled from 'styled-components';
@@ -74,14 +74,13 @@ const StyledMember = styled.div`
 
 const Header = () => {
   const { chatRoom, setChatRoom, setChatMessages } = useContext(ChatContext);
-  const [isLogin, setIsLogin] = useState(false);
   const context = useContext(UserContext);
-  const {userEmail, userPwd, userNum } = context;
+  const {userEmail, userPwd, userNum, isLogin, setIsLogin } = context;
 
   const isMatched = useCheckUserMatched(userNum);
   const mentorPath = getPath("/mentor", isMatched);
 
-  // 📍 로그인 한 유저가 속한 채팅방 번호 가져오기
+  // ✅ 로그인 한 유저가 속한 채팅방 번호 가져오기
   useEffect(() => {
     const chatRoomNum = async (memberNum) => {
       const response = await ChatAxiosApi.chatRoomNum(memberNum);
@@ -92,7 +91,7 @@ const Header = () => {
     }
   }, [userNum, setChatRoom]);
 
-  // 📍 해당 채팅방으로 이동..(?)
+  // ✅ 해당 채팅방으로 이동
   useEffect(() => {
     const chatMsg = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
@@ -105,14 +104,14 @@ const Header = () => {
     if(userEmail && userPwd) {
       setIsLogin(true);
     } else setIsLogin(false);
-  }, [userEmail, userPwd]);
+  }, [userEmail, userPwd, setIsLogin]);
 
   return (
     <StyledHeader>
       <nav className="navbar">
         <Logo />
         <ul className="navbar__menu">
-          <StyledLink to={mentorPath}>멘토 찾기</StyledLink>
+          <StyledLink to={isLogin ? mentorPath : "/login"}>멘토 찾기</StyledLink>
           <StyledLink to="/information/1">정보 공유</StyledLink>
           <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
           <StyledLink to="/worker/1">직장인</StyledLink>
