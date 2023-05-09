@@ -150,54 +150,6 @@ const ChatRoom = () => {
   const handleCodeBlockButtonClick = () => {
     setShowCodeInput(!showCodeInput);
   };
-  // 💙 코드 메시지 렌더링
-  const renderMessage = (messageType, message, codeMessage) => {
-    if (messageType === 1) { // 코드 블럭
-      const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
-      const parsedCodeBlock = codeMessage.match(codeBlockRegex);
-      const code = parsedCodeBlock[2];
-      return <CodeBlockItem code={code} language={selectLanguage} />;
-    }
-    // 일반 메시지
-    return message;
-  };
-  
-  // 💙 코드 블럭 전송
-  const handleSendCodeBlock = async () => {
-    if (codeBlockInput === "") {
-      return;
-    }
-    const codeBlockMessage = `\`\`\`${selectLanguage}\n${codeBlockInput}\n\`\`\``;
-
-    const newMessage = {
-      chatNumber: chatRoom,
-      senderId: userNum,
-      receiverId: otherUserNumber,
-      message: codeBlockMessage,
-      isRead: 'N',
-      createdAt: new Date()
-    };
-
-    try {
-      await ChatAxiosApi.sendChatMessage(
-        chatRoom,
-        userNum,
-        otherUserNumber,
-        "",
-        codeBlockMessage,
-        1,
-        new Date(),
-        'Y'
-      );
-      setMessages([...messages, newMessage]);
-      setCodeBlockInput("");
-    } catch (error) {
-      console.log("코드 블럭 에러" + error);
-    }
-
-    setShowCodeInput(false);
-  }
-
 
   // ✅ Drawer 테스트
   const [drawerState, setDrawerState] = useState({ right: false });
@@ -266,7 +218,7 @@ const ChatRoom = () => {
     const chatMessages = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setMessages(response.data);
-      console.log(response.data);
+      console.log("⭕️💙" + typeof(response.data[0].messageType));
     };
     chatMessages(chatRoom);
   }, [chatRoom]);
@@ -282,7 +234,7 @@ const ChatRoom = () => {
     (message) => message.receiverId !== userNum
   )?.receiverId;
 
-  console.log(otherUserId);
+  console.log("상대방 회원 번호 : " + otherUserId);
   
   // ✅ 채팅 상대 프로필 사진
   useEffect(() => {
@@ -334,6 +286,55 @@ const ChatRoom = () => {
     }
   };
 
+  // 💙 코드 블럭 전송
+  const handleSendCodeBlock = async () => {
+    if (codeBlockInput === "") {
+      return;
+    }
+    const codeBlockMessage = `\`\`\`${selectLanguage}\n${codeBlockInput}\n\`\`\``;
+
+    const newMessage = {
+      chatNumber: chatRoom,
+      senderId: userNum,
+      receiverId: otherUserNumber,
+      codeBlock: codeBlockMessage,
+      isRead: 'N',
+      createdAt: new Date()
+    };
+
+    try {
+      await ChatAxiosApi.sendChatMessage(
+        chatRoom,
+        userNum,
+        otherUserNumber,
+        "",
+        codeBlockMessage,
+        1,
+        new Date(),
+        'Y'
+      );
+      setMessages([...messages, newMessage]);
+      setCodeBlockInput("");
+    } catch (error) {
+      console.log("코드 블럭 에러" + error);
+    }
+
+    setShowCodeInput(false);
+  };
+
+  // 💙 코드 메시지 렌더링
+  const renderMessage = (message, codeMessage) => {
+    if (codeMessage !== null && message === null) { // 코드 블럭
+      const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
+      const parsedCodeBlock = codeMessage.match(codeBlockRegex);
+      const language = parsedCodeBlock[1];
+      const code = parsedCodeBlock[2];
+      return <CodeBlockItem code={code} language={language} />;
+    }
+    // 일반 메시지
+    return message;
+};
+
   return (
     <ChatRoomContainer>
       <ChatUserContainer>
@@ -354,11 +355,11 @@ const ChatRoom = () => {
         />
       </ChatUserContainer>
       <ChatViewContainer>
-        {messages.map((m, index) => (
+        {messages && messages.map((m, index) => (
           <MessageContainer key={index}>
             {m.senderId === userNum ? (
               <>
-                <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</MeMessage>
+                <MeMessage>{renderMessage(m.message, m.codeBlock)}</MeMessage>
                 <SenderMessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
@@ -366,7 +367,7 @@ const ChatRoom = () => {
               </>
             ) : (
               <>
-                <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</OtherUserMessage>
+                <OtherUserMessage>{renderMessage(m.message, m.codeBlock)}</OtherUserMessage>
                 <MessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
