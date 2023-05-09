@@ -4,7 +4,8 @@ import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/mater
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+import { storage } from "../../firebase";
 export const ParentContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -220,6 +221,45 @@ const MemberEditInformation = ({ userMemberNum }) => {
       console.log("회원정보 수정 실패: ", error);
     }
   };
+  
+
+  const [imageUpload, setImageUpload] = useState(null)
+  const [imageUrl, setImageUrl] = useState("");
+  const upload = () => {
+    if (imageUpload === null) {
+    console.log("선택된사진 없음!");
+    return;
+    }
+    const imageRef = ref(storage, `images/${userMemberNum}_${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      console.log('업로드 됨!');// 업로드 되자마자 뜨게 하기
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl(url);
+      }); 
+      console.log(userMemberNum,imageUrl);
+
+
+      });
+  };
+  const changeImg = async() => {
+    try {
+      console.log("정보: ", imageUrl, userMemberNum);
+      const mediaIndex = imageUrl.indexOf("alt=media");
+      const extractedUrl = imageUrl.substring(0, mediaIndex + 9); // Include "alt=media" (9 characters)
+      
+      console.log(extractedUrl);    
+      setImageUrl(extractedUrl);  
+      await AccountAxiosApi.updatePfImg(extractedUrl, userMemberNum);
+      console.log('플필변경 성공');
+      setImageUpload(imageUrl);
+
+      // 성공적으로 업데이트된 경우에 대한 처리
+    } catch (error) {
+      console.error(error);
+      console.log('플필변경 실패');
+      // 에러 발생 시에 대한 처리
+    }
+  };
 
 
 
@@ -229,9 +269,18 @@ const MemberEditInformation = ({ userMemberNum }) => {
       {currentMemberInfo.map((currentInfo) => (
         <div key={currentInfo.memberNum}>
           <img src={currentInfo.pfImg} alt="profile" style={{width:200, height:200, borderRadius:100}}/>
-          <Button>프로필 사진 변경</Button>  
             </div>))}
-      
+
+      <input
+        type="file"
+        onChange={(event) => {
+          setImageUpload(event.target.files[0]);
+        }}
+      />
+      <button onClick={upload}>업로드</button>
+      {imageUrl && <img src={imageUrl} alt="UploadedImage" />}
+      <button onClick={changeImg}>변경</button>
+
 
       <TextField 
         size="small" 
