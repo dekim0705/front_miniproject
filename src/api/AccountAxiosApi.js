@@ -197,7 +197,25 @@ const AccountAxiosApi = {
       } catch (error) {
         throw new Error('🤦🏻‍♀️기술스택 추가 실패');
       }
-    }    
+    },
+
+    // ❗️❗️❗️❗️❗️❗️플필사진 수정
+    updatePfImg: async (imageUrl, userMemberNum) => {
+      try {
+        const response = await axios.put(KH_DOMAIN +`/mypage/myprofile`, {
+          memberPfImgUrl: imageUrl,
+          memberNum: userMemberNum
+        });
+        console.log(response.data);
+        console.log('회원플필 변경!!!성공!');
+        // 성공적으로 업데이트된 경우에 대한 처리
+      } catch (error) {
+        console.error(error);        
+        console.log('회원플필 변경!!!망함 집가자!');
+
+        // 에러 발생 시에 대한 처리
+      }
+    }
 
 };
 
