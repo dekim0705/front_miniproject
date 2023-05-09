@@ -323,8 +323,10 @@ const ChatRoom = () => {
   };
 
   // 💙 코드 메시지 렌더링
-  const renderMessage = (message, codeMessage) => {
-    if (codeMessage !== null && message === null) { // 코드 블럭
+  const renderMessage = (msgType, message, codeMessage) => {
+    console.log("🧡 : " + message);
+    console.log("🔥 ; " + codeMessage);
+    if (codeMessage != null && message == null) { // 코드 블럭
       const codeBlockRegex = /^```(\w+)\n([\s\S]*)```$/;
       const parsedCodeBlock = codeMessage.match(codeBlockRegex);
       const language = parsedCodeBlock[1];
@@ -359,7 +361,7 @@ const ChatRoom = () => {
           <MessageContainer key={index}>
             {m.senderId === userNum ? (
               <>
-                <MeMessage>{renderMessage(m.message, m.codeBlock)}</MeMessage>
+                <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</MeMessage>
                 <SenderMessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
@@ -367,7 +369,7 @@ const ChatRoom = () => {
               </>
             ) : (
               <>
-                <OtherUserMessage>{renderMessage(m.message, m.codeBlock)}</OtherUserMessage>
+                <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock)}</OtherUserMessage>
                 <MessageInfoContainer>
                   <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
                   <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
