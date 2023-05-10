@@ -8,7 +8,7 @@ export const ParentWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-
+  position: relative;
 
   @media (max-width: 768px) {
     width: 80%;
@@ -34,6 +34,8 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: absolute;
+  margin-top: 300px;
 `;
 
 export const FlexRowWrapper = styled.div`

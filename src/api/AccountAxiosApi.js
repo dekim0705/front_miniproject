@@ -1,4 +1,3 @@
-import { TrySharp } from "@mui/icons-material";
 import axios from "axios";
 const KH_DOMAIN = "http://localhost:8111";
 
@@ -207,15 +206,34 @@ const AccountAxiosApi = {
           memberNum: userMemberNum
         });
         console.log(response.data);
-        console.log('회원플필 변경!!!성공!');
+        console.log('프사 변경 성공');
         // 성공적으로 업데이트된 경우에 대한 처리
       } catch (error) {
         console.error(error);        
-        console.log('회원플필 변경!!!망함 집가자!');
-
-        // 에러 발생 시에 대한 처리
+        console.log('🤦🏻‍♀️프사 변경 실패');
       }
+    },
+
+  // 회원 탈퇴시 iswithdrawn, nickname, pfImg 업데이트 
+  updateMemberIsWithdrawn: async(userMemberNum) => {
+    try{
+      const response = await axios.put(KH_DOMAIN + `/members/is-withdrawn?memberNum=${userMemberNum}`, {
+      memberIsWithdrawn: "Y",
+      memberNum: userMemberNum
+    });
+      console.log(response.data);
+      console.log('회원탈퇴(값 변경) 설정!');
+      // 성공적으로 업데이트된 경우에 대한 처리
+    } catch (error) {
+      console.error(error);        
+      console.log('회원탈퇴 실패');
     }
+  },
+
+    // // 회원가입시 이메일 중복 여부 확인
+    // isMemberByEmail: async(memberEmail) => {
+    //   return await axios.get(KH_DOMAIN + `/members?memberEmail=${memberEmail}`);
+    // },
 
 };
 
