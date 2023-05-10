@@ -12,9 +12,10 @@ import MemberEditInformation from './MemberEditInformation';
 
 
 const ParentContainer = styled.div`
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 5%;
   margin: 50px auto;
@@ -22,6 +23,7 @@ const ParentContainer = styled.div`
     flex-direction: column;
     gap: 40px;
     margin: 40px 0;
+    align-items: center;
   }
 `;
 

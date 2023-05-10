@@ -46,15 +46,25 @@ const NewMemberInfo = () => {
   const [isPwd, setIsPwd] = useState(false);
   const [isConPwd, setIsConPwd] = useState(false);
 
+  // 닉네임 중복확인결과에 따른 비밀번호 인풋창 활성/비활성화
+  const [inputPwdDisabled, setInputPwdDisabled] = useState(true);
+
+  // 이메일 중복확인 결과에 따른 상태
+  // const [isEmailAvailable, setIsEmailAvailable] = useState(false);
+  // const [emailAvailabilityMessage, setEmailAvailabilityMessage] = useState("");
+
+
   // 닉네임
     // 🔑 닉네임 정규식 : 2 ~ 10자 한글, 영문, 숫자 사용 가능
   const onChangeNickname = (e) => {
     const nicknameRegex = /^(?=.*[a-zA-Z0-9가-힣])[a-z0-9가-힣]{2,10}$/;
     const nicknameCurrent = e.target.value;
     setInputNickname(nicknameCurrent);
-    if(!nicknameRegex.test(nicknameCurrent) || nicknameCurrent > 0) {
+    if(!nicknameRegex.test(nicknameCurrent) || nicknameCurrent.length === 0) {
       setNicknameMessage("2~10자의 닉네임을 입력해주세요. (한글, 영문, 숫자 사용 가능)");
       setIsNickname(false);
+      setInputPwd("");
+      setInputPwdDisabled(true);
     } else {
       setNicknameMessage("닉네임 중복확인을 해주세요.");
       setIsNickname(true);
@@ -116,10 +126,13 @@ const NewMemberInfo = () => {
     if(memberCheck.data === true) {
       setPopUpOpen(true);
       setPopUpText("🙆🏻‍♀️ 사용 가능한 닉네임 입니다.");
+      setNicknameMessage('사용 가능한 닉네임 입니다.');
+      setInputPwdDisabled(false);
     } else {
       setPopUpOpen(true);
       setPopUpText(`🙅🏻‍♀️ '${inputNickname}' 은(는) 이미 사용중인 닉네임 입니다.`);
       setInputNickname(''); // 인풋 창 초기화
+      setInputPwdDisabled(true);
     }
   }
 
@@ -129,7 +142,7 @@ const NewMemberInfo = () => {
     }
   
   // '다음' 버튼
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     if(inputNickname && inputPwd && inputConPwd && inputEmail) {
       console.log("Step3로 이동");
 
@@ -140,8 +153,17 @@ const NewMemberInfo = () => {
         email: inputEmail + emailDomain
       }));
       console.log(memberInfo);
+      // const emailCheck = await AccountAxiosApi.isMemberByEmail(memberInfo.email);
+      // console.log("인풋된이메일?: ", memberInfo.email);
+      // console.log("이메일 중복여부 확인: ", emailCheck.data);
+  
+      // if(emailCheck.data === false) {
+      //   setPopUpOpen(true);
+      //   setPopUpText(`🙅🏻‍♀️ '${memberInfo.email}' 은(는) 사용불가한 이메일 입니다.`);
+      //   setInputPwdDisabled(false);
+      // }
 
-      navigate('/join/step3');
+    navigate('/join/step3');
 
     } else {
       console.log("모든 필드 입력 요망")
@@ -192,6 +214,7 @@ const NewMemberInfo = () => {
               onChange={onChangePwd}
               placeholder="비밀번호를 입력하세요"
               required 
+              disabled={inputPwdDisabled}
               InputProps={{ sx: { borderRadius: 4 } }} 
             />
             <HintWrapper> 
