@@ -24,6 +24,7 @@ const ChatAxiosApi = {
       isRead : isRead.toString(),
       imgUrl : imgUrl
     };
+    console.log("⏰✅" + createdAt);
     return await axios.post(KH_DOMAIN + "/chat/message", data);
   },
 

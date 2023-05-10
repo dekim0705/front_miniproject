@@ -55,7 +55,7 @@ const ImageInput = ({ setShowImageInput, chatRoom, userNum, otherUserNumber, set
   return (
     <div>
       <input type="file" ref={fileInputRef} />
-      <button onClick={handleUpload}>업로드</button>
+      <button onClick={handleUpload}>미리보기</button>
       {imageUrl && <img src={imageUrl} alt="imageUpload" />}
       <button onClick={handleSendImage}>전송</button>
     </div>

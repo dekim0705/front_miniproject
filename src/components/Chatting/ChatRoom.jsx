@@ -20,7 +20,7 @@ const formatTimestamp = (timestamp) => {
   // const year = date.getUTCFullYear();
   // const month = date.getUTCMonth() + 1;
   // const day = date.getUTCDate();
-  const hours = date.getUTCHours();
+  const hours = date.getUTCHours() - 3;
   const minutes = date.getUTCMinutes();
   const formattedHours = hours >= 10 ? hours : `0${hours}`;
   const formattedMinutes = minutes >= 10 ? minutes : `0${minutes}`;
@@ -233,7 +233,7 @@ const ChatRoom = () => {
     const chatMessages = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
       setMessages(response.data);
-      console.log("💩 : " + response.data[0].imgUrl);
+      console.log("⏰ : " + response.data[0].createdAt);
     };
     chatMessages(chatRoom);
   }, [chatRoom]);
