@@ -93,7 +93,7 @@ const StyledPopUp = styled.div`
 
 const EditPopUp = (props) => {
 
-  const {open, confirm, close, type, header, children, exit} = props;
+  const {open, confirm, close, type, header, children} = props;
 
   return (
     <StyledPopUp>

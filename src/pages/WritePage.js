@@ -40,7 +40,6 @@ const WrtiePage = () => {
     <>
       <Header />
     <WriteForm userNum={userNum} onSubmit={handleSubmit}  />
-    {/* <ImgUploadButton/> */}
     <Footer />
     </>
   );

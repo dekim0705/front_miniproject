@@ -10,7 +10,7 @@ const TagField = ({value, onChange}) => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginTop: '15px',
+        marginTop: '5px',
       }}
     >
       <TextField

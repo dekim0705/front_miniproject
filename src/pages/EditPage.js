@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import boardAxiosApi from "../api/BoardAxiosApi";
 import SelectCategory from "../components/Board/Category";
+import ImageUpload from "../components/Board/ImageUpload";
 
 
 const Wrapper = styled.div`
@@ -51,7 +52,16 @@ const ButtonWrapper = styled.div`
   padding-bottom : 80px;
   `;
 
-
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  margin-top : 30px;
+  padding-left : 220px;
+  img {
+    max-width: 15%;
+  }
+`;
 
 const EditPage = () => {
   const { postNum } = useParams();
@@ -59,7 +69,9 @@ const EditPage = () => {
   const [title, setTitle] = useState("");
   const [boardNum, setBoardNum] = useState(null);
   const [tag, setTag] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const navigate = useNavigate();
+  const [previewImgUrl, setPreviewImgUrl] = useState("");
 
 
   useEffect(() => {
@@ -71,10 +83,16 @@ const EditPage = () => {
       setTitle(postData.title);
       setTag(postData.tag);
       setContent(response[0].content);
+      setImgUrl(postData.imgUrl || "");
+      setPreviewImgUrl(postData.imgUrl || "");
     };
 
     fetchPost();
   }, [postNum]);
+
+  useEffect(() => {
+    console.log("after", imgUrl);
+  }, [imgUrl]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -88,21 +106,34 @@ const EditPage = () => {
   const handleTagChange = (e) => {
     setTag(e.target.value);
   };
+
+  const handleImageUpload = (url) => {
+    setImgUrl(url || "");
+  };
+  
+  const handleImageDelete = () => {
+    setPreviewImgUrl("");
+    setImgUrl("");
+  };
+  
   
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     setContent(data);
   };
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const updatedPost = { postNum, boardNum, title, content };
+    const updatedPost = { postNum, boardNum, title, content,  imgUrl: imgUrl !== "" ? imgUrl : null };
     console.log(updatedPost);
     await boardAxiosApi.updatePost(updatedPost);
     navigate(`/post/${postNum}`);
   };
   
 
+
+  
 
   return (
     <>
@@ -117,6 +148,13 @@ const EditPage = () => {
         <EditorWrapper>
           <CKEditor editor={ClassicEditor} data={content} onChange={handleEditorChange}/>
         </EditorWrapper>
+        {imgUrl && (
+         <ImageWrapper>
+          <img src={imgUrl} alt="Uploaded" />
+            <Button onClick={handleImageDelete}>삭제</Button>
+          </ImageWrapper>
+          )}
+          <ImageUpload onImageUpload={handleImageUpload} defaultUrl={previewImgUrl || undefined} />
         <TagField value={tag} onChange={handleTagChange}/>
         </Col>
       </Row>

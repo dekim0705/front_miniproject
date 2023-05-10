@@ -5,6 +5,7 @@ import ContentInput from './ContentInput';
 import styled from 'styled-components';
 import TagField from './TagInput';
 import Button from '@mui/material/Button';
+import ImageUpload from './ImageUpload';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,12 +32,11 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
-  padding-right : 220px;
-  padding-bottom : 80px;
+  padding-right: 220px;
+  padding-bottom: 80px;
 `;
 
-
-const WriteForm = ({ userNum, onSubmit}) => {
+const WriteForm = ({ userNum, onSubmit }) => {
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -47,7 +47,7 @@ const WriteForm = ({ userNum, onSubmit}) => {
   });
 
   const handleBoardNumChange = (boardNum) => {
-  setPost((prevPost) => ({ ...prevPost, boardNum }));
+    setPost((prevPost) => ({ ...prevPost, boardNum }));
   };
 
   const handleTitleChange = (event) => {
@@ -64,31 +64,36 @@ const WriteForm = ({ userNum, onSubmit}) => {
     setPost((prevPost) => ({ ...prevPost, tag }));
   };
 
+  const handleImageUpload = (urls) => {
+    console.log('Uploaded URLs 출력:', urls);
+    const imgUrl = urls; // 배열 대신 문자열 그대로 할당
+    setPost((prevPost) => ({ ...prevPost, imgUrl }));
+  };
+  
+  
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(post);
   };
 
-
   return (
     <>
       <Wrapper>
-      <Row>
-        <Col>
-        <SelectCategory value={post.boardNum} onChange={handleBoardNumChange} /> 
-        <TitleInput value={post.title} onChange={handleTitleChange} />
-        <ContentInput value={post.content} onChange={handleContentChange} />
-          <TagField value={post.tag} onChange={handleTagChange}/>
-        </Col>
-      </Row>
+        <Row>
+          <Col>
+            <SelectCategory value={post.boardNum} onChange={handleBoardNumChange} />
+            <TitleInput value={post.title} onChange={handleTitleChange} />
+            <ContentInput value={post.content} onChange={handleContentChange} />
+            <ImageUpload onImageUpload={handleImageUpload} />
+            <TagField value={post.tag} onChange={handleTagChange} />
+          </Col>
+        </Row>
       </Wrapper>
       <ButtonWrapper>
-       <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px"}} onClick={handleSubmit}>등록</Button>
-    </ButtonWrapper>
+        <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px" }} onClick={handleSubmit}>등록</Button>
+      </ButtonWrapper>
     </>
-
-    
-    
   );
 };
 
