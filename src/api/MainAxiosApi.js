@@ -61,9 +61,17 @@ const MainAxiosApi = {
     return await axios.get(KH_DOMAIN + `/post/latest/${boardNum}`);
   },
 
-  // 📍 제목, 본문, 태그 검색 결과 요청
+  // ✅ 제목, 본문, 태그 검색 결과 요청
   mainSearch: async(keyword) => {
     return await axios.get(KH_DOMAIN + `/main/search?keyword=${keyword}`);
+  },
+
+  // ✅ 회원 직업 요청
+  userJobByNum : async(memberNum) => {
+    const job = {
+      memberNum : memberNum
+    };
+    return await axios.post(KH_DOMAIN + "/memberNum/job", job);
   }
 };
 

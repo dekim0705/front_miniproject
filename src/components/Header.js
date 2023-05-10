@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserInfo';
 import { ChatContext } from '../context/ChatInfo';
 import styled from 'styled-components';
@@ -11,6 +11,8 @@ import TopWriters from './Main/TopWriters';
 import ChatAxiosApi from '../api/ChatAxiosApi';
 import { getPath } from '../util/getPath';
 import useCheckUserMatched from '../util/useCheckUserMatched';
+import MainAxiosApi from '../api/MainAxiosApi';
+import PopUp from '../util/PopUp';
 
 const StyledLink = styled(Link)`
   width: 100px;
@@ -79,6 +81,12 @@ const Header = () => {
 
   const isMatched = useCheckUserMatched(userNum);
   const mentorPath = getPath("/mentor", isMatched);
+  const [userJob, setUserJob] = useState("");
+  const [PopUpOpen, setPopUpOpen] = useState(false);
+  
+  const closePopUp = () => {
+    setPopUpOpen(false);
+  };
 
   // ✅ 로그인 한 유저가 속한 채팅방 번호 가져오기
   useEffect(() => {
@@ -106,6 +114,22 @@ const Header = () => {
     } else setIsLogin(false);
   }, [userEmail, userPwd, setIsLogin]);
 
+  // ✅ 회원 직업 가져오기
+  useEffect(() => {
+    const userJob = async (memberNum) => {
+      const response = await MainAxiosApi.userJobByNum(memberNum);
+      setUserJob(response.data);
+    };
+    userJob(userNum);
+  }, [userNum]);
+
+  const handleWorkerClick = e => {
+    if (userJob === "학생" || userJob === "구직자") {
+      e.preventDefault();
+      setPopUpOpen(true);
+    }
+  };
+
   return (
     <StyledHeader>
       <nav className="navbar">
@@ -114,7 +138,7 @@ const Header = () => {
           <StyledLink to={isLogin ? mentorPath : "/login"}>멘토 찾기</StyledLink>
           <StyledLink to="/information/1">정보 공유</StyledLink>
           <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
-          <StyledLink to="/worker/1">직장인</StyledLink>
+          <StyledLink to="/worker/1" onClick={handleWorkerClick}>직장인</StyledLink>
           <StyledLink to="/best/1">베스트</StyledLink>
           <StyledLink to="/qna/1">Q&A</StyledLink>
         </ul>
@@ -137,6 +161,7 @@ const Header = () => {
           </div>
         )}
       </nav>
+      {PopUpOpen && <PopUp open={PopUpOpen} close={closePopUp} type={false} header="경고">직장인만 열람 가능한 게시판 입니다.😥</PopUp>}
     </StyledHeader>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,8 +6,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
-import { getPath } from '../util/getPath';
+import { getPath } from "../util/getPath";
 import useCheckUserMatched from "../util/useCheckUserMatched";
+import MainAxiosApi from "../api/MainAxiosApi";
+import PopUp from "../util/PopUp";
 
 const StyledNavbar = styled.div`
   @media screen and (min-width: 769px) {
@@ -16,14 +18,13 @@ const StyledNavbar = styled.div`
 `;
 
 const getOptions = (mentorPath) => [
-  { path: "/mentor", text: "멘토찾기" },
-  { path: "/information/1", text: "정보 공유" },
-  { path: "/portfolio/1", text: "포트폴리오" },
-  { path: "/worker/1", text: "직장인" },
-  { path: "/best/1", text: "베스트" },
-  { path: "/qna/1", text: "Q&A" },
+  { id: "mentor", path: "/mentor", text: "멘토찾기" },
+  { id: "information", path: "/information/1", text: "정보 공유" },
+  { id: "portfolio", path: "/portfolio/1", text: "포트폴리오" },
+  { id: "worker", path: "/worker/1", text: "직장인" },
+  { id: "best", path: "/best/1", text: "베스트" },
+  { id: "qna", path: "/qna/1", text: "Q&A" },
 ];
-
 
 const ITEM_HEIGHT = 48;
 
@@ -35,11 +36,34 @@ const Navbar = () => {
   const isMatched = useCheckUserMatched(userNum);
   const mentorPath = getPath("/mentor", isMatched);
 
+  const [userJob, setUserJob] = useState("");
+  const [PopUpOpen, setPopUpOpen] = useState(false);
+
+  const closePopUp = () => {
+    setPopUpOpen(false);
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  // ✅ 회원 직업 가져오기
+  useEffect(() => {
+    const userJob = async (memberNum) => {
+      const response = await MainAxiosApi.userJobByNum(memberNum);
+      setUserJob(response.data);
+    };
+    userJob(userNum);
+  }, [userNum]);
+
+  const handleWorkerClick = (e) => {
+    if (userJob === "학생" || userJob === "구직자") {
+      e.preventDefault();
+      setPopUpOpen(true);
+    }
   };
 
   return (
@@ -70,17 +94,18 @@ const Navbar = () => {
           },
         }}
       >
-        {getOptions(userNum, mentorPath).map((option) => (
+        {getOptions(mentorPath).map((option) => (
           <MenuItem
-            key={option.text}
+            key={option.id}
             component={Link}
             to={option.path}
-            onClick={handleClose}
+            onClick={option.id === "worker" ? handleWorkerClick : handleClose}
           >
             {option.text}
           </MenuItem>
         ))}
       </Menu>
+      {PopUpOpen && <PopUp open={PopUpOpen} close={closePopUp} type={false} header="경고">직장인만 열람 가능한 게시판 입니다.😥</PopUp>}
     </StyledNavbar>
   );
 };
