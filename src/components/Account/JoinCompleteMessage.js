@@ -9,6 +9,8 @@ import { useContext } from "react";
 import AccountAxiosApi from "../../api/AccountAxiosApi";
 import AccountPopUp from '../../util/AccountPopUp';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import { Link } from 'react-router-dom';
+
 
 
 const Content = styled.div`
@@ -90,8 +92,9 @@ const CompleteMessage = () => {
       setPopUpMessage(
         <>
           이메일 인증이 완료되었습니다!💌
-          <Button onClick={handleLoginButtonClick}>로그인</Button>
-
+          <Link to="/login">
+            <Button size="large"><u><b>로그인</b></u></Button>
+          </Link>
         </>
         )
 
@@ -106,9 +109,9 @@ const CompleteMessage = () => {
   };
 
 
-  const handleLoginButtonClick = () => {
-    navigate('/login');
-  }
+  // const handleLoginButtonClick = () => {
+  //   navigate('/login');
+  // }
   
   // '이전'버튼
   const handlePrevButtonClick = () => {
