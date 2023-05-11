@@ -29,7 +29,6 @@ const WrtiePage = () => {
     }
   };
   
-
   const handleSubmit = (post) => {
     console.log(post);
     handleWritePost(post);
@@ -39,9 +38,8 @@ const WrtiePage = () => {
   return (
     <>
       <Header />
-    <WriteForm userNum={userNum} onSubmit={handleSubmit}  />
-    {/* <ImgUploadButton/> */}
-    <Footer />
+      <WriteForm userNum={userNum} onSubmit={handleSubmit}  />
+     <Footer />
     </>
   );
 };
