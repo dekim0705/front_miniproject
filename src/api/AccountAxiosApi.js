@@ -198,7 +198,7 @@ const AccountAxiosApi = {
       }
     },
 
-    // ❗️❗️❗️❗️❗️❗️플필사진 수정
+    // ✅ 플필사진 수정
     updatePfImg: async (imageUrl, userMemberNum) => {
       try {
         const response = await axios.put(KH_DOMAIN +`/mypage/myprofile`, {
@@ -214,7 +214,7 @@ const AccountAxiosApi = {
       }
     },
 
-  // 회원 탈퇴시 iswithdrawn, nickname, pfImg 업데이트 
+  // ✅ 회원 탈퇴시 iswithdrawn, nickname, pfImg 업데이트 
   updateMemberIsWithdrawn: async(userMemberNum) => {
     try{
       const response = await axios.put(KH_DOMAIN + `/members/is-withdrawn?memberNum=${userMemberNum}`, {
@@ -234,6 +234,15 @@ const AccountAxiosApi = {
     // isMemberByEmail: async(memberEmail) => {
     //   return await axios.get(KH_DOMAIN + `/members?memberEmail=${memberEmail}`);
     // },
+
+    // ✅ 회원가입시 인증키 확인
+    isMemberEmailAuth: async(memberEmail, memberAuthKey) => {
+        return await axios.post(KH_DOMAIN + `/signup/authkey`, {
+          memberEmail: memberEmail,
+          memberAuthKey: memberAuthKey
+        });
+
+      }
 
 };
 

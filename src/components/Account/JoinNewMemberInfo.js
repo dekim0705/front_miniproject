@@ -34,7 +34,7 @@ const NewMemberInfo = () => {
   const [inputConPwd, setInputConPwd] = useState("");
   const [inputEmail, setInputEmail] = useState(memberInfo.email);
   
-  const [emailDomain, setEmailDomain] = useState('');
+  const [emailDomain, setEmailDomain] = useState('@gmail.com');
 
   // 오류 메세지
   const [nicknameMessage, setNicknameMessage] = useState("");
