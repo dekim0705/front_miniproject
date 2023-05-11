@@ -49,9 +49,9 @@ const ButtonWrapper = styled.div`
   margin-top: 30px;
   padding-right : 220px;
   padding-bottom : 80px;
-  @media (max-width: 768px) {
+  @media (max-width: 400px) {
     justify-content: flex-start;
-    padding-left : 100px;
+    padding-left : 60px;
   }
   `;
 
@@ -66,6 +66,9 @@ const ImageWrapper = styled.div`
   }
   @media (max-width: 768px) {
     padding-left : 100px;
+    img {
+    max-width: 40%;
+  }
   }
 `;
 
@@ -134,6 +137,10 @@ const EditPage = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!boardNum) {
+      alert("게시판 카테고리를 선택해주세요.");
+      return;
+    }
     const updatedPost = { postNum, boardNum, title, content,  imgUrl: imgUrl !== "" ? imgUrl : null };
     await boardAxiosApi.updatePost(updatedPost);
     navigate(`/post/${postNum}`);
@@ -163,7 +170,8 @@ const EditPage = () => {
       </Row>
       </Wrapper>
       <ButtonWrapper>
-       <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px"}} onClick={handleSubmit}>등록</Button>
+      <Button variant="contained" sx={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px",
+      "@media (max-width: 400px)": { fontSize: "15px",padding: "10px"}}} onClick={handleSubmit}>등록</Button>
     </ButtonWrapper>
     </form>
     </>

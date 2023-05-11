@@ -12,6 +12,9 @@ const ListWrapper = styled.div`
   @media (max-width: 768px) {
     min-width: 600px;
   }
+  @media (max-width: 400px) {
+    min-width: 300px;
+  }
 `;
 
 const TableBox = styled.table`
@@ -37,6 +40,20 @@ const TableHeader = styled.thead`
       display: none;
     }
   }
+  @media (max-width: 400px) {
+    ${HeaderCell}:nth-child(1) {
+      display: none;
+    }
+    ${HeaderCell}:nth-child(3) {
+      display: none;
+    }
+    ${HeaderCell}:nth-child(4) {
+      display: none;
+    }
+    ${HeaderCell}:nth-child(5) {
+      display: none;
+    }
+  }
 `;
 
 const TableRow = styled.tr`
@@ -53,7 +70,22 @@ const TableCell = styled.td`
       display: none;
     }
   }
+  @media (max-width: 400px) {
+    &.view {
+      display: none;
+    }
+    &.number {
+      display: none;
+    }
+    &.writedate {
+      display: none;
+    }
+    &.nickname {
+      display: none;
+    }
+  }
 `;
+
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -93,12 +125,12 @@ const BoardList = ({ boardName, pageNum, resultData }) => {
         <tbody>
           {boardItem.map((item, index) => (
             <TableRow key={index}>
-              <TableCell>{item.postNum}</TableCell>
+              <TableCell className="number">{item.postNum}</TableCell>
               <TableCell>
               <StyledLink to={`/post/${item.postNum}`}>{item.title}</StyledLink>
               </TableCell>
-              <TableCell>{item.nickname}</TableCell>
-              <TableCell>{item.writeDate}</TableCell>
+              <TableCell className="nickname">{item.nickname}</TableCell>
+              <TableCell className="writedate">{item.writeDate}</TableCell>
               <TableCell className="view">{item.viewCount}</TableCell>
             </TableRow>
           ))}

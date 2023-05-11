@@ -47,8 +47,12 @@ const StyledFileInput = styled.div`
     opacity: 1;
   }
 
-  @media (max-width: 768px) {
-   margin : auto;
+  @media (max-width: 400px) {
+    align-items: center;
+    padding-left: 60px;
+    margin-left: 0;
+  
+   
   }
 `;
 
