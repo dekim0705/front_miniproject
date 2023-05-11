@@ -9,6 +9,7 @@ import PortfolioCnt from './PortfolioCnt';
 import TotalPostCnt from './TotalPostCnt';
 import MainAxiosApi from '../../api/MainAxiosApi';
 import { SearchContext } from '../../context/SearchInfo';
+import HRDNetAPI from './HRDNetAPI';
 
 const ValueContainer = styled.div`
   display: flex;
@@ -26,10 +27,12 @@ const StyledMainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 0;
+  padding: 50px 0;
   gap: 40px;
+  
   @media screen and (max-width:768px) {
     padding: 50px 0;
+    gap: 25px;
   }
   .search {
     display: flex;
@@ -106,6 +109,7 @@ const Main = () => {
         <PortfolioCnt />
         <TotalPostCnt />
       </ValueContainer>
+      <HRDNetAPI />
     </StyledMainContainer>
   );
 }

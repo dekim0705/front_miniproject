@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 import { SearchContext } from "../context/SearchInfo";
 import defaultImage from "../resource/no_image.jpeg";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TextsmsIcon from '@mui/icons-material/Textsms';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import TextsmsIcon from "@mui/icons-material/Textsms";
 import TagList from "../components/Board/TagList";
 
 const Container = styled.div`
@@ -32,13 +32,13 @@ const KeywordContainer = styled.div`
   gap: 10px;
   margin: 20px 0;
   h1 {
-    color: #3B74EC;
+    color: #3b74ec;
   }
 `;
 
 const ResultContainer = styled.div`
-  border:1px solid #C6DEF7;
-  box-shadow: 1px 1px 1px #1E2B4D;
+  border: 1px solid #c6def7;
+  box-shadow: 1px 1px 1px #1e2b4d;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -98,11 +98,8 @@ const ThumbnailContainer = styled.div`
   }
 `;
 
-const Thumbnail = styled.div`
-
-`;
-const Content = styled.div`
-`;
+const Thumbnail = styled.div``;
+const Content = styled.div``;
 
 const SearchResultPage = () => {
   const location = useLocation();
@@ -120,9 +117,10 @@ const SearchResultPage = () => {
           <h1>{searchInput}</h1>
         </KeywordContainer>
         {resultData.map((result) => (
-          <ResultContainer 
+          <ResultContainer
             key={result.postNum}
-            onClick={() => navigate(`/post/${result.postNum}`)}>
+            onClick={() => navigate(`/post/${result.postNum}`)}
+          >
             <UserInfoContainer>
               <img
                 src={result.pfImg}
@@ -151,7 +149,9 @@ const SearchResultPage = () => {
                   style={{ width: 200, height: 200, borderRadius: "50%" }}
                 />
               </Thumbnail>
-              <Content>{result.content}</Content>
+              <Content>
+                <div dangerouslySetInnerHTML={{ __html: result.content }} />
+              </Content>
             </ThumbnailContainer>
             <TagList tags={result.tag} searchPage />
           </ResultContainer>
@@ -160,6 +160,6 @@ const SearchResultPage = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default SearchResultPage;
