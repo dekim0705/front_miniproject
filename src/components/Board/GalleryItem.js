@@ -13,13 +13,10 @@ const Container = styled.div`
   height: 280px;
   padding-bottom: 40px; 
  
-  
-
   @media (max-width: 768px) {
     width: 80%;
     margin: 2.5%;
   }
-
   @media (max-width: 480px) {
     width: 100%;
   }
@@ -96,7 +93,6 @@ const Status = styled.p`
   color: #777;
   display: inline-flex;
   align-items: center;
-  
 `;
 
 const IconWrapper = styled.span`

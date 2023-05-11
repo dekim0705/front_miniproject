@@ -13,6 +13,11 @@ const Wrapper = styled.div`
   padding: 30px;
   margin-right : 210px;
   margin-bottom : 50px;
+
+  @media (max-width: 400px) {
+    justify-content: center;
+    margin-right: auto;
+  }
 `;
 
 const EditButton = ({postNum}) => {

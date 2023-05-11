@@ -28,7 +28,6 @@ const StyledCategorySelect = styled(FormControl)`
   margin-bottom: 8px;
   @media (max-width: 440px) {
     width: 270px;
-
   }
 `;
 

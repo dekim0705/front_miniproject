@@ -33,6 +33,7 @@ const HeaderCell = styled.th`
 
 const TableHeader = styled.thead`
   background-color: rgb(83,131,236);
+  /* background-color: rgb(33,43,75); */
   color: white;
 
   @media (max-width: 768px) {

@@ -32,6 +32,12 @@ const SearchContainer = styled.div`
   box-sizing: border-box;
   padding-left : 10px;
   
+  // 검색창 색 변경
+  &:focus {
+    outline: none;
+    border-color: rgb(33,43,75);
+  }
+  
   @media (max-width: 768px) {
     text-align: center;
     width: 100%;

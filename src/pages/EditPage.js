@@ -141,6 +141,15 @@ const EditPage = () => {
       alert("게시판 카테고리를 선택해주세요.");
       return;
     }
+    if (!title) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+    
     const updatedPost = { postNum, boardNum, title, content,  imgUrl: imgUrl !== "" ? imgUrl : null };
     await boardAxiosApi.updatePost(updatedPost);
     navigate(`/post/${postNum}`);

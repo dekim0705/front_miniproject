@@ -8,7 +8,6 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* margin: 0 -0.5%; */
   padding: 30px; 
   max-width: 1050px; 
   margin: 0 auto; 
@@ -19,16 +18,12 @@ const Container = styled.div`
   }
 `;
 const WriteButtonWrapper = styled.div`
-
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
   width: 100%;
   margin-right : 10px;
-  
 `;
-
-
 
 const GalleryContainer = ({ pageNum }) => {
   const [galleryItems, setGalleryItems] = useState([]);

@@ -26,12 +26,20 @@ const BoardWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 400px) {
+    padding-bottom: 20px;
+  }
 `;
 
 const TagListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 400px) {
+    margin: 0, auto;
+  }
 `;
 
 const CommentWrapper = styled.div`
@@ -84,9 +92,9 @@ const PostDetailPage = () => {
         </BoardWrapper>
         <CommentWrapper>
         <ReplyBoard postNum={postNum} reply={reply} fetchReply={fetchReply} />
-          </CommentWrapper>
+        </CommentWrapper>
       </Wrapper>
-      {showEditButton && <EditButton postNum={postNum} />}
+        {showEditButton && <EditButton postNum={postNum} />}
       <Footer />
     </>
   );
