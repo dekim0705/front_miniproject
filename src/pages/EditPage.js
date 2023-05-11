@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 20px;
-
 `;
 
 const EditorWrapper = styled.div`
@@ -50,6 +49,10 @@ const ButtonWrapper = styled.div`
   margin-top: 30px;
   padding-right : 220px;
   padding-bottom : 80px;
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    padding-left : 100px;
+  }
   `;
 
 const ImageWrapper = styled.div`
@@ -60,6 +63,9 @@ const ImageWrapper = styled.div`
   padding-left : 220px;
   img {
     max-width: 15%;
+  }
+  @media (max-width: 768px) {
+    padding-left : 100px;
   }
 `;
 
@@ -107,9 +113,12 @@ const EditPage = () => {
     setTag(e.target.value);
   };
 
-  const handleImageUpload = (url) => {
-    setImgUrl(url || "");
+
+  const handleImageUpload = (urls) => {
+  const imgUrl = urls; 
+  setImgUrl(imgUrl);
   };
+
   
   const handleImageDelete = () => {
     setPreviewImgUrl("");
@@ -126,15 +135,10 @@ const EditPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const updatedPost = { postNum, boardNum, title, content,  imgUrl: imgUrl !== "" ? imgUrl : null };
-    console.log(updatedPost);
     await boardAxiosApi.updatePost(updatedPost);
     navigate(`/post/${postNum}`);
   };
   
-
-
-  
-
   return (
     <>
       <Header />
@@ -142,7 +146,6 @@ const EditPage = () => {
       <Wrapper>
       <Row>
         <Col>
-
         <SelectCategory value={boardNum} onChange={handleCategoryChange} /> 
         <TitleInput value={title} onChange={handleTitleChange} />
         <EditorWrapper>
@@ -164,7 +167,6 @@ const EditPage = () => {
     </ButtonWrapper>
     </form>
     </>
-
   );
 };
 

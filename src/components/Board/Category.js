@@ -11,11 +11,18 @@ const Wrapper = styled.div`
   margin-left: 121px;
   margin-bottom: 15px;
   margin-top : 50px;
+  @media (max-width: 768px) {
+  padding-left : 70px;
+  margin-left: 30px;
+  }
 `;
 
 const StyledCategorySelect = styled(FormControl)`
   width: 250px;
   margin-bottom: 8px;
+  @media (max-width: 768px) {
+   width : 480px;
+  }
 `;
 
 const SelectCategory = ({value, onChange}) => {

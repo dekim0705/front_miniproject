@@ -47,13 +47,13 @@ const QnAPage = () => {
     <BoardName>
       Q&A 
     </BoardName>
-    <SearchInput boardName="qna" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}  />
+     <SearchInput boardName="qna" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}  />
       <BoardList boardName="qna" pageNum={pageNum} resultData={resultData}/>
-    <WriteButtonWrapper>
-      <WriteButton />
-    </WriteButtonWrapper>
-    {resultData && <Pages boardNum={1} path="/qna" keyword={keyword} resultData={resultData} />}
-      {!resultData && <Pages boardNum={1} path="/qna" />}
+       <WriteButtonWrapper>
+         <WriteButton />
+      </WriteButtonWrapper>
+        {resultData && <Pages boardNum={1} path="/qna" keyword={keyword} resultData={resultData} />}
+       {!resultData && <Pages boardNum={1} path="/qna" />}
     <Footer />
   </>
 

@@ -26,6 +26,10 @@ const Col = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media (max-width: 768px) {
+    min-width: 600px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -34,6 +38,25 @@ const ButtonWrapper = styled.div`
   margin-top: 30px;
   padding-right: 220px;
   padding-bottom: 80px;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    padding-left : 100px;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  margin-top : 30px;
+  padding-left : 220px;
+  img {
+    max-width: 130px;
+  }
+  @media (max-width: 768px) {
+    padding-left : 100px;
+  }
 `;
 
 const WriteForm = ({ userNum, onSubmit }) => {
@@ -45,6 +68,8 @@ const WriteForm = ({ userNum, onSubmit }) => {
     boardNum: '',
     memberNum: userNum // 회원 번호
   });
+  const [previewImgUrl, setPreviewImgUrl] = useState("");
+  const [fileName, setFileName] = useState("");
 
   const handleBoardNumChange = (boardNum) => {
     setPost((prevPost) => ({ ...prevPost, boardNum }));
@@ -65,12 +90,21 @@ const WriteForm = ({ userNum, onSubmit }) => {
   };
 
   const handleImageUpload = (urls) => {
-    console.log('Uploaded URLs 출력:', urls);
-    const imgUrl = urls; // 배열 대신 문자열 그대로 할당
+    const imgUrl = urls;
     setPost((prevPost) => ({ ...prevPost, imgUrl }));
+    setPreviewImgUrl(urls.split(",")); 
   };
   
-  
+  const handleImageDelete = (index) => {
+    const updatedPreview = [...previewImgUrl]; 
+    updatedPreview.splice(index, 1); // 인덱스에서 이미지 제거
+    setPreviewImgUrl(updatedPreview);
+    setPost((prevPost) => ({
+      ...prevPost,
+      imgUrl: updatedPreview.join(","),
+    }));
+  };
+
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -85,6 +119,16 @@ const WriteForm = ({ userNum, onSubmit }) => {
             <SelectCategory value={post.boardNum} onChange={handleBoardNumChange} />
             <TitleInput value={post.title} onChange={handleTitleChange} />
             <ContentInput value={post.content} onChange={handleContentChange} />
+            {previewImgUrl.length > 0 && (
+              <ImageWrapper>
+               {previewImgUrl.map((url, index) => ( 
+                <div key={index}>
+                 <img src={url} alt={`Uploaded ${index}`} />
+                 <Button onClick={() => handleImageDelete(index)}>삭제</Button>
+                 </div>
+                   ))}
+              </ImageWrapper>
+                )}
             <ImageUpload onImageUpload={handleImageUpload} />
             <TagField value={post.tag} onChange={handleTagChange} />
           </Col>

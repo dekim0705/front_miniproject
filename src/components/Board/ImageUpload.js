@@ -46,6 +46,10 @@ const StyledFileInput = styled.div`
   &.-chosen > .label {
     opacity: 1;
   }
+
+  @media (max-width: 768px) {
+   margin : auto;
+  }
 `;
 
 const ImageUpload = ({ onImageUpload }) => {
