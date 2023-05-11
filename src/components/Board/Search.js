@@ -37,6 +37,11 @@ const SearchContainer = styled.div`
     width: 100%;
     height : 45px;
   }
+  @media (max-width: 400px) {
+    text-align: center;
+    width: 85%;
+    height : 45px;
+  }
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`

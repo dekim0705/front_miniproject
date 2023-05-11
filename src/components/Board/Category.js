@@ -14,16 +14,21 @@ const Wrapper = styled.div`
   margin-bottom: 15px;
   margin-top : 50px;
   @media (max-width: 768px) {
-  padding-left : 70px;
-  margin-left: 30px;
+    padding-left: 60px;
+    width : 70%;
+  }
+  @media (max-width: 400px) {
+    margin-left: 0;
+    margin-top: 35px;
   }
 `;
 
 const StyledCategorySelect = styled(FormControl)`
   width: 250px;
   margin-bottom: 8px;
-  @media (max-width: 768px) {
-   width : 480px;
+  @media (max-width: 440px) {
+    width: 270px;
+
   }
 `;
 

@@ -27,9 +27,6 @@ const Col = styled.div`
   flex-direction: column;
   width: 100%;
 
-  @media (max-width: 768px) {
-    min-width: 600px;
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -39,10 +36,11 @@ const ButtonWrapper = styled.div`
   padding-right: 220px;
   padding-bottom: 80px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 400px) {
     justify-content: flex-start;
-    padding-left : 100px;
-  }
+    padding-left : 60px;
+  } 
+
 `;
 
 const ImageWrapper = styled.div`
@@ -58,6 +56,7 @@ const ImageWrapper = styled.div`
     padding-left : 100px;
   }
 `;
+
 
 const WriteForm = ({ userNum, onSubmit }) => {
   const [post, setPost] = useState({
@@ -107,8 +106,21 @@ const WriteForm = ({ userNum, onSubmit }) => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(post);
-  };
+      if (!post.boardNum) {
+        alert("게시판 카테고리를 선택해주세요.");
+        return;
+      }
+      if (!post.title) {
+        alert("제목을 입력해주세요.");
+        return;
+      }
+      if (!post.content) {
+        alert("내용을 입력해주세요.");
+        return;
+      }
+      onSubmit(post);
+    };
+  
 
   return (
     <>
@@ -134,7 +146,8 @@ const WriteForm = ({ userNum, onSubmit }) => {
         </Row>
       </Wrapper>
       <ButtonWrapper>
-        <Button variant="contained" style={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px" }} onClick={handleSubmit}>등록</Button>
+      <Button variant="contained" sx={{ borderRadius: "20px", fontSize: "18px", padding: "8px 25px",
+      "@media (max-width: 400px)": { fontSize: "15px",padding: "10px"}}} onClick={handleSubmit}>등록</Button>
       </ButtonWrapper>
     </>
   );

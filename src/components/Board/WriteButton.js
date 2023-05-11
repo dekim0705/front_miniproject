@@ -10,7 +10,14 @@ const StyledButton = styled(Button)`
     width: 100px;
     font-weight: bold;
     font-size : 1rem;
+
   }
+  @media (max-width: 400px) {
+    min-width: 400px;
+    display: block;
+    margin : 0 auto;
+  }
+  
 `;
 
 const WriteButton = () => {
