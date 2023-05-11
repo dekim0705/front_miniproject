@@ -144,7 +144,10 @@ export const FindPassword= () => {
       setResultMessage(
         <>
           <b><u>{userEmail}</u></b>로<br /> 
-          비밀번호 변경 링크가 전송되었습니다.
+          임시 비밀번호가 전송되었습니다.<br />
+          <Link to="/login">
+            <Button className='button' size="large"><u><b>로그인</b></u></Button>
+          </Link>        
         </>
       )
       console.log(`🙆🏻‍♀️우리회원이셔요!`);
@@ -158,7 +161,7 @@ export const FindPassword= () => {
       console.log(`🙅🏻‍♀️회원이아니셔!`);
     };
   };
-
+  
   return(
     <ParentWrapper width="50">
       <InnerWrapper width="75">
