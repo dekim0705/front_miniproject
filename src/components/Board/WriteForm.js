@@ -26,7 +26,6 @@ const Col = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
 `;
 
 const ButtonWrapper = styled.div`
@@ -40,7 +39,6 @@ const ButtonWrapper = styled.div`
     justify-content: flex-start;
     padding-left : 60px;
   } 
-
 `;
 
 const ImageWrapper = styled.div`

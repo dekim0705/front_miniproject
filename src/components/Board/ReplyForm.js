@@ -16,6 +16,7 @@ const CommentFormWrapper = styled.div`
   border-radius : 20px;
   padding: 25px;
   border: 1px solid #ccc;
+  /* box-shadow: 1px 1px 3px 1px #C6DEF7; */
 `;
 
 const CommentFormAvatar = styled.img`
@@ -23,10 +24,15 @@ const CommentFormAvatar = styled.img`
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
+
+  @media (max-width: 400px) {
+    display :none;
+  }
 `;
 
 const CommentFormButton = styled.button`
   background-color: rgb(73,115,228);
+  /* background-color: rgb(33,43,75); */
   color: white;
   margin-left : 10px;
   padding: 12px 20px;
@@ -42,6 +48,10 @@ const CommentFormButton = styled.button`
   width : 80px;
   &:hover {
     background-color: rgb(53, 85, 168);
+  }
+  @media (max-width: 400px) {
+    width: 50px;
+    padding : 5px;
   }
 
 `;
@@ -85,7 +95,6 @@ const ReplyForm = ({ postNum, fetchReply }) => {
       setIsModalOpen(true);
       fetchReply();
     } else {
-      console.log(replyContent)
       alert('댓글 작성에 실패했습니다.');
     }
   };

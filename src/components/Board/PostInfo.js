@@ -7,6 +7,13 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start; 
   padding-left: 20px;
+
+  @media (max-width: 400px) {
+    padding-left: 5px;
+    .info {
+      display: none;
+    }
+  }
 `;
 
 const Title = styled.h3`
@@ -87,7 +94,7 @@ const PostInfo = ({ postDetail }) => {
       <ProfileImg src={postDetail.pfImg} alt="프로필 이미지" />
           <Author>{postDetail.nickname}</Author>
         </AuthorWrapper>
-        <div>
+        <div className="info">
           <Date> 작성날짜 : {postDetail.writeDate}</Date>
           <Views>조회수 : {postDetail.viewCount}</Views>
           <Likes>추천수 : {postDetail.likeCount}</Likes>

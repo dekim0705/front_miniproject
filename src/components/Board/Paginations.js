@@ -5,15 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import boardAxiosApi from "../../api/BoardAxiosApi";
 
 
-const Pages = ({ boardNum, path, keyword, resultData}) => {
+const Pages = ({ boardNum, path, keyword, resultData }) => {
   const navigate = useNavigate();
   const [totalPosts, setTotalPosts] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchTotalPosts = async () => {
       try {
         if (resultData) {
-          const result = await boardAxiosApi.getSearchCount(boardNum,keyword);
+          const result = await boardAxiosApi.getSearchCount(boardNum, keyword);
           setTotalPosts(result.data);
         } else {
           const response = await boardAxiosApi.getPostCount(boardNum);
@@ -27,6 +28,7 @@ const Pages = ({ boardNum, path, keyword, resultData}) => {
   }, [boardNum, keyword, resultData]);
 
   const handlePageChange = (event, value) => {
+    setCurrentPage(value);
     if (resultData) {
       navigate(`${path}/${value}?keyword=${keyword}`);
     } else {
@@ -34,15 +36,14 @@ const Pages = ({ boardNum, path, keyword, resultData}) => {
     }
   };
 
-  
-
-
   const postsPerPage = boardNum === 4 ? 6 : 8;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const boundaryCount = 1;
+  const nearbyCount = 1;
 
   return (
-    <Stack spacing={2} sx={{ alignItems: 'center', padding: '40px' }}>
-      <Pagination count={totalPages} size="large" onChange={handlePageChange} key={totalPosts}/>
+    <Stack sx={{ alignItems: 'center', padding: '30px' }}>
+      <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} boundaryCount={boundaryCount} nearbyCount={nearbyCount}/>
     </Stack>
   );
 };

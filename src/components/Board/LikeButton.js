@@ -54,11 +54,11 @@ const LikeButton = ({ postNum }) => {
   return (
     <>
       {!isLiked ? (
-        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '0 20px' }} key={`${postNum}-not-liked`}>
+        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '0 20px'}} key={`${postNum}-not-liked`}>
           <ThumbUpOutlined sx={{ fontSize: '35px' }} />
         </IconButton>
       ) : (
-        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '0 20px' }}key={`${postNum}-liked`}>
+        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '0 20px'}}key={`${postNum}-liked`}>
           <ThumbUpAltSharp sx={{ fontSize: '35px' }} />
         </IconButton>
       )}

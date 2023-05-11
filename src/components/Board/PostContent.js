@@ -27,6 +27,10 @@ const StyledImg = styled.img`
   height: auto;
   margin-top: 1.5rem;
   border-radius: 5px;
+
+  @media (max-width: 480px) {
+    min-width: 100%;
+  }
 `;
 
 
