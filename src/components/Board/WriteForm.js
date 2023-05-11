@@ -69,7 +69,6 @@ const WriteForm = ({ userNum, onSubmit }) => {
     memberNum: userNum // 회원 번호
   });
   const [previewImgUrl, setPreviewImgUrl] = useState("");
-  const [fileName, setFileName] = useState("");
 
   const handleBoardNumChange = (boardNum) => {
     setPost((prevPost) => ({ ...prevPost, boardNum }));
