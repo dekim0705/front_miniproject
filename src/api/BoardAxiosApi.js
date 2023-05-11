@@ -3,7 +3,7 @@ const KH_DOMAIN = "http://localhost:8111";
 
 const boardAxiosApi = {
 
-  // 회원이메일로 회원번호 가져오기
+  // ✅ 회원이메일로 회원번호 가져오기
   userNum : async(email) => {
     const memberNum = {
       email : email
@@ -11,24 +11,24 @@ const boardAxiosApi = {
     return await axios.post(KH_DOMAIN + "/member/number", memberNum);
   },
 
-  // 회원이메일로 회원 닉네임 가져오기(경미님)
+  // ✅ 회원이메일로 회원 닉네임 가져오기(경미님)
   userNickname: async (email) => {
     const body = { email };
     const response = await axios.post(KH_DOMAIN + "/member/nickname", body);
     return response.data;
   },
 
-  // 전체 개시물 개수 요청
+  // ✅ 전체 개시물 개수 요청
   getPostCount: async (boardNum) => {
     return await axios.get(KH_DOMAIN + `/posts?boardNum=${boardNum}`);
   },
 
-    // 검색결과 개시물 개수 요청
+  // ✅ 검색결과 개시물 개수 요청
     getSearchCount: async (boardNum,keyword) => {
       return await axios.get(KH_DOMAIN + `/search/posts?boardNum=${boardNum}&keyword=${keyword}`);
     },
 
-  // 일반 게시판 글 목록 요청하기
+  // ✅ 일반 게시판 글 목록 요청
   requestGeneralList: async (boardName, pageNum) => {
     try {
       const response = await axios.get(
@@ -41,7 +41,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 포트폴리오게시판 글목록 요청하기
+  // ✅ 포트폴리오게시판 글목록 요청
   requestPortfolioList: async (pageNum) => {
     try {
       const response = await axios.get(
@@ -54,7 +54,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 게시글 상세보기 요청하기
+  // ✅ 게시글 상세보기 요청
   requestPostDetail: async (postNum) => {
     try {
       const response = await axios.get(KH_DOMAIN + `/post/${postNum}`);
@@ -65,7 +65,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 댓글을 불러오기
+  // ✅ 댓글 불러오기
   requestReply: async (postNum) => {
     try {
       const response = await axios.get(KH_DOMAIN + `/reply?postNum=${postNum}`);
@@ -76,7 +76,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 조회수 증가
+  // 👀 조회수 증가
   increaseViews: async (postNum) => {
     try {
       const response = await axios.post(KH_DOMAIN + `/post/${postNum}/views`);
@@ -87,7 +87,7 @@ const boardAxiosApi = {
     }
   },
 
- // 게시글 작성
+ // ✏️ 게시글 작성
  writePost: async (post) => {
   try {
     const response = await axios.post(KH_DOMAIN + '/post', post);
@@ -99,7 +99,7 @@ const boardAxiosApi = {
   }
 },
 
-  // 게시글 수정
+  // ✏️ 게시글 수정
   updatePost: async (post) => {
     try {
       const response = await axios.put(KH_DOMAIN + "/post", post);
@@ -111,7 +111,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 게시글 삭제
+  // ✏️ 게시글 삭제
   deletePost: async (postNum) => {
     try {
       const response = await axios.delete(KH_DOMAIN + `/post/${postNum}`);
@@ -123,7 +123,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 댓글 작성
+  // ✏️ 댓글 작성
   writeReply: async (postNum, memberNum, replyContent) => {
     try {
       const response = await axios.post(KH_DOMAIN + "/reply", {
@@ -139,7 +139,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 댓글 수정
+  // ✏️ 댓글 수정
   updateReply: async (replyNum, content) => {
     try {
       const response = await axios.put(KH_DOMAIN + "/reply", {
@@ -154,7 +154,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 댓글 삭제
+  // ✏️ 댓글 삭제
   deleteReply: async (replyNum) => {
     try {
       const response = await axios.delete(
@@ -180,7 +180,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 글 검색
+  // 🔍 글 검색
   searchPosts: async (boardName, pageNum, keyword) => {
     try {
       const response = await axios.get(
@@ -194,7 +194,7 @@ const boardAxiosApi = {
     }
   },
 
-  // 추천 상태 확인 
+  // ❤️ 추천 상태 확인 
   likeStaus: async (postNum, memberNum) => {
     try {
       const response = await axios.get(KH_DOMAIN +`/likeStatus?postNum=${postNum}&memberNum=${memberNum}`);
@@ -205,7 +205,7 @@ const boardAxiosApi = {
    }
   },
 
-  // 추천수 업데이트
+  // ❤️ 추천수 업데이트
   updateLikes: async (postNum, memberNum) => {
     try {
      const response = await axios.post(KH_DOMAIN +`/like/${postNum}?memberNum=${memberNum}`);

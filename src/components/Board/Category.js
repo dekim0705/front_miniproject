@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { UserContext } from '../../context/UserInfo';
+import MainAxiosApi from '../../api/MainAxiosApi';
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,6 +34,21 @@ const SelectCategory = ({value, onChange}) => {
     { boardNum: 3, text: '직장인' },
     { boardNum: 4, text: '포트폴리오' },
   ];
+
+  const context = useContext(UserContext);
+  const {userNum} = context;
+  const [userJob, setUserJob] = useState("");
+
+  // 회원 직업 가져오기
+  useEffect(() => {
+    const userJob = async (memberNum) => {
+      const response = await MainAxiosApi.userJobByNum(memberNum);
+      setUserJob(response.data);
+    };
+      userJob(userNum);
+  }, [userNum]);
+
+
   const handleChange = (event) => {
     const selectedBoardNum = event.target.value;
     onChange(selectedBoardNum);
@@ -46,13 +63,17 @@ const SelectCategory = ({value, onChange}) => {
           id="category-select"
           value={value}
           onChange={(event) => handleChange(event)}
-          label="게시판 선택"
-        >
-          {options.map((option) => (
-            <MenuItem key={option.boardNum} value={option.boardNum}>
-              {option.text}
-            </MenuItem>
-          ))}
+          label="게시판 선택" >
+            {options.map((option) => {
+            if ((userJob === "구직자" || userJob === "학생") && option.boardNum === 3) {
+              return null;
+             }
+            return (
+           <MenuItem key={option.boardNum} value={option.boardNum}>
+             {option.text}
+          </MenuItem>
+              );
+          })}
         </Select>
       </StyledCategorySelect>
     </Wrapper>
