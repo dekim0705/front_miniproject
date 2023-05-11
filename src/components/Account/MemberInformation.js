@@ -145,7 +145,7 @@ const MemberInformation = ({ userMemberNum }) => {
     };
     fetchMemberInfo();
     fetchMemberTechStackInfo();
-  }, [userMemberNum]);
+  }, [userMemberNum, memberInfo]);
 
   return (
     <ParentContainer>

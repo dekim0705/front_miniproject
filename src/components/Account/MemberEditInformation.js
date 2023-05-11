@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import styled from "styled-components";
 import Button from '@mui/material/Button';
@@ -8,6 +8,8 @@ import { storage } from "../../firebase";
 import AccountAxiosApi from '../../api/AccountAxiosApi';
 import { FlexColumnWrapper, FlexRowWrapper } from "./Wrappers";
 import PopUp from "../../util/PopUp";
+import { UserContext } from "../../context/UserInfo";
+
 
 const ParentContainer = styled.div`
   width: 100%;
@@ -345,12 +347,6 @@ const MemberEditInformation = ({ userMemberNum }) => {
       const response = await AccountAxiosApi.updateMemberInfo(userMemberNum, memberInfo);
       console.log("회원정보 수정 성공: ", response);
 
-      // 메인으로 갔다가 마이페이지로 이동
-      navigate("/");
-      setTimeout(() => {
-        navigate("/mypage/edit");
-      }, 10); 
-
     } catch (error) {
       console.log("회원정보 수정 실패: ", error);
     }
@@ -376,6 +372,9 @@ const MemberEditInformation = ({ userMemberNum }) => {
       });
   };
 
+  // 업로드 된 사진 바로 적용하기 위한 useContext
+  const { setUserPfImgUrl } = useContext(UserContext);
+
   // 업로드된 프로필사진 db에 저장
   const changeImg = async() => {
     try {
@@ -388,11 +387,7 @@ const MemberEditInformation = ({ userMemberNum }) => {
       await AccountAxiosApi.updatePfImg(extractedUrl, userMemberNum);
       setImageUpload(imageUrl);
       console.log('프로필사진 변경 성공');
-      // 메인으로 갔다가 마이페이지로 이동
-      navigate("/");
-      setTimeout(() => {
-        navigate("/mypage/edit");
-      }, 10);   
+      setUserPfImgUrl(imageUrl) //  
     } catch (error) {
       console.error(error);
       console.log('프로필사진 변경 실패');
