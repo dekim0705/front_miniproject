@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import AccountAxiosApi from "../../api/AccountAxiosApi";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
 import Logo from "../Logo";
-import MainAxiosApi from "../../api/MainAxiosApi";
-import boardAxiosApi from "../../api/BoardAxiosApi";
+import TokenAxiosApi from "../../api/TokenAxiosApi";
 import AccountPopUp from "../../util/AccountPopUp";
 
 const StyledLoginField = styled.div`
@@ -99,7 +97,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname, setIsWithdrawn} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname, setIsWithdrawn, isWithdrawn, isActive, setIsActive} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -120,51 +118,39 @@ const Login = () => {
 
   const onClickLogin = async () => {
     try {
-    const response = await AccountAxiosApi.loginMember(inputEmail, inputPwd);
-    if (response.data === true) {
-      // 🔥context에 저장
-      setUserEmail(inputEmail);
-      setUserPwd(inputPwd);
+    const response = await TokenAxiosApi.getToken(inputEmail, inputPwd);
+    if (response.status === 200) {
+      localStorage.setItem('token', response.data);
+      const token = localStorage.getItem('token');
+      console.log("토큰 : " + token);
 
-      // ❗️탈퇴 여부 가져오기
-      const isWithdrawnResponse  = await AccountAxiosApi.isMemberWithdrawn(inputEmail);
-      console.log("탈퇴 여부: "+ isWithdrawnResponse.data);
-      if(isWithdrawnResponse.data === "Y") {
+      const userInfoResponse = await TokenAxiosApi.userInfo(token);
+      const userData = JSON.stringify(userInfoResponse, null, 2);
+      const userDataObject = JSON.parse(userData);
+      
+      setUserEmail(userDataObject.data[0].email);
+      setUserPwd(inputPwd);
+      setUserPfImgUrl(userDataObject.data[0].pfImg);
+      setUserNum(userDataObject.data[0].memberNum);
+      setUserNickname(userDataObject.data[0].nickname);
+      setIsWithdrawn(userDataObject.data[0].isWithdrawn);
+      setIsActive(userDataObject.data[0].isActive);
+      
+      
+      if(isWithdrawn === "Y") {
         setPopUpMessage("탈퇴한 회원입니다.");
         setShowPopup(true);
         return;
-      }else {
-        setIsWithdrawn(isWithdrawnResponse.data)
-        console.log("탈퇴여부 컨텍스트: ", isWithdrawnResponse.data)
+      } else {
+        setIsWithdrawn(isWithdrawn);
+        console.log("탈퇴여부 컨텍스트 : ", isWithdrawn);
       }
 
-      // ❗️활성화 여부 가져오기
-      const isActiveResponse  = await AccountAxiosApi.isMemberActive(inputEmail);
-      console.log("활성화 여부: "+ isActiveResponse.data);
-      if(isActiveResponse.data === "N") {
-        setPopUpMessage("이메일인증을 완료하세요.");
+      if(isActive === "N") {
+        setPopUpMessage("이메일 인증을 완료하세요.");
         setShowPopup(true);
         return;
-      } 
-
-      // 🐢 프로필 이미지 URL 가져오기
-      const pfImgResponse = await MainAxiosApi.userPfImg(inputEmail);
-      if (pfImgResponse.data) {
-        setUserPfImgUrl(pfImgResponse.data);
       }
-
-      // 🔥 회원번호 가져오기
-      const numResponse = await boardAxiosApi.userNum(inputEmail);
-      if (numResponse.data) {
-        console.log(numResponse.data);
-        setUserNum(numResponse.data);
-      }
-
-      // 🔥 닉네임 가져오기
-      const nicknameResponse = await boardAxiosApi.userNickname(inputEmail);
-      console.log(nicknameResponse.data);
-      setUserNickname(nicknameResponse);
-
 
       navigate("/");
     } else {
