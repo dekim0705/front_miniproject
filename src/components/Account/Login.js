@@ -98,7 +98,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname, setIsWithdrawn} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -122,6 +122,25 @@ const Login = () => {
       setUserEmail(inputEmail);
       setUserPwd(inputPwd);
 
+      // ❗️탈퇴 여부 가져오기
+      const isWithdrawnResponse  = await AccountAxiosApi.isMemberWithdrawn(inputEmail);
+      console.log("탈퇴 여부: "+ isWithdrawnResponse.data);
+      if(isWithdrawnResponse.data === "Y") {
+        alert("탈퇴한 회원입니다.");
+        return;
+      }else {
+        setIsWithdrawn(isWithdrawnResponse.data)
+        console.log("탈퇴여부 컨텍스트: ", isWithdrawnResponse.data)
+      }
+
+      // ❗️활성화 여부 가져오기
+      const isActiveResponse  = await AccountAxiosApi.isMemberActive(inputEmail);
+      console.log("활성화 여부: "+ isActiveResponse.data);
+      if(isActiveResponse.data === "N") {
+        alert("이메일 인증을 확인하세요.")
+        return;
+      } 
+
       // 🐢 프로필 이미지 URL 가져오기
       const pfImgResponse = await MainAxiosApi.userPfImg(inputEmail);
       if (pfImgResponse.data) {
@@ -139,22 +158,6 @@ const Login = () => {
       const nicknameResponse = await boardAxiosApi.userNickname(inputEmail);
       console.log(nicknameResponse.data);
       setUserNickname(nicknameResponse);
-
-      // ❗️탈퇴 여부 가져오기
-      const isWithdrawnResponse  = await AccountAxiosApi.isMemberWithdrawn(inputEmail);
-      console.log("탈퇴 여부: "+ isWithdrawnResponse.data);
-      if(isWithdrawnResponse.data === "Y") {
-        alert("탈퇴한 회원입니다.");
-        return;
-      }
-
-      // ❗️활성화 여부 가져오기
-      const isActiveResponse  = await AccountAxiosApi.isMemberActive(inputEmail);
-      console.log("활성화 여부: "+ isActiveResponse.data);
-      if(isActiveResponse.data === "N") {
-        alert("이메일 인증을 확인하세요.")
-        return;
-      }
 
 
       navigate("/");

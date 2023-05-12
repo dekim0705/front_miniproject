@@ -16,6 +16,7 @@ const UserStore = (props) => {
   const [matchNum, setMatchNum] = useState([]);
   const [userNickname, setUserNickname] = useState("");
   const [isLogin, setIsLogin] = useState(false);
+  const [isWithdrawn, setIsWithdrawn] = useState("");
 
   useEffect(() => {
     const allMatchNum = async() => {
@@ -39,7 +40,7 @@ const UserStore = (props) => {
   
 
   return (
-    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum, matchNum, setMatchNum, userNickname, setUserNickname, isLogin, setIsLogin }}>
+    <UserContext.Provider value = {{userEmail, setUserEmail, userPwd, setUserPwd, resetUser, userPfImgUrl, setUserPfImgUrl, mentorNickname, setMentorNickname, mentorPfImg, setMentorPfImg, menteeNickname, setMenteeNickname, menteePfImg, setMenteePfImg, mentorNum, setMentorNum, menteeNum, setMenteeNum, userNum, setUserNum, matchNum, setMatchNum, userNickname, setUserNickname, isLogin, setIsLogin, isWithdrawn, setIsWithdrawn}}>
       {props.children}
     </UserContext.Provider>
   );
