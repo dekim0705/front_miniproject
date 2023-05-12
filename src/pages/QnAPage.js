@@ -9,17 +9,19 @@ import Footer from "../components/Footer";
 import WriteButton from "../components/Board/WriteButton";
 
 const BoardName = styled.div`
-  font-size: 2rem;
-  margin: 30px 0px 10px 130px;
-  padding : 10px 0px 0px 100px;
-
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding : 70px 0px 5px 0px;
+  
   @media (max-width: 768px) {
     text-align: center;
     margin: 30px 0 10px 0;
     padding: 10px 0;
+    font-size: 1.6rem;
   }
-
 `;
+
 const WriteButtonWrapper = styled.div`
   text-align: right;
   padding-top : 30px;

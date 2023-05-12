@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const StyledButton = styled(Button)`
   && {
-    background-color: rgb(83,131,236);
-    /* background-color: rgb(33,43,75);  */
+    /* background-color: rgb(83,131,236); */
+    background-color: rgb(33,43,75); 
     color: white;
     width: 100px;
     font-weight: bold;

@@ -93,6 +93,9 @@ const Status = styled.p`
   color: #777;
   display: inline-flex;
   align-items: center;
+  @media (max-width: 480px) {
+    padding-right:15px;
+  }
 `;
 
 const IconWrapper = styled.span`

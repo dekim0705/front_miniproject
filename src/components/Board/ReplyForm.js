@@ -16,7 +16,6 @@ const CommentFormWrapper = styled.div`
   border-radius : 20px;
   padding: 25px;
   border: 1px solid #ccc;
-  /* box-shadow: 1px 1px 3px 1px #C6DEF7; */
 `;
 
 const CommentFormAvatar = styled.img`
@@ -31,8 +30,7 @@ const CommentFormAvatar = styled.img`
 `;
 
 const CommentFormButton = styled.button`
-  background-color: rgb(73,115,228);
-  /* background-color: rgb(33,43,75); */
+  background-color: rgb(33,43,75);
   color: white;
   margin-left : 10px;
   padding: 12px 20px;
@@ -50,7 +48,7 @@ const CommentFormButton = styled.button`
     background-color: rgb(53, 85, 168);
   }
   @media (max-width: 400px) {
-    width: 50px;
+    width: 60px;
     padding : 5px;
   }
 
@@ -61,6 +59,12 @@ const CommentFormTextField = styled(TextField)`
   }
   & .MuiOutlinedInput-root {
     border-radius: 20px;
+  }
+  & .MuiOutlinedInput-root:focus-within .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+  & .MuiInputLabel-root.Mui-focused {
+    color: black;
   }
 `;
 
@@ -105,7 +109,7 @@ const ReplyForm = ({ postNum, fetchReply }) => {
         {userPfImgUrl ? (
           <CommentFormAvatar src={userPfImgUrl} />
         ) : (
-          <AccountCircleIcon style={{ marginRight: '10px', fontSize: 45, color: '#3B74EC' }} />
+          <AccountCircleIcon style={{ marginRight: '10px', fontSize: 45, color: 'rgb(33,43,75)' }} />
         )}
         <CommentFormTextField
           fullWidth
@@ -114,6 +118,11 @@ const ReplyForm = ({ postNum, fetchReply }) => {
           onChange={handleReplyChange}
           onClick={handleClick}
           value={replyContent}
+          InputProps={{
+            style: {
+              borderColor: 'red',
+            },
+          }}
         />
         <CommentFormButton onClick={handleReplySubmit}>등록</CommentFormButton>
       </CommentFormWrapper>

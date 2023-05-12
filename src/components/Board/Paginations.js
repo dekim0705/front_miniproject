@@ -36,7 +36,7 @@ const Pages = ({ boardNum, path, keyword, resultData }) => {
     }
   };
 
-  const postsPerPage = boardNum === 4 ? 6 : 8;
+  const postsPerPage = boardNum === 4 ? 6 : 9;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
   const boundaryCount = 1;
   const nearbyCount = 1;
