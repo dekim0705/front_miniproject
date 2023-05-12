@@ -7,8 +7,8 @@ import boardAxiosApi from '../../api/BoardAxiosApi';
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-content: flex-start;
   padding: 30px; 
   max-width: 1050px; 
   margin: 0 auto; 
