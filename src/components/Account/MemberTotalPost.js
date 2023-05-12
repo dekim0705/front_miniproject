@@ -210,8 +210,10 @@ const MemberTotalPost= ({ userMemberNum }) => {
                   <MapTitle>{memberPost.postTitle}</MapTitle>
                 </Link>
               </CheckboxContainer>
-            <MapContent className='ellipsis_2'>
-              {memberPost.postContent}
+            <MapContent 
+              className='ellipsis_2'
+            >
+              {memberPost.postContent.replace(/(<([^>]+)>)/gi, '')}
             </MapContent>
             <ExtraInfo>
               {memberPost.boardName} {memberPost.writeDate}
