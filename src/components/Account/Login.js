@@ -10,6 +10,7 @@ import { UserContext } from "../../context/UserInfo";
 import Logo from "../Logo";
 import MainAxiosApi from "../../api/MainAxiosApi";
 import boardAxiosApi from "../../api/BoardAxiosApi";
+import AccountPopUp from "../../util/AccountPopUp";
 
 const StyledLoginField = styled.div`
   * {
@@ -114,6 +115,9 @@ const Login = () => {
     setPopUpOpen(false);
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [popUpMessage, setPopUpMessage] = useState(false);
+
   const onClickLogin = async () => {
     try {
     const response = await AccountAxiosApi.loginMember(inputEmail, inputPwd);
@@ -126,7 +130,8 @@ const Login = () => {
       const isWithdrawnResponse  = await AccountAxiosApi.isMemberWithdrawn(inputEmail);
       console.log("탈퇴 여부: "+ isWithdrawnResponse.data);
       if(isWithdrawnResponse.data === "Y") {
-        alert("탈퇴한 회원입니다.");
+        setPopUpMessage("탈퇴한 회원입니다.");
+        setShowPopup(true);
         return;
       }else {
         setIsWithdrawn(isWithdrawnResponse.data)
@@ -137,7 +142,8 @@ const Login = () => {
       const isActiveResponse  = await AccountAxiosApi.isMemberActive(inputEmail);
       console.log("활성화 여부: "+ isActiveResponse.data);
       if(isActiveResponse.data === "N") {
-        alert("이메일 인증을 확인하세요.")
+        setPopUpMessage("이메일인증을 완료하세요.");
+        setShowPopup(true);
         return;
       } 
 
@@ -252,6 +258,14 @@ const Login = () => {
           </Link>
         </div>
       </Box>
+      <AccountPopUp
+        open={showPopup}
+        close={() => setShowPopup(false)}
+        header="❗️오류"
+        closeText="돌아가기"
+      >
+        {popUpMessage}
+      </AccountPopUp>
     </StyledLoginField>
   );
 };

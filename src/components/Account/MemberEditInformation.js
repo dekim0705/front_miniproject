@@ -9,6 +9,8 @@ import AccountAxiosApi from '../../api/AccountAxiosApi';
 import { FlexColumnWrapper, FlexRowWrapper } from "./Wrappers";
 import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
+import AccountPopUp from "../../util/AccountPopUp";
+
 
 
 const ParentContainer = styled.div`
@@ -133,6 +135,8 @@ const MemberEditInformation = ({ userMemberNum }) => {
     const closePopUp = () => {
       setPopUpOpen(false);
     };
+    const [showPopup, setShowPopup] = useState(false); // 팝업 
+
 
     // 힌트메세지
     const [nicknameMessage, setNicknameMessage] = useState("");
@@ -307,6 +311,8 @@ const MemberEditInformation = ({ userMemberNum }) => {
         console.log('삭제될 스택번호 :', stackNum)
         await AccountAxiosApi.deleteStack(userMemberNum, stackNum);
         setSelectedStacks((prevSelectedStacks) => prevSelectedStacks.filter(num => num !== stackNum));
+        setPopUpOpen(true);
+        setPopUpText(`기술스택이 삭제되었습니다.`);
         console.log('✔️ 기술스택 삭제 성공');
       } catch (error) {
         console.log('❌ 기술스택 삭제 실패:', error);
@@ -318,20 +324,14 @@ const MemberEditInformation = ({ userMemberNum }) => {
 
         await AccountAxiosApi.addStack(userMemberNum, stackNum);
         setSelectedStacks((prevSelectedStacks) => [...prevSelectedStacks, stackNum]);
+        setPopUpOpen(true);
+        setPopUpText(`기술스택이 추가되었습니다.`);
         console.log('✔️ 기술스택 추가 성공');
       } catch (error) {
         console.log('❌ 기술스택 추가 실패:', error);
       }
     }
   };
-
-  // 기술스택 삭제/추가 후 메인 다녀오기..
-  const navigationTrick = () => {
-    navigate("/");
-    setTimeout(() => {
-      navigate("/mypage/edit");
-    }, 10);   
-  }
 
   // 회원정보 수정
   const updateMemberInfo = async () => {
@@ -345,6 +345,8 @@ const MemberEditInformation = ({ userMemberNum }) => {
       };
 
       const response = await AccountAxiosApi.updateMemberInfo(userMemberNum, memberInfo);
+      setPopUpOpen(true);
+      setPopUpText(`회원정보가 수정되었습니다.`);
       console.log("회원정보 수정 성공: ", response);
 
     } catch (error) {
@@ -386,8 +388,10 @@ const MemberEditInformation = ({ userMemberNum }) => {
       setImageUrl(extractedUrl);  
       await AccountAxiosApi.updatePfImg(extractedUrl, userMemberNum);
       setImageUpload(imageUrl);
+      setPopUpOpen(true);
+      setPopUpText(`프로필사진이 변경되었습니다.`);
       console.log('프로필사진 변경 성공');
-      setUserPfImgUrl(imageUrl) //  
+      setUserPfImgUrl(imageUrl) 
     } catch (error) {
       console.error(error);
       console.log('프로필사진 변경 실패');
@@ -398,15 +402,28 @@ const MemberEditInformation = ({ userMemberNum }) => {
   // 회원탈퇴 (업데이트) 로그아웃까지 완료!
   const { isWithdrawn, setIsWithdrawn, setIsLogin, resetUser } = useContext(UserContext);
 
+const handleIsWithdrawn = () => {
+  setPopUpText(
+    <>
+      회원 탈퇴시 동일한 이메일로 재가입이 <span style={{color:"red", fontWeight:"bold"}}>불가</span>합니다. <br />
+      탈퇴하시겠습니까?
+    </>
+  )
+  setShowPopup(true)
+}
+
   const updateMemberIsWithdrawn = async() => {
+
+
     try {
       await AccountAxiosApi.updateMemberIsWithdrawn(userMemberNum);
       console.log(isWithdrawn);
-      alert("탈퇴후 동일한 이메일로 재가입 불가합니다. 동의하시면 확인을 눌러주세요");
       setIsWithdrawn("Y");
       setIsLogin(false);
       resetUser();
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 100);   
     } catch (error) {
       console.log("회원탈퇴 실패");
     }
@@ -603,18 +620,23 @@ const MemberEditInformation = ({ userMemberNum }) => {
               ))
             }
             </ResultField>
-            <Button 
-              onClick={navigationTrick} 
-              variant="contained" 
-              sx={{borderRadius:20, fontWeight:"bold", alignSelf:"flex-end"}}> 
-              내 기술스택 수정 
-            </Button>
+
       </InfoSectionContainer>
   
     </ParentContainer>
         
-    <Button onClick={updateMemberIsWithdrawn} sx={{alignSelf:"flex-end"}}>  회원 탈퇴 </Button>
+    <Button onClick={handleIsWithdrawn} sx={{alignSelf:"flex-end"}}> 회원 탈퇴 </Button>
     <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
+    <AccountPopUp 
+      open={showPopup} 
+      close={() => setShowPopup(false)} 
+      confirm={updateMemberIsWithdrawn}
+      header="❗️회원 탈퇴" 
+      type="confirm" 
+      confirmText="탈퇴" 
+      closeText="취소" >
+        {PopUpText}
+    </AccountPopUp>
 
   </>
   );

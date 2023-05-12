@@ -52,6 +52,7 @@ const StyledPopUp = styled.div`
     padding: 16px;
     border-bottom: 1px solid #dee2e6;
     border-top: 1px solid #dee2e6;
+    text-align: center;
   }
   .modal > section > footer {
     padding: 12px 16px;
