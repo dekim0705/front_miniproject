@@ -45,9 +45,10 @@ const StyledPopUp = styled.div`
     background-color: transparent;
   }
   .modal > section > main {
-    padding: 30px;
+    padding: 25px;
     border-bottom: 1px solid #dee2e6;
     border-top: 1px solid #dee2e6;
+    text-align: center;
   }
   .modal > section > footer {
     padding: 12px 16px;
@@ -110,8 +111,8 @@ const EditPopUp = (props) => {
             <footer>
             {type === "confirm" ? (
                 <>
-                  <button onClick={confirm}>네 😭</button>
-                  <button onClick={close}>돌아가기</button>
+                  <button onClick={confirm}>삭제 😭</button>
+                  <button onClick={close}>취소</button>
                 </>
               ) : (
                 <button onClick={close}>확인</button>

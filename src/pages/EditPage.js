@@ -76,19 +76,30 @@ const EditPage = () => {
   const { postNum } = useParams();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [boardNum, setBoardNum] = useState(null);
+  const [boardNum, setBoardNum] = useState("");
   const [tag, setTag] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const navigate = useNavigate();
   const [previewImgUrl, setPreviewImgUrl] = useState("");
-
-
+  
+  const options = [
+    { boardNum: 1, text: 'QnA' },
+    { boardNum: 2, text: 'Information' },
+    { boardNum: 3, text: 'Worker' },
+    { boardNum: 4, text: 'Portfolio' },
+  ];
+  
   useEffect(() => {
+    const getBoardNumByName = (boardName) => {
+      const option = options.find((option) => option.text === boardName);
+      return option ? option.boardNum : '';
+    };
+    
     const fetchPost = async () => {
       const response = await boardAxiosApi.requestPostDetail(postNum);
       const postData = response[0];
       console.log(postData);
-      setBoardNum(postData.boardNum);
+      setBoardNum(getBoardNumByName(postData.boardName)); 
       setTitle(postData.title);
       setTag(postData.tag);
       setContent(response[0].content);
