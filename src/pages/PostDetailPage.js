@@ -36,9 +36,12 @@ const TagListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  position: relative;
+
 
   @media (max-width: 400px) {
-    margin: 0, auto;
+    margin: 0 auto;
   }
 `;
 
