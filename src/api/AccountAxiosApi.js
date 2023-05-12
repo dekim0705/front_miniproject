@@ -242,7 +242,17 @@ const AccountAxiosApi = {
           memberAuthKey: memberAuthKey
         });
 
-      }
+      },
+    // 회원 계정 활성화 여부 확인
+    isMemberActive : async(memberEmail) => {
+      return await axios.get(KH_DOMAIN + `/login/isactive?memberEmail=${memberEmail}`);
+      },
+      
+    // 회원 탈퇴 여부 확인
+    isMemberWithdrawn : async(memberEmail) => {
+      return await axios.get(KH_DOMAIN + `/login/iswithdrawn?memberEmail=${memberEmail}`);
+    }
+
 
 };
 
