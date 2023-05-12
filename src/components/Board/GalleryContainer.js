@@ -7,11 +7,15 @@ import boardAxiosApi from '../../api/BoardAxiosApi';
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-content: flex-start;
   padding: 30px; 
   max-width: 1050px; 
   margin: 0 auto; 
-
+  &::after {
+    content: '';
+    flex-grow: 1;
+  }
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;

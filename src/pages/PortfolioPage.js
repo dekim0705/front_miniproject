@@ -5,17 +5,17 @@ import Footer from "../components/Footer";
 import Pages from "../components/Board/Paginations";
 import { useParams } from "react-router-dom";
 
-
 const BoardName = styled.div`
-  font-size: 1.5rem;
-  margin: 30px 0px 10px 150px;
-  padding : 10px 0px 0px 100px;
-  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  padding : 70px 0px 5px 0px;
   
   @media (max-width: 768px) {
     text-align: center;
     margin: 30px 0 10px 0;
     padding: 10px 0;
+    font-size: 1.6rem;
   }
 `;
 const Divider = styled.div`
@@ -33,7 +33,7 @@ const PortfolioPage = () => {
     <>
       <Header />
       <BoardName>
-      포트폴리오 게시판
+      Portfolio
     </BoardName>
     <Divider />
     <GalleryContainer pageNum={pageNum} />

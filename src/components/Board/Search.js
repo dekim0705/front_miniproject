@@ -18,7 +18,8 @@ const SearchContainer = styled.div`
    justify-content :center;
     margin : 0 auto;
     text-align: center;
-    padding-left : 0;
+    padding-top: 10px;
+    padding-left : 10px;
     width : 80%; 
   }
   `;

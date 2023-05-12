@@ -9,16 +9,17 @@ import Footer from "../components/Footer";
 import WriteButton from "../components/Board/WriteButton";
 
 const BoardName = styled.div`
-  font-size: 1.5rem;
-  margin: 30px 0px 10px 130px;
-  padding : 10px 0px 0px 100px;
-
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding : 70px 0px 5px 0px;
+  
   @media (max-width: 768px) {
     text-align: center;
     margin: 30px 0 10px 0;
     padding: 10px 0;
+    font-size: 1.6rem;
   }
-
 `;
 const WriteButtonWrapper = styled.div`
   text-align: right;
@@ -29,6 +30,7 @@ const WriteButtonWrapper = styled.div`
     margin-right : 40px;
   }
 `;
+
 const WorkerPage = () => {
   const { pageNum } = useParams();
   const [resultData, setResultData] = useState(null);
@@ -45,7 +47,7 @@ const WorkerPage = () => {
     <>
       <Header />
       <BoardName>
-      직장인 게시판
+      직장인
     </BoardName>
     <SearchInput boardName="worker" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}  />
       <BoardList boardName="worker" pageNum={pageNum} resultData={resultData}/>

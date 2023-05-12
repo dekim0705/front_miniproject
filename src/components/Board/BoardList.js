@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import boardAxiosApi from "../../api/BoardAxiosApi";
 
 const ListWrapper = styled.div`
-  width: 70%;
+  width: 75%;
   margin: 0 auto;
-  border: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   border-radius: 4px;
   overflow: hidden;
   @media (max-width: 768px) {
@@ -14,6 +15,7 @@ const ListWrapper = styled.div`
   }
   @media (max-width: 400px) {
     min-width: 300px;
+    width: 95%
   }
 `;
 
@@ -21,20 +23,20 @@ const TableBox = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
-  
+
   tbody tr:hover {
     background-color : #f5f5f5;
   }
+
 `;
 
 const HeaderCell = styled.th`
-  padding: 16px;
+  padding: 15px;
 `;
 
 const TableHeader = styled.thead`
-  background-color: rgb(83,131,236);
-  /* background-color: rgb(33,43,75); */
-  color: white;
+  border-top: 1px solid #000; 
+  border-bottom: 1px solid #e5e5e5;
 
   @media (max-width: 768px) {
     ${HeaderCell}:nth-child(5) {
@@ -42,9 +44,7 @@ const TableHeader = styled.thead`
     }
   }
   @media (max-width: 400px) {
-    ${HeaderCell}:nth-child(1) {
-      display: none;
-    }
+   
     ${HeaderCell}:nth-child(3) {
       display: none;
     }
@@ -75,9 +75,9 @@ const TableCell = styled.td`
     &.view {
       display: none;
     }
-    &.number {
-      display: none;
-    }
+    /* &.title {
+      text-align: start;
+    } */
     &.writedate {
       display: none;
     }
@@ -127,7 +127,7 @@ const BoardList = ({ boardName, pageNum, resultData }) => {
           {boardItem.map((item, index) => (
             <TableRow key={index}>
               <TableCell className="number">{item.postNum}</TableCell>
-              <TableCell>
+              <TableCell className="title">
               <StyledLink to={`/post/${item.postNum}`}>{item.title}</StyledLink>
               </TableCell>
               <TableCell className="nickname">{item.nickname}</TableCell>
