@@ -46,14 +46,14 @@ const MemberInfoContainer = styled.div`
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const { userNum } = useContext(UserContext);
+  const { userNum, isWithdrawn } = useContext(UserContext);
   const userMemberNum = userNum;
 
   useEffect(() => {
-    if (!userNum) {
+    if (!userNum || isWithdrawn ==='Y') {
       navigate('/login', {replace: true});
     }
-  }, [userNum, navigate]);
+  }, [userNum, isWithdrawn, navigate]);
 
   return (
     <>

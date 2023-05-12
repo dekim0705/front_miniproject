@@ -394,13 +394,19 @@ const MemberEditInformation = ({ userMemberNum }) => {
     }
   };
   
-  // 회원탈퇴 (업데이트) 완료
-  // 탈퇴 후 로그아웃 구현 X
-  const updateMemberIsWithdrawn = async({ isLogin }) => {
-    try{
-      const response = await AccountAxiosApi.updateMemberIsWithdrawn(userMemberNum);
-      console.log("회원탈퇴(업데이트) 완료", response);
+  
+  // 회원탈퇴 (업데이트) 로그아웃까지 완료!
+  const { isWithdrawn, setIsWithdrawn, setIsLogin, resetUser } = useContext(UserContext);
 
+  const updateMemberIsWithdrawn = async() => {
+    try {
+      await AccountAxiosApi.updateMemberIsWithdrawn(userMemberNum);
+      console.log(isWithdrawn);
+      alert("탈퇴후 동일한 이메일로 재가입 불가합니다. 동의하시면 확인을 눌러주세요");
+      setIsWithdrawn("Y");
+      setIsLogin(false);
+      resetUser();
+      navigate("/");
     } catch (error) {
       console.log("회원탈퇴 실패");
     }
