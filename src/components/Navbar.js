@@ -76,7 +76,7 @@ const Navbar = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <MenuIcon style={{ fontSize: 40 }} />
+        <MenuIcon style={{ fontSize: 40, color: "#000" }} />
       </IconButton>
 
       <Menu
