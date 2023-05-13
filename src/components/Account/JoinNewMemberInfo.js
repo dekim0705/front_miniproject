@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AccountAxiosApi from "../../api/AccountAxiosApi";
 import TextField from "@mui/material/TextField";
-import { Button, MenuItem, Select} from "@mui/material";
+import { Button, MenuItem, Select } from "@mui/material";
 import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexColumnWrapper, FlexRowWrapper } from "./Wrappers";
 import JoinButton from "./JoinButton";
-import PopUp from "../../util/PopUp";
 import styled from "styled-components";
 import { MemberInfoContext } from "../../context/MemberInfo";
-import { useContext } from "react";
+import AccountPopUp from "../../util/AccountPopUp";
 
 
 const HintWrapper = styled.div`
@@ -27,14 +26,12 @@ const NewMemberInfo = () => {
   const navigate = useNavigate();
   const { memberInfo, setMemberInfo } = useContext(MemberInfoContext);
 
-
   // 키보드 입력
   const [inputNickname, setInputNickname] = useState(memberInfo.nickname);
   const [inputPwd, setInputPwd] = useState(memberInfo.pwd);
   const [inputConPwd, setInputConPwd] = useState("");
   const [inputEmail, setInputEmail] = useState(memberInfo.email);
-  
-  const [emailDomain, setEmailDomain] = useState('@gmail.com');
+  const [emailDomain, setEmailDomain] = useState(''); // 이메일 도메인 선택
 
   // 오류 메세지
   const [nicknameMessage, setNicknameMessage] = useState("");
@@ -45,13 +42,18 @@ const NewMemberInfo = () => {
   const [isNickname, setIsNickname] = useState(false);
   const [isPwd, setIsPwd] = useState(false);
   const [isConPwd, setIsConPwd] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
 
-  // 닉네임 중복확인결과에 따른 비밀번호 인풋창 활성/비활성화
+  // 닉네임 중복 확인 결과에 따른 비밀번호 인풋창 활성/비활성화
   const [inputPwdDisabled, setInputPwdDisabled] = useState(true);
 
-  // 이메일 중복확인 결과에 따른 상태
-  // const [isEmailAvailable, setIsEmailAvailable] = useState(false);
-  // const [emailAvailabilityMessage, setEmailAvailabilityMessage] = useState("");
+  // 이메일 중복확인 
+  const [isEmailAvailable, setIsEmailAvailable] = useState(false);
+  const [emailAvailabilityMessage, setEmailAvailabilityMessage] = useState("");
+
+    // 팝업
+    const [showPopUp, setShowPopUp] = useState(false);
+    const [PopUpText, setPopUpText] = useState("");
 
 
   // 닉네임
@@ -61,13 +63,34 @@ const NewMemberInfo = () => {
     const nicknameCurrent = e.target.value;
     setInputNickname(nicknameCurrent);
     if(!nicknameRegex.test(nicknameCurrent) || nicknameCurrent.length === 0) {
-      setNicknameMessage("2~10자의 닉네임을 입력해주세요. (한글, 영문, 숫자 사용 가능)");
+      setNicknameMessage(<>2~10자의 닉네임을 입력해 주세요.<br />(한글, 영문, 숫자 사용 가능)</>);
       setIsNickname(false);
       setInputPwd("");
       setInputPwdDisabled(true);
     } else {
-      setNicknameMessage("닉네임 중복확인을 해주세요.");
+      setNicknameMessage("닉네임 중복 확인을 해주세요.");
       setIsNickname(true);
+    }
+  }
+
+  // 닉네임 중복 확인
+  const onClickNicknameDoubleCheck = async() => {
+    const memberCheck = await AccountAxiosApi.memberRegCheck(inputNickname);
+    console.log("🔵닉네임 중복 여부: " + memberCheck.data);
+
+    // 닉네임 중복 여부 확인 후 팝업 창 
+    if(memberCheck.data === true) {
+      setShowPopUp(true);
+      setPopUpText(<>'<b>{inputNickname}</b>' 은(는) 사용 가능한 닉네임입니다.😊</>);
+      setNicknameMessage(<>'<b>{inputNickname}</b>' 은(는) 사용 가능한 닉네임입니다.</>);
+      setInputPwdDisabled(false);
+      setIsNickname(true);
+
+    } else {
+      setShowPopUp(true);
+      setPopUpText(<>'<b>{inputNickname}</b>' 은(는) <span style={{color:"red"}}>이미 사용</span> 중인 닉네임입니다.🥺</>);
+      setInputNickname(''); // 인풋 창 초기화
+      setInputPwdDisabled(true);
     }
   }
 
@@ -78,10 +101,10 @@ const NewMemberInfo = () => {
     const pwdCurrent = e.target.value;
     setInputPwd(pwdCurrent);
     if(!pwdRegex.test(pwdCurrent)) {
-      setPwdMessage(`숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.`)
+      setPwdMessage(`숫자+영문자+특수문자 조합으로 8자리 이상 입력해 주세요.`)
       setIsPwd(false);
     } else {
-      setPwdMessage("올바른 형식 입니다.");
+      setPwdMessage("올바른 형식입니다.");
       setIsPwd(true);
     }
   }
@@ -94,7 +117,7 @@ const NewMemberInfo = () => {
       setConPwdMessage('비밀번호가 일치하지 않습니다.')
       setIsConPwd(false)
     } else {
-      setConPwdMessage('비밀번호가 일치 합니다.')
+      setConPwdMessage('비밀번호가 일치합니다.')
       setIsConPwd(true);
     }
   }
@@ -103,38 +126,33 @@ const NewMemberInfo = () => {
   const onChangeEmail = (e) => {
     setInputEmail(e.target.value);
   }
-// 이메일 도메인
-  const handleEmailDomainChange = (event) => {
-    setEmailDomain(event.target.value);
+  // 이메일 도메인 선택
+  const onEmailDomainChange = (e) => {
+    setEmailDomain(e.target.value);
   };
+  
+  // 이메일 중복 확인
+  useEffect(() => {
+    const checkEmailAvailability = async () => {
+      if(inputEmail !== "" && emailDomain !== ""){ 
+      const fullEmail = inputEmail + emailDomain;
+      const isEmailDuplicate = await AccountAxiosApi.isMemberByEmail(fullEmail);
+        if (!isEmailDuplicate.data) {
+          setEmailAvailabilityMessage(<>이미 사용 중인 이메일입니다.</>);
+          // setEmailAvailabilityMessage(<>'<b>{fullEmail}</b>' 은 <br />이미 사용중인 이메일입니다.</>);
+          setIsEmailAvailable(false);
+          setIsEmail(false);
+        } else {
+          setEmailAvailabilityMessage(<><b>사용 가능</b>한 이메일입니다.</>);
+          // setEmailAvailabilityMessage(<>'<b>{fullEmail}</b>' 은 <br /><b>사용가능</b>한 이메일입니다.</>);
+          setIsEmailAvailable(true);
+          setIsEmail(true);
+        }
+      }
+    };
+    checkEmailAvailability();
+  }, [inputEmail, emailDomain]);
 
-  // 팝업
-  const [PopUpOpen, setPopUpOpen] = useState(false);
-  const [PopUpText, setPopUpText] = useState("");
-  const closePopUp = () => {
-    setPopUpOpen(false);
-  };
-
-  // 닉네임 중복 확인
-  const onClickNicknameDoubleCheck = async() => {
-    console.log("Click -> 닉네임 중복확인");
-    // 가입 여부 우선 확인
-    const memberCheck = await AccountAxiosApi.memberRegCheck(inputNickname);
-    console.log("닉네임 중복여부 확인: ", memberCheck.data);
-
-    // 닉네임 중복 여부 확인 후 팝업 창 
-    if(memberCheck.data === true) {
-      setPopUpOpen(true);
-      setPopUpText("🙆🏻‍♀️ 사용 가능한 닉네임 입니다.");
-      setNicknameMessage('사용 가능한 닉네임 입니다.');
-      setInputPwdDisabled(false);
-    } else {
-      setPopUpOpen(true);
-      setPopUpText(`🙅🏻‍♀️ '${inputNickname}' 은(는) 이미 사용중인 닉네임 입니다.`);
-      setInputNickname(''); // 인풋 창 초기화
-      setInputPwdDisabled(true);
-    }
-  }
 
     // '이전' 버튼
     const handlePrevButtonClick = () => {
@@ -143,38 +161,27 @@ const NewMemberInfo = () => {
   
   // '다음' 버튼
   const handleNextButtonClick = async () => {
-    if(inputNickname && inputPwd && inputConPwd && inputEmail) {
-      console.log("Step3로 이동");
-
+    if(isNickname && isPwd && isConPwd && isEmail) {
       setMemberInfo(prevState => ({
         ...prevState,
         nickname: inputNickname,
         pwd: inputConPwd,
         email: inputEmail + emailDomain
       }));
-      console.log(memberInfo);
-      // const emailCheck = await AccountAxiosApi.isMemberByEmail(memberInfo.email);
-      // console.log("인풋된이메일?: ", memberInfo.email);
-      // console.log("이메일 중복여부 확인: ", emailCheck.data);
-  
-      // if(emailCheck.data === false) {
-      //   setPopUpOpen(true);
-      //   setPopUpText(`🙅🏻‍♀️ '${memberInfo.email}' 은(는) 사용불가한 이메일 입니다.`);
-      //   setInputPwdDisabled(false);
-      // }
+      console.log("🔵회원 입력 정보 : " + memberInfo);
 
     navigate('/join/step3');
+    console.log("⭕️ 회원가입 Step3로 이동");
 
     } else {
-      console.log("모든 필드 입력 요망")
-      setPopUpOpen(true);
-      setPopUpText("모든 필드를 입력!!!하세요!! 🥹")
+      setShowPopUp(true);
+      setPopUpText("입력을 확인해 주세요.🥺")
     }
   };
 
   return(
     <ParentWrapper width="40">
-      <InnerWrapper width="60" gap="30">
+      <InnerWrapper width="60" gap="30" marginTop="20">
 
         {/* 닉네임 */}
         <FlexColumnWrapper>
@@ -190,11 +197,11 @@ const NewMemberInfo = () => {
             /> 
             {isNickname ? (
               <Button onClick={onClickNicknameDoubleCheck} variant="outlined" type="button" size="small" sx={{borderRadius: 4}}>
-                중복확인
+                중복 확인
               </Button>
             ) : (
-              <Button type="button" size="small" sx={{color: '#ffffff'}}>
-                중복확인
+              <Button type="button" size="small" sx={{display: 'none'}}>
+                중복 확인
               </Button>
             )}
           </FlexRowWrapper>
@@ -204,7 +211,7 @@ const NewMemberInfo = () => {
         </FlexColumnWrapper>
 
         {/* 비밀번호 */}
-        <FlexColumnWrapper gap="10">
+        <FlexColumnWrapper gap="20">
           <div className="pwd_input">
             <TextField 
               size="small" 
@@ -239,34 +246,42 @@ const NewMemberInfo = () => {
         </FlexColumnWrapper>
 
         {/* 이메일 */}
-        <FlexRowWrapper gap="2">
-          <TextField 
-            size="small" 
-            label="이메일주소" 
-            value={inputEmail} 
-            onChange={onChangeEmail} 
-            placeholder="이메일주소를 입력하세요" 
-            required 
-            InputProps={{ sx: { borderRadius: 4 } }} 
-          />
-          <Select
-            size="small"
-            onChange={handleEmailDomainChange}
-            variant="outlined"
-            sx={{ borderRadius: 4 }}
-            defaultValue='@gmail.com'>
-              <MenuItem sx={{ borderRadius: 4 }} value="@gmail.com">@gmail.com</MenuItem>
-              <MenuItem sx={{ borderRadius: 4 }} value="@kakao.com">@kakao.com</MenuItem>
-              <MenuItem sx={{ borderRadius: 4 }} value="@naver.com">@naver.com</MenuItem>
-              <MenuItem sx={{ borderRadius: 4 }} value="@nate.com">@nate.com</MenuItem>
-          </Select>
-        </FlexRowWrapper>
+        <FlexColumnWrapper>
+          <FlexRowWrapper gap="2">
+            <TextField 
+              size="small" 
+              label="이메일주소" 
+              value={inputEmail} 
+              onChange={onChangeEmail} 
+              placeholder="이메일 주소를 입력하세요" 
+              required 
+              InputProps={{ sx: { borderRadius: 4 } }} 
+            />
+            <Select
+              size="small"
+              onChange={onEmailDomainChange}
+              variant="outlined"
+              sx={{ borderRadius: 4 }}
+              defaultValue='도메인 선택'
+              displayEmpty
+            >
+                <MenuItem value="도메인 선택" disabled>도메인 선택</MenuItem>
+                <MenuItem sx={{ borderRadius: 4 }} value="@gmail.com">@gmail.com</MenuItem>
+                <MenuItem sx={{ borderRadius: 4 }} value="@kakao.com">@kakao.com</MenuItem>
+                <MenuItem sx={{ borderRadius: 4 }} value="@naver.com">@naver.com</MenuItem>
+                <MenuItem sx={{ borderRadius: 4 }} value="@nate.com">@nate.com</MenuItem>
+            </Select>
+          </FlexRowWrapper>
+          <HintWrapper>
+            {inputEmail.length > 0 && <span className={`message ${isEmailAvailable ? 'success' : 'error'}`}>{emailAvailabilityMessage}</span>} 
+          </HintWrapper>   
+        </FlexColumnWrapper>     
       </InnerWrapper>
 
       {/* 버튼 */}
       <ButtonWrapper>
         <JoinButton onClick={handlePrevButtonClick}>이전</JoinButton>
-        {inputNickname && inputPwd && inputConPwd && inputEmail ? (
+        {isNickname && isPwd && isConPwd && isEmail ? (
           <JoinButton
             onClick={handleNextButtonClick}
             sx={{ 
@@ -285,7 +300,6 @@ const NewMemberInfo = () => {
               color: "#1E2B4D",
                 "&:hover": { 
                   backgroundColor: "#E5E7EA",
-                  // color: "#E5E7EA"
                   }
               }}
           >
@@ -293,9 +307,7 @@ const NewMemberInfo = () => {
           </JoinButton>
         )}
       </ButtonWrapper>
-
-      {/* 모든 필드 입력요망 팝업 */}
-      <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
+      <AccountPopUp open={showPopUp} close={()=>setShowPopUp(false)} header="❗️" closeText="확인">{PopUpText}</AccountPopUp>
     </ParentWrapper>
   );
 }

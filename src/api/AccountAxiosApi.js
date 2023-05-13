@@ -230,10 +230,10 @@ const AccountAxiosApi = {
     }
   },
 
-    // // 회원가입시 이메일 중복 여부 확인
-    // isMemberByEmail: async(memberEmail) => {
-    //   return await axios.get(KH_DOMAIN + `/members?memberEmail=${memberEmail}`);
-    // },
+    // ✅ 회원가입시 이메일 중복 여부 확인
+    isMemberByEmail: async(memberEmail) => {
+      return await axios.get(KH_DOMAIN + `/members?memberEmail=${memberEmail}`);
+    },
 
     // ✅ 회원가입시 인증키 확인
     isMemberEmailAuth: async(memberEmail, memberAuthKey) => {
