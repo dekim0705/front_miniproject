@@ -43,6 +43,28 @@ const UserStore = (props) => {
   }, []);
 
   useEffect(() => {
+    const restoreSession = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const userInfoResponse = await TokenAxiosApi.userInfo(token);
+          const userData = userInfoResponse.data[0];
+
+          setUserEmail(userData.email);
+          setUserPwd(userData.pwd);
+          setUserPfImgUrl(userData.pfImg);
+          setUserNum(userData.memberNum);
+          setUserNickname(userData.nickname);
+          setIsWithdrawn(userData.isWithdrawn);
+        } catch (error) {
+          console.error("세션 복구 중 오류 발생 : ", error);
+        }
+      }
+    };
+    restoreSession();
+  }, []);
+
+  useEffect(() => {
     const allMatchNum = async() => {
       const response = await ChatAxiosApi.allMentorMenteeNum();
       const arrayNum = [];
