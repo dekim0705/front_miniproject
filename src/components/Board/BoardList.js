@@ -75,9 +75,9 @@ const TableCell = styled.td`
     &.view {
       display: none;
     }
-    /* &.title {
+    &.title {
       text-align: start;
-    } */
+    }
     &.writedate {
       display: none;
     }
