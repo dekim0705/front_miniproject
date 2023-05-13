@@ -49,8 +49,8 @@ const EditButton = ({postNum}) => {
     <>
     <Wrapper>
       <Stack spacing={3} direction="row">
-        <Button variant="outlined" sx={{ width: '80px' }} component={Link} to={`/edit/${postNum}`}>수정</Button>
-        <Button variant="contained" sx={{ width: '80px' }} onClick={() => setIsModalOpen(true)}>삭제</Button>
+        <Button variant="outlined" sx={{ width: '80px',  borderColor: "rgb(50, 70, 120)", color: "rgb(24, 31, 54)", "&:hover": {  borderColor: "rgb(70, 90, 140)",},}} component={Link} to={`/edit/${postNum}`}>수정</Button>
+        <Button variant="contained" sx={{ width: '80px', backgroundColor: "rgb(40, 51, 90)","&:hover": {backgroundColor: "rgb(24, 31, 54)",}, }} onClick={() => setIsModalOpen(true)}>삭제</Button>
       </Stack>
     </Wrapper>
      <EditPopUp
@@ -59,7 +59,7 @@ const EditButton = ({postNum}) => {
    </EditPopUp>
    <EditPopUp
      open={popUpOpen} close={closePopUp} type="exit" header="삭제 완료">
-      글이 삭제되었습니다! 😆
+      게시글이 삭제되었습니다! 😁
   </EditPopUp>
    </>
   );

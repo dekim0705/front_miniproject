@@ -2,11 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MentorPage from './pages/MentorPage';
-import InformationPage from './pages/InformationPage';
 import PortfolioPage from './pages/PortfolioPage';
-import WorkerPage from './pages/WorkerPage';
-import BestPage from './pages/BestPage';
-import QnAPage from './pages/QnAPage';
 import LoginPage from './pages/LoginPage';
 import FindAccountPage from './pages/FindAccountPage';
 import JoinPage from './pages/JoinPage';
@@ -20,6 +16,7 @@ import ChatPage from './pages/ChatPage';
 import EditPage from './pages/EditPage';
 import ResetPwdPage from './pages/ResetPwdPage';
 import SearchResultPage from './pages/SearchResultPage';
+import BoardPage from './pages/BoardPage';
 
 function App() {
   
@@ -32,11 +29,11 @@ function App() {
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/mentor/*' element={<MentorPage />}></Route>
-              <Route path='/information/:pageNum' element={<InformationPage />}></Route>
+              <Route path='/information/:pageNum' element={<BoardPage boardName="Information" boardNum={2} />}></Route>
               <Route path='/Portfolio/:pageNum' element={<PortfolioPage />}></Route>
-              <Route path='/worker/:pageNum' element={<WorkerPage />} />
-              <Route path='/best/:pageNum' element={<BestPage />}></Route>
-              <Route path='/qna/:pageNum' element={<QnAPage />}></Route>
+              <Route path='/worker/:pageNum' element={<BoardPage boardName="Worker" boardNum={3}/>}></Route>
+              <Route path='/best/:pageNum' element={<BoardPage boardName="Best" boardNum={5}/>}></Route>
+              <Route path='/qna/:pageNum' element={<BoardPage boardName="QnA" boardNum={1}/>}></Route>
               <Route path='/login' element={<LoginPage />}></Route>
               <Route path='/findaccount' element={<FindAccountPage />}></Route>
               <Route path='/resetpassword' element={<ResetPwdPage />}></Route>

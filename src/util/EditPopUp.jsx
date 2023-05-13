@@ -111,7 +111,7 @@ const EditPopUp = (props) => {
             <footer>
             {type === "confirm" ? (
                 <>
-                  <button onClick={confirm}>삭제 😭</button>
+                  <button onClick={confirm}>삭제</button>
                   <button onClick={close}>취소</button>
                 </>
               ) : (

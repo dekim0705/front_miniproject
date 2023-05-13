@@ -6,14 +6,14 @@ import Header from "../components/Header";
 import SearchInput from "../components/Board/Search";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
-import WriteButton from "../components/Board/WriteButton";
+import BoardWriteButton from '../components/Board/BoardWriteButton';
 import { useParams } from "react-router-dom";
 
 const BoardName = styled.div`
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
-  padding : 70px 0px 5px 0px;
+  padding : 70px 0px 0px 0px;
   
   @media (max-width: 768px) {
     text-align: center;
@@ -34,7 +34,7 @@ const WriteButtonWrapper = styled.div`
 `;
 
 
-const BestPage = () => {
+const BoardPage = ({boardName, boardNum}) => {
   const { pageNum } = useParams();
   const [resultData, setResultData] = useState(null);
   const [keyword, setKeyword] = useState("");
@@ -45,26 +45,42 @@ const BestPage = () => {
   const handleSetKeyword = (newKeyword) => {
     setKeyword(newKeyword);
   }
-
+  // 게시판 이름 화면엔 한글로..
+  const getBoardName = (boardName) => {
+    switch (boardName) {
+      case "Information":
+        return "정보 공유";
+      case "QnA":
+        return "Q&A";
+      case "Worker":
+        return "직장인";
+      default:
+        return boardName;
+    }
+  };
+  
+  // 정보공유에서 추천수 100개인 글 베스트 게시판으로 이동
   useEffect(() => {
-    boardAxiosApi.moveBestBoard();
-  }, []);
+    if (boardName === "Best") {
+      boardAxiosApi.moveBestBoard();
+    }
+  }, [boardName]);
+  
+  
   return (
     <>
       <Header />
-      <BoardName>
-     BEST
-    </BoardName>
-    <SearchInput boardName="best" pageNum={pageNum} setResultData={handleSetResultData}setKeyword={handleSetKeyword}/>
-      <BoardList boardName="best" pageNum={pageNum} resultData={resultData}/>
+      <BoardName>{getBoardName(boardName)}</BoardName>
+      <SearchInput boardName={boardName.toLowerCase()} pageNum={pageNum} setResultData={handleSetResultData} setKeyword={handleSetKeyword} />
+      <BoardList boardName={boardName.toLowerCase()} pageNum={pageNum} resultData={resultData} />
       <WriteButtonWrapper>
-        <WriteButton />
+        <BoardWriteButton />
       </WriteButtonWrapper>
-      {resultData && <Pages boardNum={5} path="/best" keyword={keyword} resultData={resultData} />}
-      {!resultData && <Pages boardNum={5} path="/best" />}
-    <Footer />
+      {resultData && <Pages boardNum={boardNum} path={`/${boardName.toLowerCase()}`} keyword={keyword} resultData={resultData} />}
+      {!resultData && <Pages boardNum={boardNum} path={`/${boardName.toLowerCase()}`} />}
+      <Footer />
     </>
   );
-}
+};
 
-export default BestPage;
+export default BoardPage;

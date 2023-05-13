@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import GalleryItem from './GalleryItem';
-import WriteButton from './WriteButton';
+import WriteButton from './BoardWriteButton';
 import boardAxiosApi from '../../api/BoardAxiosApi';
 
 const Container = styled.div`
