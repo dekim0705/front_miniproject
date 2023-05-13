@@ -30,7 +30,7 @@ const CommentFormAvatar = styled.img`
 `;
 
 const CommentFormButton = styled.button`
-  background-color: rgb(33,43,75);
+  background-color: rgb(40, 51, 90);
   color: white;
   margin-left : 10px;
   padding: 12px 20px;
@@ -45,7 +45,7 @@ const CommentFormButton = styled.button`
   text-align : center;
   width : 80px;
   &:hover {
-    background-color: rgb(53, 85, 168);
+    background-color: rgb(24, 31, 54);
   }
   @media (max-width: 400px) {
     width: 60px;

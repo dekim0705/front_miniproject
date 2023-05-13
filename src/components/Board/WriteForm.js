@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import SelectCategory from './Category';
 import TitleInput from './Title';
 import ContentInput from './ContentInput';
@@ -6,6 +7,8 @@ import styled from 'styled-components';
 import TagField from './TagInput';
 import Button from '@mui/material/Button';
 import ImageUpload from './ImageUpload';
+import boardAxiosApi from '../../api/BoardAxiosApi';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,8 +58,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-
-const WriteForm = ({ userNum, onSubmit }) => {
+const WriteForm = ({ userNum}) => {
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -66,6 +68,7 @@ const WriteForm = ({ userNum, onSubmit }) => {
     memberNum: userNum // 회원 번호
   });
   const [previewImgUrl, setPreviewImgUrl] = useState("");
+  const navigate = useNavigate();
 
   const handleBoardNumChange = (boardNum) => {
     setPost((prevPost) => ({ ...prevPost, boardNum }));
@@ -101,6 +104,16 @@ const WriteForm = ({ userNum, onSubmit }) => {
     }));
   };
 
+  const handleWritePost = async (post) => {
+    try {
+      const postNum = await boardAxiosApi.writePost(post);
+      if (postNum > 0) {
+        navigate(`/post/${postNum}`);
+      }
+    } catch (error) {
+      console.error('게시글 작성에 실패했습니다.', error);
+    }
+  };
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -116,7 +129,7 @@ const WriteForm = ({ userNum, onSubmit }) => {
         alert("내용을 입력해주세요.");
         return;
       }
-      onSubmit(post);
+      handleWritePost(post);
     };
   
 
@@ -134,10 +147,8 @@ const WriteForm = ({ userNum, onSubmit }) => {
                 <div key={index}>
                  <img src={url} alt={`Uploaded ${index}`} />
                  <Button onClick={() => handleImageDelete(index)}>삭제</Button>
-                 </div>
-                   ))}
-              </ImageWrapper>
-                )}
+                 </div>))}
+              </ImageWrapper>)}
             <ImageUpload onImageUpload={handleImageUpload} />
             <TagField value={post.tag} onChange={handleTagChange} />
           </Col>
