@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { ParentWrapper, InnerWrapper, ButtonWrapper, FlexRowWrapper, FlexColumnWrapper } from './Wrappers';
 import JoinButton from './JoinButton';
 import { TextField } from '@mui/material';
-import PopUp from '../../util/PopUp';
 import { MemberInfoContext } from "../../context/MemberInfo";
 import { useContext } from "react";
+import AccountPopUp from "../../util/AccountPopUp";
+
 
 const ResultField = styled.div`
   display: flex;
@@ -66,11 +67,8 @@ const NewMemberInfo2 = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   // 팝업
-  const [PopUpOpen, setPopUpOpen] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
   const [PopUpText, setPopUpText] = useState("");
-  const closePopUp = () => {
-    setPopUpOpen(false);
-  };
 
   // 직업 선택
   const onChangeJob = (e) => {
@@ -97,9 +95,9 @@ const NewMemberInfo2 = () => {
       try{
         const response = await AccountAxiosApi.allTechStacks();
         setTechStacks(response.data);
-        console.log(response.data);
+        console.log("⭕️ 기술 스택 불러오기 성공 : " + response.data);
       } catch (error) {
-        console.error("전체 기술스택 불러오기 에러 😰", error);
+        console.error("❌ 기술 스택 불러오기 실패 : " + error);
       }
     };
     fetchAllTechStacks();
@@ -122,7 +120,7 @@ const NewMemberInfo2 = () => {
   const handleTechStackClick = (stackNum) => {
     setSelectedStacks(prevSelectedStacks => {
       if (prevSelectedStacks.includes(stackNum)) {
-        console.log('❌중복');
+        console.log('🔵기술 스택 선택 해제');
         return prevSelectedStacks.filter(num => num !== stackNum);
       } else {
         console.log(prevSelectedStacks);
@@ -151,21 +149,24 @@ const NewMemberInfo2 = () => {
       try{
         // 입력된 정보를 서버로 전송
         await AccountAxiosApi.createMember(memberInfo.email, memberInfo.pwd, memberInfo.nickname, inputJob, inputCareerYear, selectedStacks.map(stackNum => ({ stackNum })));
+        console.log('⭕️회원가입 성공');
+
       } catch (error) {
-        console.log('회원가입 실패', error);
+        console.log('❌회원가입 실패' + error);
       }
       navigate('/join/step4');
+      console.log('⭕️ 회원가입 Step4로 이동');
+
     } else {
-      console.log("모든 필드 입력 요망")
-      setPopUpOpen(true);
-      setPopUpText("모든 필드를 입력!!!하세요!! 🥹")    
+      setShowPopUp(true);
+      setPopUpText("모든 필드를 선택해 주세요 🥹")    
     }
   };
   
 
   return(
     <ParentWrapper width="40">
-      <InnerWrapper width="60" gap="20">
+      <InnerWrapper width="60" gap="30" marginTop="20">
         <FlexRowWrapper gap="10">
           <FormControl sx={{ minWidth: 80 }} size="small">
             <InputLabel>직업</InputLabel>                  
@@ -218,7 +219,7 @@ const NewMemberInfo2 = () => {
                   onChange={handleChange} 
                   placeholder="예) oracle" 
                   required 
-                  InputProps={{ sx: { borderRadius: 4 } }} 
+                  InputProps={{ sx: { borderRadius: 4, minWidth: 290 } }} 
                 /> 
             <ResultField>
             {searchTerm ?
@@ -239,7 +240,7 @@ const NewMemberInfo2 = () => {
                 </SingleTechStack>
               ))
               :
-              techStacks.slice(0,5)
+              techStacks.slice(0,7)
               // .concat(techStacks.filter((techStack) => selectedStacks.includes(techStack.stackNum)))
               .map((techStack) => (
                 <SingleTechStack
@@ -295,8 +296,7 @@ const NewMemberInfo2 = () => {
       )}
       </ButtonWrapper>
 
-      {/* 모든 필드 입력요망 팝업 */}
-      <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
+      <AccountPopUp open={showPopUp} close={()=>setShowPopUp(false)} header="❗️" closeText="확인">{PopUpText}</AccountPopUp>
     </ParentWrapper>
   );
 }

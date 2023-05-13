@@ -19,6 +19,7 @@ export const ParentWrapper = styled.div`
 export const InnerWrapper = styled.div`
   width: ${props => props.width}%;
   gap: ${props => props.gap}px;
+  margin-top: ${props => props.marginTop}px;
   display: flex;
   flex-direction: column;  
   flex: 1;
@@ -35,7 +36,7 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   position: absolute;
-  margin-top: 300px;
+  margin-top: 350px;
 `;
 
 export const FlexRowWrapper = styled.div`

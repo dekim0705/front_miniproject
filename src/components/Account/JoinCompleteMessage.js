@@ -32,8 +32,8 @@ const Text = styled.p`
 const RequestEmail = styled.div`
   text-align: center;
   cursor: pointer;
-  text-decoration: underline;
-  font-size: 1rem; 
+  /* text-decoration: underline; */
+  font-size: 0.9rem; 
 `;
 
 const PrevButtonWrapper = styled.div`
@@ -49,9 +49,10 @@ const PopUpMessage = styled.p`
 
 const CompleteMessage = () => {
   const navigate = useNavigate();
-  const { memberInfo, setMemberInfo } = useContext(MemberInfoContext);
+  const { memberInfo } = useContext(MemberInfoContext);
   const [inputAuthKey, setInputAuthKey] = useState('');
   const [showPopup, setShowPopup] = useState(false); // 팝업 
+  const [showLoginPopup, setShowLoginPopup] = useState(false); // 팝업 
   const [popUpMessage, setPopUpMessage] = useState("");
 
   // 사용자 이메일 inbox로 이동
@@ -88,45 +89,32 @@ const CompleteMessage = () => {
     try{
       const response = await AccountAxiosApi.isMemberEmailAuth(memberInfo.email, inputAuthKey);
       console.log(response.status);
-      setShowPopup(true);
-      setPopUpMessage(
-        <>
-          이메일 인증이 완료되었습니다!💌
-          <Link to="/login">
-            <Button size="large"><u><b>로그인</b></u></Button>
-          </Link>
-        </>
-        )
-
+      setShowLoginPopup(true);
+      setPopUpMessage('💌 이메일 인증이 완료되었습니다!');
     } catch(error) {
       if (error.response.status === 404) {
         setShowPopup(true);
-        setPopUpMessage('🙅🏻‍♀️인증번호를 확인해주세요.')
-      } else {
-        alert("나도몰라..");
-      }
+        setPopUpMessage('인증번호를 확인해 주세요. 🥺');
+      } 
     }
   };
 
-
-  // const handleLoginButtonClick = () => {
-  //   navigate('/login');
-  // }
-  
-  // '이전'버튼
   const handlePrevButtonClick = () => {
     navigate('/join/step3');
+  }
+  const handleLoginButtonClick = () => {
+    navigate('/login');
   }
 
   return(
     <ParentWrapper width="40" margin="0">
       <InnerWrapper width="70" gap="30">
         <Content>
-          <Title>입력하신 이메일주소로 <br /><b>인증번호</b>가 발송되었습니다.</Title>
-          <Text>회원가입 완료를 위해 <br /><b>인증번호 6자리</b>를 입력해주세요.</Text>
-          <FlexRowWrapper gap="4">
-            <span>이메일 주소 : <i><b>{memberInfo.email}</b></i></span>
-            <MoveToInboxIcon onClick={handleEmailVerification} sx={{cursor: 'pointer', color:'#3B74EC'}} />
+          <Title>입력하신 이메일 주소로 <br /><b>인증번호</b>가 발송되었습니다.</Title>
+          <Text>회원가입 완료를 위해 <br /><b>인증번호 6자리</b>를 입력해 주세요.</Text>
+          <FlexRowWrapper>
+              <Text><span style={{color:'#3B74EC'}}><i><b>{memberInfo.email}</b></i></span></Text> 
+              <MoveToInboxIcon onClick={handleEmailVerification} sx={{width:'3rem', cursor: 'pointer', color:'#3B74EC'}} />
           </FlexRowWrapper>
         </Content>
         <Content>
@@ -148,7 +136,7 @@ const CompleteMessage = () => {
           </FlexRowWrapper>
         </Content>
         <RequestEmail>
-          <h4>이메일을 받지 못하셨나요?</h4>
+          <Content>이메일을 받지 못하셨다면 <br />고객센터로 문의해 주세요.</Content>
         </RequestEmail >
       </InnerWrapper>
       <PrevButtonWrapper>
@@ -156,13 +144,11 @@ const CompleteMessage = () => {
           이전
         </JoinButton>
       </PrevButtonWrapper>
-      <AccountPopUp
-          open={showPopup}
-          close={() => setShowPopup(false)}
-          header="💙"
-          closeText="확인"
-        >
-          <PopUpMessage>{popUpMessage}</PopUpMessage>
+      <AccountPopUp open={showPopup} close={() => setShowPopup(false)} header="❗️" closeText="확인">
+        <PopUpMessage>{popUpMessage}</PopUpMessage>
+      </AccountPopUp>
+      <AccountPopUp open={showLoginPopup}  close={handleLoginButtonClick} header="❗️" closeText="로그인">
+        <PopUpMessage>{popUpMessage}</PopUpMessage>
       </AccountPopUp>
     </ParentWrapper>
   );
