@@ -31,19 +31,7 @@ const WriteButtonWrapper = styled.div`
     margin-right : 40px;
   }
 `;
-const Divider = styled.div`
-  border-bottom: 1px solid #ccc;
-  width : 70%;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  padding-bottom: 20px;
 
-  @media (max-width: 400px) {
-   display: none;
-   
-  }
-`;
 
 const InformationPage = () => {
   const { pageNum } = useParams();

@@ -161,7 +161,7 @@ const EditPage = () => {
       return;
     }
     
-    const updatedPost = { postNum, boardNum, title, content,  imgUrl: imgUrl !== "" ? imgUrl : null };
+    const updatedPost = { postNum, boardNum, title, content, tag, imgUrl: imgUrl !== "" ? imgUrl : null };
     await boardAxiosApi.updatePost(updatedPost);
     navigate(`/post/${postNum}`);
   };
