@@ -29,6 +29,7 @@ const BoardWrapper = styled.div`
 
   @media (max-width: 400px) {
     padding-bottom: 20px;
+    width: 95%;
   }
 `;
 
@@ -51,6 +52,9 @@ const CommentWrapper = styled.div`
   padding : 20px 0;
   border-top : solid 1px #ccc;
   border-bottom : solid 1px #ccc;
+  @media (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 const PostDetailPage = () => {
