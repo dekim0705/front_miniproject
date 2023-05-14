@@ -59,7 +59,7 @@ const TraItem = styled.div`
 const HRDNetAPI = () => {
   const [apiData, setApiData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const url = "https://cors-anywhere.herokuapp.com/https://www.hrd.go.kr/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp?returnType=JSON&authKey=qpcMYqQGW72BsM2Snq7KzydD38g8yFpf&pageNum=1&pageSize=10&srchTraStDt=20230531&srchTraEndDt=20230630&outType=1&sort=ASC&sortCol=TRNG_BGDE&crseTracseSe=C0104&srchTraGbn=M1001&srchTraArea1=00";
+  const url = `https://cors-anywhere.herokuapp.com/https://www.hrd.go.kr/jsp/HRDP/HRDPO00/HRDPOA60/HRDPOA60_1.jsp?returnType=JSON&authKey=${process.env.REACT_APP_SERVICE_KEY}&pageNum=1&pageSize=10&srchTraStDt=20230531&srchTraEndDt=20230630&outType=1&sort=ASC&sortCol=TRNG_BGDE&crseTracseSe=C0104&srchTraGbn=M1001&srchTraArea1=00`;
 
   /*  traStartDate : 개강일(YYYY-MM-DD)
       traEndDate : 종강일(YYYY-MM-DD)
@@ -84,7 +84,7 @@ const HRDNetAPI = () => {
     } catch (error) {
       console.error(`HRDNet 오류!!🐞 : ${error}`);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
