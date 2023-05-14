@@ -21,6 +21,9 @@ const StyledTitle = styled.h1`
   margin: 0;
   font-size: 1.8rem;
   color:  #191F28;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const StyledDescription = styled.p`
@@ -29,7 +32,7 @@ const StyledDescription = styled.p`
   text-align: center;
   color: #1E2B4D;
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -43,6 +46,9 @@ const Result = styled.div`
   }
   &.not_found {
     color: red;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
   }
 `;
 
@@ -74,7 +80,7 @@ export const FindNickname = () => {
           </Link>
         </>
       );
-      console.log(`🙆🏻‍♀️우리회원이셔요! 이메일 드려!`);
+      console.log(`🔵회원 조회 결과:` + response.data);
     } else {
       setResultMessage(
         <>
@@ -83,7 +89,6 @@ export const FindNickname = () => {
           닉네임을 확인해 주세요.
         </>
       );
-      console.log(`🙅🏻‍♀️회원이아니셔! 없는 닉네임이셔!`);
     };
   };
 
@@ -150,7 +155,7 @@ export const FindPassword= () => {
           </Link>        
         </>
       )
-      console.log(`🙆🏻‍♀️우리회원이셔요!`);
+      console.log(`⭕️유효한 계정 정보`);
     } else {
       setResultMessage(
         <>
@@ -158,7 +163,7 @@ export const FindPassword= () => {
           닉네임과 이메일을 확인해 주세요.
         </>
       );
-      console.log(`🙅🏻‍♀️회원이아니셔!`);
+      console.log(`❌유효하지 않은 계정 정보`);
     };
   };
   

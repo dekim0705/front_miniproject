@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import PopUp from "../../util/PopUp";
 import JoinButton from "./JoinButton";
 import { useNavigate } from "react-router-dom";
 import { ParentWrapper, InnerWrapper, FlexRowWrapper } from "./Wrappers";
+import AccountPopUp from "../../util/AccountPopUp";
 
 const AgreementWrapper = styled.div`
   display: flex;
@@ -47,6 +47,9 @@ const Agreement = () => {
   const [isCheckedAgreement2, setIsCheckedAgreement2] = useState(false);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
+  // 팝업
+  const [showPopUp, setShowPopUp] = useState(false);
+
   // 모든 약관 동의 체크박스
   const handleAllCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -73,20 +76,8 @@ const Agreement = () => {
       console.log("Step2로 이동");
       navigate('step2');
     } else {
-      console.log("체크박스 확인 요청 팝업!")
-      setPopUpOpen(true);
+      setShowPopUp(true);
     }
-  };
-
-  // '이전'버튼
-  const handlePrevButtonClick = () => {
-    navigate('/');
-  }
-
-  // 체크박스 확인 요청 팝업
-  const [PopUpOpen, setPopUpOpen] = useState(false);
-  const closePopUp = () => {
-    setPopUpOpen(false);
   };
 
 
@@ -350,9 +341,9 @@ const Agreement = () => {
       </NextButtonWrapper>
       
       {/* 팝업 */}
-      <PopUp open={PopUpOpen} close={closePopUp} type={false} header="오류">
-          모든 이용약관에 동의해주세요 🥹
-      </PopUp>
+      <AccountPopUp open={showPopUp} close={() => setShowPopUp(false)} header="❗️" closeText="확인">
+        모든 이용 약관에 동의해 주세요 🥹
+      </AccountPopUp>
     </ParentWrapper>
 
   );

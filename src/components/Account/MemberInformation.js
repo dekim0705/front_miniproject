@@ -49,17 +49,19 @@ const MemberInfoContainer = styled.div`
 `;
 
 const StyledDiv = styled.div`
+  align-self: center;
 `;
 
 const PfImg = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  border: 4px solid #1E2B4D;
+  border: 4px solid #C6DEF7;
+  align-self: center;
   @media screen and (max-width: 768px) {
     width: 130px;
     height: 130px;
-    border: 2px solid #1E2B4D;
+    border: 4px solid #C6DEF7;
   }
 `;
 
@@ -83,10 +85,10 @@ const Content = styled.p`
   padding: 10px;
   border-radius: 20px;
   background-color: rgba(229, 231, 234, 0.2); 
-  @media screen and (max-width: 768px) {
-  padding: 5px;
-  background-color: rgba(198,222,247, 0.2); 
-}
+    @media screen and (max-width: 768px) {
+      padding: 5px;
+      background-color: rgba(229, 231, 234, 0.2);
+  }
 `;
 
 const TechStackContainer = styled.div`
@@ -161,7 +163,7 @@ const MemberInformation = ({ userMemberNum }) => {
             <Content>Since {info.regDate}</Content>
             <Content>{info.email}</Content>
             <Content>
-            {info.job}{info.year !== 0 && `   ${info.year}년차`}
+            {info.job}{info.year !== 0 && ` ${info.year}년차`}
             </Content>
           </MemberInfoContainer>
         </MemberInfoContainer>
