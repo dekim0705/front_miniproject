@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import styled from "styled-components";
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import AccountAxiosApi from '../../api/AccountAxiosApi';
 import { FlexColumnWrapper, FlexRowWrapper } from "./Wrappers";
 import PopUp from "../../util/PopUp";
@@ -94,8 +94,8 @@ const StackName = styled.p`
 
 
 
-const MemberEditInformation = ({ userMemberNum }) => {
-  const navigate = useNavigate();
+const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
+  // const navigate = useNavigate();
   const [currentMemberInfo, setCurrentMemberInfo] = useState([]);
   const [nickname, setNickname] = useState('');
   // const [email, setEmail] = useState('');
@@ -285,6 +285,8 @@ const MemberEditInformation = ({ userMemberNum }) => {
         setPopUpOpen(true);
         setPopUpText(`기술스택이 삭제되었습니다.`);
         console.log('✔️ 기술스택 삭제 성공');
+        setUpdateCounter((prevCounter) => prevCounter + 1);
+
       } catch (error) {
         console.log('❌ 기술스택 삭제 실패:', error);
       }
@@ -298,6 +300,7 @@ const MemberEditInformation = ({ userMemberNum }) => {
         setPopUpOpen(true);
         setPopUpText(`기술스택이 추가되었습니다.`);
         console.log('✔️ 기술스택 추가 성공');
+        setUpdateCounter((prevCounter) => prevCounter + 1);
       } catch (error) {
         console.log('❌ 기술스택 추가 실패:', error);
       }
@@ -319,6 +322,9 @@ const MemberEditInformation = ({ userMemberNum }) => {
         const response = await AccountAxiosApi.updateMemberInfo(userMemberNum, memberInfo);
         setPopUpOpen(true);
         setPopUpText(`회원정보가 수정되었습니다.`);
+
+        setUpdateCounter((prevCounter) => prevCounter + 1);
+
         console.log("회원정보 수정 성공: ", response);
   
       } catch (error) {
@@ -349,9 +355,6 @@ const MemberEditInformation = ({ userMemberNum }) => {
       setIsWithdrawn("Y");
       setIsLogin(false);
       resetUser();
-      setTimeout(() => {
-        navigate("/");
-      }, 100);   
     } catch (error) {
       console.log("회원탈퇴 실패");
     }
@@ -363,7 +366,7 @@ const MemberEditInformation = ({ userMemberNum }) => {
       <Accordion 
         title="프로필 사진 변경" 
         content={
-          <EditProfileImage userMemberNum={userMemberNum} currentMemberInfo={currentMemberInfo} />
+          <EditProfileImage userMemberNum={userMemberNum} currentMemberInfo={currentMemberInfo} setUpdateCounter={setUpdateCounter}/>
       }>
       </Accordion>
       <Accordion 

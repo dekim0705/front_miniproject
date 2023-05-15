@@ -1,4 +1,4 @@
-import React, { useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../../context/UserInfo';
 import { Route, Routes } from "react-router-dom";
@@ -49,6 +49,10 @@ const MyPage = () => {
   const { userNum, isWithdrawn } = useContext(UserContext);
   const userMemberNum = userNum;
 
+  // 회원정보 변경될 때마다 memberInfo 렌더링
+  const [updateCounter, setUpdateCounter] = useState(0); 
+  
+
   useEffect(() => {
     if (!userNum || isWithdrawn ==='Y') {
       navigate('/login', {replace: true});
@@ -59,7 +63,7 @@ const MyPage = () => {
     <>
         <ParentContainer>
           <MemberInfoContainer>
-            <MemberInformation userMemberNum={userMemberNum} />
+            <MemberInformation userMemberNum={userMemberNum} updateCounter={updateCounter} />
           </MemberInfoContainer>
           <ColumnContainer>
             <Routes>
@@ -71,7 +75,11 @@ const MyPage = () => {
               } />
               <Route path="mypost" element={<MemberTotalPost userMemberNum={userMemberNum} />} />
               <Route path="myreply" element={<MemberTotalReply userMemberNum={userMemberNum} />} />
-              <Route path="edit" element={<MemberEditInformation userMemberNum={userMemberNum} />} />
+              <Route path="edit" 
+                element={<MemberEditInformation 
+                userMemberNum={userMemberNum} 
+                setUpdateCounter={setUpdateCounter} />} 
+              />
             </Routes>
           </ColumnContainer>
         </ParentContainer>

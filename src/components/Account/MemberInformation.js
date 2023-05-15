@@ -124,7 +124,7 @@ align-self: flex-end;
 }
 `;
 
-const MemberInformation = ({ userMemberNum }) => {
+const MemberInformation = ({ userMemberNum, updateCounter }) => {
   const [memberInfo, setMemberInfo] = useState([]);
   const [memberTechStackInfo, setMemberTechStackInfo] = useState([]);
 
@@ -152,7 +152,7 @@ const MemberInformation = ({ userMemberNum }) => {
     };
     fetchMemberInfo();
     fetchMemberTechStackInfo();
-  }, [userMemberNum]);
+  }, [userMemberNum, updateCounter]);
 
   return (
     <ParentContainer>
