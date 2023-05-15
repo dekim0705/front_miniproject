@@ -10,10 +10,9 @@ const StyledButton = styled(Button)`
     width: 100px;
     font-weight: bold;
     font-size : 1rem;
-
     &:hover {
       background-color: rgb(24, 31, 54);
-  }
+    }
   }
 `;
 

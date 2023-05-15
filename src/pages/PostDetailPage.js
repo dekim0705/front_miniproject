@@ -10,7 +10,7 @@ import LikeButton from '../components/Board/LikeButton';
 import EditButton from '../components/Board/EditButton';
 import Footer from '../components/Footer';
 import boardAxiosApi from "../api/BoardAxiosApi";
-import ReplyBoard from "../components/Board/ReplyBoard";
+import ReplyList from "../components/Board/ReplyList";
 
 
 const Wrapper = styled.div`
@@ -98,7 +98,7 @@ const PostDetailPage = () => {
           </TagListWrapper>
         </BoardWrapper>
         <CommentWrapper>
-        <ReplyBoard postNum={postNum} reply={reply} fetchReply={fetchReply} />
+        <ReplyList postNum={postNum} reply={reply} fetchReply={fetchReply} />
         </CommentWrapper>
       </Wrapper>
         {showEditButton && <EditButton postNum={postNum} />}

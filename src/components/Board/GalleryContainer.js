@@ -12,10 +12,7 @@ const Container = styled.div`
   padding: 30px; 
   max-width: 1050px; 
   margin: 0 auto; 
-  &::after {
-    content: '';
-    flex-grow: 1;
-  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -38,7 +35,7 @@ const GalleryContainer = ({ pageNum }) => {
         const response = await boardAxiosApi.requestPortfolioList(pageNum);
         setGalleryItems(response);
       } catch (error) {
-        console.error('갤러리를 불러올 수 없습니다', error);
+        console.error('포트폴리오를 불러올 수 없습니다', error);
       }
     };
 

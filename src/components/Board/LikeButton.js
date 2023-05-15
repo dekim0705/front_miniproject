@@ -32,7 +32,7 @@ const LikeButton = ({ postNum }) => {
 
   const handleLikeClick = async () => {
     if (!memberNum) {
-      setModalMessage('로그인이 필요한 서비스입니다 😤');
+      setModalMessage('로그인이 필요한 서비스입니다.');
       setOpenModal(true);
       return;
     }
@@ -41,13 +41,13 @@ const LikeButton = ({ postNum }) => {
       const result = await boardAxiosApi.updateLikes(postNum, memberNum);
       setIsLiked(result);
       if (result) {
-        setModalMessage('추천을 눌렀습니다 😆 👍🏻');
+        setModalMessage('추천을 눌렀습니다 👍🏻');
       } else {
-        setModalMessage('추천을 취소했습니다 😡');
+        setModalMessage('추천을 취소했습니다 👎🏻');
       }
       setOpenModal(true);
     } catch (error) {
-      console.error('좋아요 처리에 실패했습니다.', error);
+      console.error('추천 업데이트 실패.', error);
     }
   };
 

@@ -33,7 +33,7 @@ const PortfolioPage = () => {
     <>
       <Header />
       <BoardName>
-      Portfolio
+      포트폴리오
     </BoardName>
     <Divider />
     <GalleryContainer pageNum={pageNum} />
