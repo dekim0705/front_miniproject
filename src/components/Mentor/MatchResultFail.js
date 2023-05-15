@@ -9,6 +9,14 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
+  color: #1E2B4D;
+
+  @media screen and (max-width: 768px) {
+    h2 {
+      text-align: center;
+      font-size: 1.5em;
+    }
+  }
 `;
 
 const Text = styled.h1`
@@ -56,6 +64,7 @@ const MatchResultFail = () => {
   return (
     <Container>
       <Text>매칭 실패 💬</Text>
+      <h2>조건에 부합하는 멘토가 없습니다.</h2>
       <img src={failImg} alt="fail" />
       <Button push lightBlue onClick={ReturnButtonClick}>돌아가기</Button>
     </Container>
