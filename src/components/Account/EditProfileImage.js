@@ -31,7 +31,7 @@ const SelectImageSection = styled.div`
   align-items: start;
   justify-content: flex-end;
 `;
-const EditProfileImage = ({userMemberNum , currentMemberInfo}) => {
+const EditProfileImage = ({userMemberNum , currentMemberInfo, setUpdateCounter}) => {
 
   // 프로필 사진 업로드
   const [imageUpload, setImageUpload] = useState(null)
@@ -56,7 +56,7 @@ const EditProfileImage = ({userMemberNum , currentMemberInfo}) => {
     getDownloadURL(snapshot.ref).then((url) => {
       setImageUrl(url);
     }); 
-    console.log(userMemberNum,imageUrl);
+    console.log(userMemberNum, imageUrl);
     });
   };
 
@@ -75,6 +75,7 @@ const EditProfileImage = ({userMemberNum , currentMemberInfo}) => {
       setPopUpText(`프로필사진이 변경되었습니다.`);
       console.log('프로필사진 변경 성공');
       setUserPfImgUrl(imageUrl) 
+      setUpdateCounter((prevCounter) => prevCounter + 1);
     } catch (error) {
       console.error(error);
       console.log('프로필사진 변경 실패');
