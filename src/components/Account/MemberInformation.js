@@ -131,8 +131,13 @@ const MemberInformation = ({ userMemberNum }) => {
   useEffect(() => {
     const fetchMemberInfo = async () => {
       try {
-        const response = await AccountAxiosApi.getMemberInfo(userMemberNum);
-        setMemberInfo(response);
+        const token = localStorage.getItem('token');
+        const userInfoResponse = await AccountAxiosApi.memberInfo(token);
+        const userData = JSON.stringify(userInfoResponse, null, 2);
+        const userDataObject = JSON.parse(userData);
+
+        setMemberInfo(userDataObject.data[0]);
+        console.log("🍎 : " + userDataObject.data[0].pfImg);
       } catch (error) {
         console.error(error);
       }
@@ -147,27 +152,26 @@ const MemberInformation = ({ userMemberNum }) => {
     };
     fetchMemberInfo();
     fetchMemberTechStackInfo();
-  }, [userMemberNum, memberInfo]);
+  }, [userMemberNum]);
 
   return (
     <ParentContainer>
     <GlobalStyle />
-      {memberInfo.map(info => (
-        <MemberInfoContainer key={info.nickname}>
+      
+        <MemberInfoContainer>
           <StyledDiv>
-            <PfImg src={info.pfImg} alt="Profile Image" />
-            <GradeIcon src={info.gradeIconUrl} alt="gradeIcon" />
+            <PfImg src={memberInfo.pfImg} alt="Profile Image" />
+            <GradeIcon src={memberInfo.gradeIconUrl} alt="gradeIcon" />
           </StyledDiv>
           <MemberInfoContainer className='for_media'>
-            <Content> {info.nickname}</Content>
-            <Content>Since {info.regDate}</Content>
-            <Content>{info.email}</Content>
+            <Content> {memberInfo.nickname}</Content>
+            <Content>Since {memberInfo.regDate}</Content>
+            <Content>{memberInfo.email}</Content>
             <Content>
-            {info.job}{info.year !== 0 && ` ${info.year}년차`}
+            {memberInfo.job}{memberInfo.year !== 0 && ` ${memberInfo.year}년차`}
             </Content>
           </MemberInfoContainer>
         </MemberInfoContainer>
-      ))}
       <TechStackContainer>
         {memberTechStackInfo.map((techstack) => (
           <TechStackIcon 

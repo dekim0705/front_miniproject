@@ -251,7 +251,17 @@ const AccountAxiosApi = {
     // 회원 탈퇴 여부 확인
     isMemberWithdrawn : async(memberEmail) => {
       return await axios.get(KH_DOMAIN + `/login/iswithdrawn?memberEmail=${memberEmail}`);
-    }
+    },
+
+    // 🍎 마이페이지 내 정보 호출
+  memberInfo: async(token) => {
+    return await axios.get(KH_DOMAIN + "/mypage/userInfo", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    });
+  }
 
 
 };
