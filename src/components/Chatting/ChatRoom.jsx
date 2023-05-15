@@ -14,18 +14,8 @@ import ChatDrawer from "./ChatDrawer";
 import CodeBlockItem from "./CodeBlockItem";
 import CodeBlockInput from "./CodeBlockInput";
 import ImageInput from "./ImageInput";
-
-const formatTimestamp = (timestamp) => {
-  const date = new Date(timestamp);
-  // const year = date.getUTCFullYear();
-  // const month = date.getUTCMonth() + 1;
-  // const day = date.getUTCDate();
-  const hours = date.getUTCHours() - 3;
-  const minutes = date.getUTCMinutes();
-  const formattedHours = hours >= 10 ? hours : `0${hours}`;
-  const formattedMinutes = minutes >= 10 ? minutes : `0${minutes}`;
-  return `${formattedHours}:${formattedMinutes}`;
-};
+import { format, parseISO } from 'date-fns';
+import { utcToZonedTime } from "date-fns-tz";
 
 const ChatRoomContainer = styled.div`
   position: relative;
@@ -232,8 +222,16 @@ const ChatRoom = () => {
   useEffect(() => {
     const chatMessages = async (chatRoomNum) => {
       const response = await ChatAxiosApi.chatMessages(chatRoomNum);
-      setMessages(response.data);
-      console.log("⏰ : " + response.data[0].createdAt);
+      const koreaTimeZone = 'Asia/Seoul';
+
+      const messages = response.data.map(message => {
+        const utcDate = parseISO(message.createdAt);
+        const kstDate = utcToZonedTime(utcDate, koreaTimeZone);
+
+        return {...message, createdAt: format(kstDate, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone })};
+      });
+      setMessages(messages);
+      console.log("⏰ : " + messages[0].createdAt);
     };
     chatMessages(chatRoom);
   }, [chatRoom]);
@@ -273,16 +271,21 @@ const ChatRoom = () => {
     if (inputMessage === "") {
       return;
     }
-
+  
+    const koreaTimeZone = 'Asia/Seoul';
+    const utcNow = new Date();
+    const kstNow = utcToZonedTime(utcNow, koreaTimeZone);
+    const createdAt = format(kstNow, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone });
+  
     const newMessage = {
       chatNumber: chatRoom,
       senderId: userNum,
       receiverId: otherUserNumber,
       message: inputMessage,
       isRead: 'N',
-      createdAt: new Date()
+      createdAt: createdAt
     };
-
+  
     try {
       await ChatAxiosApi.sendChatMessage(
         chatRoom,
@@ -291,7 +294,7 @@ const ChatRoom = () => {
         inputMessage,
         "",
         0,
-        new Date(),
+        utcNow.toISOString(),
         'Y',
         ""
       );
@@ -300,7 +303,7 @@ const ChatRoom = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  };  
 
   // 💙 코드 블럭 전송
   const handleSendCodeBlock = async () => {
@@ -309,13 +312,18 @@ const ChatRoom = () => {
     }
     const codeBlockMessage = `\`\`\`${selectLanguage}\n${codeBlockInput}\n\`\`\``;
 
+    const koreaTimeZone = 'Asia/Seoul';
+    const utcNow = new Date();
+    const kstNow = utcToZonedTime(utcNow, koreaTimeZone);
+    const createdAt = format(kstNow, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone });
+
     const newMessage = {
       chatNumber: chatRoom,
       senderId: userNum,
       receiverId: otherUserNumber,
       codeBlock: codeBlockMessage,
       isRead: 'N',
-      createdAt: new Date()
+      createdAt: createdAt
     };
 
     try {
@@ -326,7 +334,7 @@ const ChatRoom = () => {
         "",
         codeBlockMessage,
         1,
-        new Date(),
+        utcNow.toISOString(),
         'Y',
         ""
       );
@@ -380,7 +388,7 @@ const ChatRoom = () => {
               <>
                 <MeMessage>{renderMessage(m.messageType, m.message, m.codeBlock, m.imgUrl)}</MeMessage>
                 <SenderMessageInfoContainer>
-                  <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                  <CreatedAt>{m.createdAt}</CreatedAt>
                   <IsRead>{m.isRead === "Y" ? "읽음" : "안읽음"}</IsRead>
                 </SenderMessageInfoContainer>
               </>
@@ -388,7 +396,7 @@ const ChatRoom = () => {
               <>
                 <OtherUserMessage>{renderMessage(m.messageType, m.message, m.codeBlock, m.imgUrl)}</OtherUserMessage>
                 <MessageInfoContainer>
-                  <CreatedAt>{formatTimestamp(m.createdAt)}</CreatedAt>
+                  <CreatedAt>{m.createdAt}</CreatedAt>
                   <IsRead>{m.isRead ? "읽음" : "안읽음"}</IsRead>
                 </MessageInfoContainer>
               </>

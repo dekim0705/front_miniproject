@@ -20,7 +20,7 @@ const ChatAxiosApi = {
       message : message,
       codeBlock : codeBlock,
       messageType : messageType,
-      createdAt : createdAt.toISOString(),
+      createdAt : createdAt,
       isRead : isRead.toString(),
       imgUrl : imgUrl
     };

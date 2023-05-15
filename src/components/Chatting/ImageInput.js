@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import ChatAxiosApi from "../../api/ChatAxiosApi";
+import { format } from 'date-fns';
+import { utcToZonedTime } from "date-fns-tz";
 
 const ImageInput = ({ setShowImageInput, chatRoom, userNum, otherUserNumber, setMessages, messages }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -24,13 +26,19 @@ const ImageInput = ({ setShowImageInput, chatRoom, userNum, otherUserNumber, set
     if (imageUrl === null) {
       return;
     }
+
+    const koreaTimeZone = 'Asia/Seoul';
+    const utcNow = new Date();
+    const kstNow = utcToZonedTime(utcNow, koreaTimeZone);
+    const createdAt = format(kstNow, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone });
+
     const newMessage = {
       chatNumber: chatRoom,
       senderId: userNum,
       receiverId: otherUserNumber,
       imgUrl: imageUrl,
       isRead: 'N',
-      createdAt: new Date()
+      createdAt: createdAt
     };
 
     try {
@@ -41,7 +49,7 @@ const ImageInput = ({ setShowImageInput, chatRoom, userNum, otherUserNumber, set
         "",
         "",
         2,
-        new Date(),
+        utcNow.toISOString(),
         'Y',
         imageUrl
       );
@@ -56,7 +64,7 @@ const ImageInput = ({ setShowImageInput, chatRoom, userNum, otherUserNumber, set
     <div>
       <input type="file" ref={fileInputRef} />
       <button onClick={handleUpload}>미리보기</button>
-      {imageUrl && <img src={imageUrl} alt="imageUpload" />}
+      {imageUrl && <img src={imageUrl} alt="imageUpload" style={{ width: '100%', height: 'auto' }} />}
       <button onClick={handleSendImage}>전송</button>
     </div>
   );

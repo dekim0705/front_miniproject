@@ -262,9 +262,5 @@ const AccountAxiosApi = {
       }
     });
   }
-
-
 };
-
-
 export default AccountAxiosApi;
