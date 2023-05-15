@@ -31,7 +31,7 @@ const EditButton = ({postNum}) => {
       setIsModalOpen(false);
       setPopUpOpen(true);
     } catch (error) {
-      console.error("게시글 삭제에 실패했습니다.", error);
+      console.error("게시글 삭제 실패", error);
     }
   };
 
@@ -53,14 +53,12 @@ const EditButton = ({postNum}) => {
         <Button variant="contained" sx={{ width: '80px', backgroundColor: "rgb(40, 51, 90)","&:hover": {backgroundColor: "rgb(24, 31, 54)",}, }} onClick={() => setIsModalOpen(true)}>삭제</Button>
       </Stack>
     </Wrapper>
-     <EditPopUp
-     open={isModalOpen} confirm={handleDeletePost}close={handleCloseModal}type="confirm" header="알림">
+     <EditPopUp open={isModalOpen} confirm={handleDeletePost}close={handleCloseModal}type="confirm" header="알림">
      삭제된 게시글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 게시글을 삭제하시겠습니까?
-   </EditPopUp>
-   <EditPopUp
-     open={popUpOpen} close={closePopUp} type="exit" header="삭제 완료">
+     </EditPopUp>
+     <EditPopUp open={popUpOpen} close={closePopUp} type="exit" header="삭제 완료">
       게시글이 삭제되었습니다! 😁
-  </EditPopUp>
+     </EditPopUp>
    </>
   );
 };

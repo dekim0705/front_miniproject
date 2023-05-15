@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import SelectCategory from './Category';
-import TitleInput from './Title';
-import ContentInput from './ContentInput';
 import styled from 'styled-components';
-import TagField from './TagInput';
+import TagField from './TagField';
 import Button from '@mui/material/Button';
 import ImageUpload from './ImageUpload';
 import boardAxiosApi from '../../api/BoardAxiosApi';
+import ContentField from './ContentField';
+import TitleField from './TitleField';
 
 
 const Wrapper = styled.div`
@@ -139,8 +139,8 @@ const WriteForm = ({ userNum}) => {
         <Row>
           <Col>
             <SelectCategory value={post.boardNum} onChange={handleBoardNumChange} />
-            <TitleInput value={post.title} onChange={handleTitleChange} />
-            <ContentInput value={post.content} onChange={handleContentChange} />
+            <TitleField value={post.title} onChange={handleTitleChange} />
+            <ContentField value={post.content} onChange={handleContentChange} />
             {previewImgUrl.length > 0 && (
               <ImageWrapper>
                {previewImgUrl.map((url, index) => ( 

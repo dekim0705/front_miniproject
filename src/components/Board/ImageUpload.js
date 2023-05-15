@@ -51,15 +51,12 @@ const StyledFileInput = styled.div`
     align-items: center;
     padding-left: 60px;
     margin-left: 0;
-  
-   
   }
 `;
 
 const ImageUpload = ({ onImageUpload }) => {
   const [fileList, setFileList] = useState([]);
   const [fileName, setFileName] = useState([]);
-
 
   const handleSelect = async (event) => {
     const imgUrl = event.target.files;
@@ -79,7 +76,7 @@ const ImageUpload = ({ onImageUpload }) => {
         console.error(`이미지 업로드 에러 :`, error);
       }
     }
-
+    
     onImageUpload(urls.join(',')); // imgUrl을 문자열 형태로 전달
   };
 

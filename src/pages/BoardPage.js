@@ -3,7 +3,7 @@ import boardAxiosApi from '../api/BoardAxiosApi';
 import BoardList from "../components/Board/BoardList";
 import styled from "styled-components";
 import Header from "../components/Header";
-import SearchInput from "../components/Board/Search";
+import SearchInput from "../components/Board/SearchField";
 import Pages from "../components/Board/Paginations";
 import Footer from "../components/Footer";
 import BoardWriteButton from '../components/Board/BoardWriteButton';
@@ -54,6 +54,8 @@ const BoardPage = ({boardName, boardNum}) => {
         return "Q&A";
       case "Worker":
         return "직장인";
+        case "Best":
+        return "BEST";
       default:
         return boardName;
     }

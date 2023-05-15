@@ -140,11 +140,11 @@ const boardAxiosApi = {
   },
 
   // ✏️ 댓글 수정
-  updateReply: async (replyNum, content) => {
+  updateReply: async (replyNum, replyContent) => {
     try {
       const response = await axios.put(KH_DOMAIN + "/reply", {
         replyNum,
-        content,
+        replyContent,
       });
       console.log("댓글 수정에 성공했습니다.", response);
       return response.data;
@@ -168,11 +168,11 @@ const boardAxiosApi = {
     }
   },
 
-  // 베스트 게시판 이동
+  // ✅ 베스트 게시판 이동
   moveBestBoard: async () => {
     try {
       const response = await axios.post(KH_DOMAIN + "/board/best");
-      console.log("Response data:", response);
+      console.log("응답:", response);
       return true;
     } catch (error) {
       console.error("베스트 게시판으로 이동에 실패했습니다.", error);

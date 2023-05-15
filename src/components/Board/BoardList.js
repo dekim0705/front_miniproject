@@ -23,11 +23,9 @@ const TableBox = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
-
   tbody tr:hover {
     background-color : #f5f5f5;
   }
-
 `;
 
 const HeaderCell = styled.th`
@@ -69,9 +67,6 @@ const TableCell = styled.td`
     &.title {
       text-align: start;
     }
-    /* &.nickname {
-      text-align: start;
-    } */
   @media (max-width: 768px) {
     &.view {
       display: none;
@@ -89,7 +84,6 @@ const TableCell = styled.td`
     }
   }
 `;
-
 
 const StyledLink = styled(Link)`
   text-decoration: none;
