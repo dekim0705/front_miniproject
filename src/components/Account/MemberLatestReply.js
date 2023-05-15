@@ -92,7 +92,7 @@ const MemberLatestReply = ({ userMemberNum }) => {
     ) : (
       <MyReplyContainer>
         {memberLatestReply.map((memberReply) => (
-          <Link key={memberReply.postNum} to={`/post/${memberReply.postNum}`}>
+          <Link key={memberReply.replyNum} to={`/post/${memberReply.postNum}`}>
             <ReplyContent>{memberReply.replyContent}</ReplyContent>
             <ExtraInfo>
               <i>{memberReply.boardName} {memberReply.writeDate}</i>
