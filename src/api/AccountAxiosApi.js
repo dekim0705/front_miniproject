@@ -60,7 +60,7 @@ const AccountAxiosApi = {
       return response.data;
     } catch (error) {
       console.log("🤦🏻‍♀️ 회원 최근 게시글 5개 조회 실패 : ", error);
-      return{};
+      return[];
     }
   },
 
@@ -71,7 +71,7 @@ const AccountAxiosApi = {
       return response.data;
     } catch (error) {
       console.log("🤦🏻‍♀️ 회원 최근 댓글 5개 조회 실패 : ", error);
-      return{};
+      return[];
     }
   },
 

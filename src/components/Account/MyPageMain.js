@@ -46,7 +46,7 @@ const MemberInfoContainer = styled.div`
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const { userNum, isWithdrawn } = useContext(UserContext);
+  const { userNum, isWithdrawn, isLogin, isLoading } = useContext(UserContext);
   const userMemberNum = userNum;
 
   // 회원정보 변경될 때마다 memberInfo 렌더링
@@ -54,10 +54,10 @@ const MyPage = () => {
   
 
   useEffect(() => {
-    if (!userNum || isWithdrawn ==='Y') {
+    if (!isLoading && (!isLogin || !userNum || isWithdrawn ==='Y')) {
       navigate('/login', {replace: true});
     }
-  }, [userNum, isWithdrawn, navigate]);
+  }, [isLoading, isLogin, userNum, isWithdrawn, navigate]);
 
   return (
     <>
