@@ -92,7 +92,6 @@ const Content = styled.p`
 `;
 
 const TechStackContainer = styled.div`
-  width: 60%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -137,7 +136,6 @@ const MemberInformation = ({ userMemberNum, updateCounter }) => {
         const userDataObject = JSON.parse(userData);
 
         setMemberInfo(userDataObject.data[0]);
-        console.log("🍎 : " + userDataObject.data[0].pfImg);
       } catch (error) {
         console.error(error);
       }
@@ -157,29 +155,28 @@ const MemberInformation = ({ userMemberNum, updateCounter }) => {
   return (
     <ParentContainer>
     <GlobalStyle />
-      
-        <MemberInfoContainer>
-          <StyledDiv>
-            <PfImg src={memberInfo.pfImg} alt="Profile Image" />
-            <GradeIcon src={memberInfo.gradeIconUrl} alt="gradeIcon" />
-          </StyledDiv>
-          <MemberInfoContainer className='for_media'>
-            <Content> {memberInfo.nickname}</Content>
-            <Content>Since {memberInfo.regDate}</Content>
-            <Content>{memberInfo.email}</Content>
-            <Content>
+      <MemberInfoContainer>
+        <StyledDiv>
+          <PfImg src={memberInfo.pfImg} alt="Profile Image" />
+          <GradeIcon src={memberInfo.gradeIconUrl} alt="gradeIcon" />
+        </StyledDiv>
+        <MemberInfoContainer className='for_media'>
+          <Content> {memberInfo.nickname}</Content>
+          <Content>Since {memberInfo.regDate}</Content>
+          <Content>{memberInfo.email}</Content>
+          <Content>
             {memberInfo.job}{memberInfo.year !== 0 && ` ${memberInfo.year}년차`}
-            </Content>
-          </MemberInfoContainer>
+          </Content>
+          <TechStackContainer>
+            {memberTechStackInfo.map((techstack) => (
+            <TechStackIcon 
+              key={techstack.stackNum} 
+              src={techstack.stackIconUrl} 
+              alt={techstack.stackName} />
+          ))}
+          </TechStackContainer>
         </MemberInfoContainer>
-      <TechStackContainer>
-        {memberTechStackInfo.map((techstack) => (
-          <TechStackIcon 
-            key={techstack.stackNum} 
-            src={techstack.stackIconUrl} 
-            alt={techstack.stackName} />
-        ))}
-      </TechStackContainer>
+      </MemberInfoContainer>
       <StyledLink><Link to='/mypage/edit'>내 정보 수정</Link></StyledLink>
     </ParentContainer>
   );

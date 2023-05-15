@@ -139,6 +139,8 @@ const ImageButton = styled(PhotoCameraIcon)`
 `;
 
 const ChatRoom = () => {
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
   // 🧡 이미지 첨부 관련 상태 정의
   const [showImageInput, setShowImageInput] = useState(false);
   // 🧡 PhotoCameraButton 버튼 클릭 -> 첨부창
@@ -146,7 +148,7 @@ const ChatRoom = () => {
     setShowImageInput(!showImageInput);
   };
 
-
+  
   // 💙 코드 블럭 관련 상태 정의
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeBlockInput, setCodeBlockInput] = useState("");
@@ -206,9 +208,6 @@ const ChatRoom = () => {
     };
   }, [client]);
 
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState("");
-
   // ✅ 채팅방 회원 정보 가져오기
   useEffect(() => {
     const chatInfo = async (chatRoomNum) => {
@@ -228,7 +227,7 @@ const ChatRoom = () => {
         const utcDate = parseISO(message.createdAt);
         const kstDate = utcToZonedTime(utcDate, koreaTimeZone);
 
-        return {...message, createdAt: format(kstDate, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone })};
+        return {...message, createdAt: format(kstDate, 'HH:mm', { timeZone: koreaTimeZone })};
       });
       setMessages(messages);
       console.log("⏰ : " + messages[0].createdAt);
@@ -275,7 +274,7 @@ const ChatRoom = () => {
     const koreaTimeZone = 'Asia/Seoul';
     const utcNow = new Date();
     const kstNow = utcToZonedTime(utcNow, koreaTimeZone);
-    const createdAt = format(kstNow, 'yy-MM-dd HH:mm', { timeZone: koreaTimeZone });
+    const createdAt = format(kstNow, 'HH:mm', { timeZone: koreaTimeZone });
   
     const newMessage = {
       chatNumber: chatRoom,
