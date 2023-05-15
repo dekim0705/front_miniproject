@@ -16,7 +16,6 @@ const WritePage = () => {
       navigate('/login', {replace: true});
     }
   }, [userEmail, userPwd, navigate]);
-   
 
   return (
     <>

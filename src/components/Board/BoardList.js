@@ -66,6 +66,12 @@ const TableRow = styled.tr`
 
 const TableCell = styled.td`
   padding: 16px;
+    &.title {
+      text-align: start;
+    }
+    /* &.nickname {
+      text-align: start;
+    } */
   @media (max-width: 768px) {
     &.view {
       display: none;
@@ -74,9 +80,6 @@ const TableCell = styled.td`
   @media (max-width: 400px) {
     &.view {
       display: none;
-    }
-    &.title {
-      text-align: start;
     }
     &.writedate {
       display: none;

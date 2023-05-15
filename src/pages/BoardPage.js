@@ -11,9 +11,9 @@ import { useParams } from "react-router-dom";
 
 const BoardName = styled.div`
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  padding : 70px 0px 0px 0px;
+  padding : 90px 0px 10px 0px;
   
   @media (max-width: 768px) {
     text-align: center;

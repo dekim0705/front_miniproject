@@ -42,7 +42,7 @@ const Pages = ({ boardNum, path, keyword, resultData }) => {
   const nearbyCount = 1;
 
   return (
-    <Stack sx={{ alignItems: 'center', padding: '30px' }}>
+    <Stack sx={{ alignItems: 'center', paddingTop: '20px' }}>
       <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} boundaryCount={boundaryCount} nearbyCount={nearbyCount}/>
     </Stack>
   );
