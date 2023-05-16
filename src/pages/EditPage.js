@@ -30,6 +30,7 @@ const EditorWrapper = styled.div`
   }
 `;
 
+
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
@@ -47,30 +48,35 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
-  padding-right : 320px;
-  padding-bottom : 80px;
+  padding-right: 330px;
+  padding-bottom: 50px;
+
   @media (max-width: 400px) {
     justify-content: flex-start;
     padding-left : 60px;
-  }
-  `;
+  } 
+`;
 
 const ImageWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content:flex-start;
+   align-items: center;
+  justify-content:flex-start; 
   margin-top : 30px;
-  padding-left : 340px;
+  margin-left : 335px;
+
   img {
-    max-width: 15%;
+    max-width: 240px;
+    border-radius: 10px;
   }
   @media (max-width: 768px) {
-    padding-left : 100px;
+    margin-left : 60px;
     img {
-    max-width: 40%;
-  }
+    max-width: 140px;
+    }
   }
 `;
+
+
 
 const EditPage = () => {
   const { postNum } = useParams();
