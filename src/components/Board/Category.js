@@ -6,13 +6,11 @@ import MainAxiosApi from '../../api/MainAxiosApi';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: flex-start;
-  margin-left: 235px;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  padding-left: 100px;
+  width: 50%;
   margin-bottom: 15px;
-  margin-top: 50px;
+  margin-top: 75px;
   @media (max-width: 768px) {
     padding-left: 60px;
     width: 70%;
@@ -25,7 +23,7 @@ const Wrapper = styled.div`
 
 
 const StyledCategorySelect = styled(FormControl)`
-  width: 250px;
+  width: 30%;
   
   margin-bottom: 8px;
   @media (max-width: 440px) {

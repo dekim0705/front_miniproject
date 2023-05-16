@@ -59,10 +59,9 @@ const ButtonWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   display: flex;
-   align-items: center;
-  justify-content:flex-start; 
+  justify-content:center; 
   margin-top : 30px;
-  margin-left : 335px;
+  width: 50%;
 
   img {
     max-width: 240px;
