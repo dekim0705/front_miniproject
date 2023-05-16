@@ -3,11 +3,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import styled from 'styled-components';
 
 const StyledFileInput = styled.div`
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  text-align: left;
   background: #fff;
   padding: 16px;
-  width: 65%;
+  width: 50%;
+  position: relative;
   border-radius: 3px;
   margin-left: 330px;
 

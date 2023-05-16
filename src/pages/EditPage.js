@@ -31,6 +31,7 @@ const EditorWrapper = styled.div`
 `;
 
 
+
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
@@ -59,9 +60,10 @@ const ButtonWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   display: flex;
-  justify-content:center; 
+   align-items: center;
+  justify-content:flex-start; 
   margin-top : 30px;
-  width: 50%;
+  margin-left : 335px;
 
   img {
     max-width: 240px;
