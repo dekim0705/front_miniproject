@@ -114,7 +114,7 @@ const Login = () => {
   };
 
   const [showPopup, setShowPopup] = useState(false);
-  const [popUpMessage, setPopUpMessage] = useState(false);
+  const [popUpMessage] = useState(false);
 
   const onClickLogin = async () => {
     try {
@@ -137,9 +137,6 @@ const Login = () => {
       setIsActive(userDataObject.data[0].isActive);
 
       if (userDataObject.data[0].isWithdrawn === "Y") {
-        console.log("탈퇴여부 컨텍스트 : ", isWithdrawn);
-        setPopUpMessage("탈퇴한 회원입니다.");
-        setShowPopup(true);
         localStorage.clear();
         setUserEmail(null);
         setUserPwd(null);
@@ -151,8 +148,6 @@ const Login = () => {
         navigate('/');
         return;
       } else if (userDataObject.data[0].isActive === "N") {
-          setPopUpMessage("이메일 인증을 완료하세요.");
-          setShowPopup(true);
           localStorage.clear();
           setUserEmail(null);
           setUserPwd(null);

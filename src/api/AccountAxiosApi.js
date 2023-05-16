@@ -31,17 +31,6 @@ const AccountAxiosApi = {
     return await axios.get(KH_DOMAIN + `/check/ismember?nickname=${nickname}&email=${email}`)
   },
 
-  // ✅ 마이페이지 내 정보 호출
-  getMemberInfo: async(memberNum) => {
-    try {
-      const response = await axios.get(KH_DOMAIN + `/mypage/myprofile?memberNum=${memberNum}`)
-      return response.data;
-    } catch (error) {
-      console.log("🤦🏻‍♀️ 회원 정보 조회 실패 : ", error);
-      return [];
-    }
-  },
-
   // ✅ 마이페이지 내 기술스택 호출
   getMemberTechStackInfo: async(memberNum) => {
     try{
