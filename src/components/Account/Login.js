@@ -97,7 +97,7 @@ const Login = () => {
   const navigate = useNavigate();
   // 🔥 Context API에 값을 저장
   const context = useContext(UserContext);
-  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname, setIsWithdrawn, isWithdrawn, isActive, setIsActive} = context;
+  const {setUserEmail, setUserPwd, setUserPfImgUrl, setUserNum, setUserNickname, setIsWithdrawn, isWithdrawn, setIsActive} = context;
 
   // 키보드 입력 받기
   const [inputEmail, setInputEmail] = useState("");
@@ -141,11 +141,27 @@ const Login = () => {
         setPopUpMessage("탈퇴한 회원입니다.");
         setShowPopup(true);
         localStorage.clear();
+        setUserEmail(null);
+        setUserPwd(null);
+        setUserPfImgUrl(null);
+        setUserNum(null);
+        setUserNickname(null);
+        setIsWithdrawn(null);
+        setIsActive(null);
+        navigate('/');
         return;
       } else if (userDataObject.data[0].isActive === "N") {
           setPopUpMessage("이메일 인증을 완료하세요.");
           setShowPopup(true);
           localStorage.clear();
+          setUserEmail(null);
+          setUserPwd(null);
+          setUserPfImgUrl(null);
+          setUserNum(null);
+          setUserNickname(null);
+          setIsWithdrawn(null);
+          setIsActive(null);
+          navigate('/');
           return;
       }
 
