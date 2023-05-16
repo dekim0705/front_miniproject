@@ -3,15 +3,14 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import styled from 'styled-components';
 
 const StyledFileInput = styled.div`
-  display: inline-block;
-  text-align: left;
+  display: flex;
+  align-items: center;
   background: #fff;
   padding: 16px;
-  width: 450px;
-  position: relative;
+  width: 65%;
   border-radius: 3px;
-  margin-left: 250px;
-  padding-left: 90px;
+  margin-left: 330px;
+
 
   > input[type='file'] {
     position: absolute;
