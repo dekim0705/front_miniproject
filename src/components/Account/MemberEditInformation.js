@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 // import { useNavigate } from 'react-router-dom';
 import AccountAxiosApi from '../../api/AccountAxiosApi';
 import { FlexColumnWrapper, FlexRowWrapper } from "./Wrappers";
-import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
 import AccountPopUp from "../../util/AccountPopUp";
 import EditProfileImage from './EditProfileImage';
@@ -174,10 +173,10 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
     const nicknameCurrent = e.target.value;
     setNickname(nicknameCurrent);
     if(!nicknameRegex.test(nicknameCurrent) || nicknameCurrent.length === 0) {
-      setNicknameMessage("2~10자의 닉네임을 입력해주세요. (한글, 영문, 숫자 사용 가능)");
+      setNicknameMessage("2~10자의 닉네임을 입력해 주세요. (한글, 영문, 숫자 사용 가능)");
       setIsNickname(false);
     } else {
-      setNicknameMessage("닉네임 중복확인을 해주세요.");
+      setNicknameMessage("닉네임 중복 확인을 해주세요.");
       setIsNickname(true);
     }
   }
@@ -185,17 +184,17 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
     // 닉네임 중복 확인
     const onClickNicknameDoubleCheck = async() => {
       const memberCheck = await AccountAxiosApi.memberRegCheck(nickname);
-      console.log("닉네임 중복여부 확인: ", memberCheck.data);
+      console.log("닉네임 중복 여부 확인: ", memberCheck.data);
   
       // 닉네임 중복 여부 확인 후 팝업 창 
       if(memberCheck.data === true) {
         setPopUpOpen(true);
-        setPopUpText("🙆🏻‍♀️ 사용 가능한 닉네임 입니다.");
+        setPopUpText("사용 가능한 닉네임입니다. 😊");
         setNicknameMessage('사용 가능한 닉네임 입니다.');
         setIsNickname(true);
       } else {
         setPopUpOpen(true);
-        setPopUpText(`🙅🏻‍♀️ '${nickname}' 은(는) 이미 사용중인 닉네임 입니다.`);
+        setPopUpText(`'${nickname}' 은(는) 이미 사용중인 닉네임 입니다. 😢`);
         setNickname(''); // 인풋 창 초기화
       }
     }
@@ -283,7 +282,7 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
         await AccountAxiosApi.deleteStack(userMemberNum, stackNum);
         setSelectedStacks((prevSelectedStacks) => prevSelectedStacks.filter(num => num !== stackNum));
         setPopUpOpen(true);
-        setPopUpText(`기술스택이 삭제되었습니다.`);
+        setPopUpText(`기술 스택이 삭제되었습니다. 😢`);
         console.log('✔️ 기술스택 삭제 성공');
         setUpdateCounter((prevCounter) => prevCounter + 1);
 
@@ -298,7 +297,7 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
         await AccountAxiosApi.addStack(userMemberNum, stackNum);
         setSelectedStacks((prevSelectedStacks) => [...prevSelectedStacks, stackNum]);
         setPopUpOpen(true);
-        setPopUpText(`기술스택이 추가되었습니다.`);
+        setPopUpText(`기술 스택이 추가되었습니다. 😊`);
         console.log('✔️ 기술스택 추가 성공');
         setUpdateCounter((prevCounter) => prevCounter + 1);
       } catch (error) {
@@ -321,7 +320,7 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
   
         const response = await AccountAxiosApi.updateMemberInfo(userMemberNum, memberInfo);
         setPopUpOpen(true);
-        setPopUpText(`회원정보가 수정되었습니다.`);
+        setPopUpText(`회원정보가 수정되었습니다. 😊`);
 
         setUpdateCounter((prevCounter) => prevCounter + 1);
 
@@ -357,7 +356,7 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
       resetUser();
       localStorage.clear();
     } catch (error) {
-      console.log("회원탈퇴 실패");
+      console.log("회원 탈퇴 실패");
     }
   }
 
@@ -560,12 +559,12 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
     </ParentContainer>
         
     <Button onClick={handleIsWithdrawn} sx={{alignSelf:"flex-end"}}> 회원 탈퇴 </Button>
-    <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
+    <AccountPopUp open={PopUpOpen} close={closePopUp} header="❗️" closeText="확인">{PopUpText}</AccountPopUp>
     <AccountPopUp 
       open={showPopup} 
       close={() => setShowPopup(false)} 
       confirm={updateMemberIsWithdrawn}
-      header="❗️회원 탈퇴" 
+      header="❗️❗️❗️" 
       type="confirm" 
       confirmText="탈퇴" 
       closeText="취소" >

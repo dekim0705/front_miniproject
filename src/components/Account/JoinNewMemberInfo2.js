@@ -159,7 +159,7 @@ const NewMemberInfo2 = () => {
 
     } else {
       setShowPopUp(true);
-      setPopUpText("모든 필드를 선택해 주세요 🥹")    
+      setPopUpText("모든 필드를 선택해 주세요 😢")    
     }
   };
   

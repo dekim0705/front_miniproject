@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from "../../firebase";
 import AccountAxiosApi from '../../api/AccountAxiosApi';
-import PopUp from "../../util/PopUp";
 import { UserContext } from "../../context/UserInfo";
+import AccountPopUp from "../../util/AccountPopUp";
 
 const InfoSectionContainer = styled.div`
   /* border: 0.1rem solid #E5E7EA ; */
@@ -39,20 +39,20 @@ const EditProfileImage = ({userMemberNum , currentMemberInfo, setUpdateCounter})
   // 업로드 된 사진 바로 적용하기 위한 useContext
   const { setUserPfImgUrl } = useContext(UserContext);
 
-  const [PopUpOpen, setPopUpOpen] = useState(false);
+    // 팝업
+    const [showPopUp, setShowPopUp] = useState(false);
     const [PopUpText, setPopUpText] = useState("");
-    const closePopUp = () => {
-      setPopUpOpen(false);
-    };
 
   const upload = () => {
   if (imageUpload === null) {
+    setShowPopUp(true);
+    setPopUpText(`선택된 이미지가 없습니다. 😢`);
     console.log("선택된 이미지가 없습니다.");
     return;
   }
   const imageRef = ref(storage, `images/${userMemberNum}_${imageUpload.name}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
-    console.log('업로드 됨!');// 업로드 되자마자 뜨게 하기
+    console.log('프로필 사진 업로드 성공');// 업로드 되자마자 뜨게 하기
     getDownloadURL(snapshot.ref).then((url) => {
       setImageUrl(url);
     }); 
@@ -71,14 +71,14 @@ const EditProfileImage = ({userMemberNum , currentMemberInfo, setUpdateCounter})
       setImageUrl(extractedUrl);  
       await AccountAxiosApi.updatePfImg(extractedUrl, userMemberNum);
       setImageUpload(imageUrl);
-      setPopUpOpen(true);
-      setPopUpText(`프로필사진이 변경되었습니다.`);
-      console.log('프로필사진 변경 성공');
+      setShowPopUp(true);
+      setPopUpText(`프로필 사진이 변경되었습니다. 😊`);
+      console.log('프로필 사진 변경 성공');
       setUserPfImgUrl(imageUrl) 
       setUpdateCounter((prevCounter) => prevCounter + 1);
     } catch (error) {
       console.error(error);
-      console.log('프로필사진 변경 실패');
+      console.log('프로필 사진 변경 실패');
     }
   };
 
@@ -102,7 +102,7 @@ const EditProfileImage = ({userMemberNum , currentMemberInfo, setUpdateCounter})
       </ProfileImageSection>
       <Button onClick={changeImg} variant="contained" sx={{borderRadius:20, fontWeight:"bold", alignSelf:"flex-end",  marginRight: 4}}>프로필 사진 변경</Button>
 
-      <PopUp open={PopUpOpen} close={closePopUp} header="❗️">{PopUpText}</PopUp>
+      <AccountPopUp open={showPopUp} close={()=>setShowPopUp(false)} header="❗️" closeText="확인">{PopUpText}</AccountPopUp>
 
     </InfoSectionContainer>
   );

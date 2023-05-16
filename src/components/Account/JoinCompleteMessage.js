@@ -94,7 +94,7 @@ const CompleteMessage = () => {
     } catch(error) {
       if (error.response.status === 404) {
         setShowPopup(true);
-        setPopUpMessage('인증번호를 확인해 주세요. 🥺');
+        setPopUpMessage('인증번호를 확인해 주세요. 😢');
       } 
     }
   };

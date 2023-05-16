@@ -88,7 +88,7 @@ const NewMemberInfo = () => {
 
     } else {
       setShowPopUp(true);
-      setPopUpText(<>'<b>{inputNickname}</b>' 은(는) <span style={{color:"red"}}>이미 사용</span> 중인 닉네임입니다.🥺</>);
+      setPopUpText(<>'<b>{inputNickname}</b>' 은(는) <span style={{color:"red"}}>이미 사용</span> 중인 닉네임입니다.😢</>);
       setInputNickname(''); // 인풋 창 초기화
       setInputPwdDisabled(true);
     }
@@ -175,7 +175,7 @@ const NewMemberInfo = () => {
 
     } else {
       setShowPopUp(true);
-      setPopUpText("입력을 확인해 주세요.🥺")
+      setPopUpText("입력을 확인해 주세요.😢")
     }
   };
 

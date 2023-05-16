@@ -14,7 +14,6 @@ import SearchStore from './context/SearchInfo';
 import MyProfilePage from './pages/MyProfilePage';
 import ChatPage from './pages/ChatPage';
 import EditPage from './pages/EditPage';
-import ResetPwdPage from './pages/ResetPwdPage';
 import SearchResultPage from './pages/SearchResultPage';
 import BoardPage from './pages/BoardPage';
 
@@ -36,7 +35,6 @@ function App() {
               <Route path='/qna/:pageNum' element={<BoardPage boardName="QnA" boardNum={1}/>}></Route>
               <Route path='/login' element={<LoginPage />}></Route>
               <Route path='/findaccount' element={<FindAccountPage />}></Route>
-              <Route path='/resetpassword' element={<ResetPwdPage />}></Route>
               <Route path='/join/*' element={<JoinPage />}></Route>
               <Route path='/write' element={<WritePage />}></Route>
               <Route path="/edit/:postNum" element={<EditPage />} />
