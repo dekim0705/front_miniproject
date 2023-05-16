@@ -148,7 +148,7 @@ const MemberTotalReply= ({ userMemberNum }) => {
         <AccountPopUp
           open={showPopup}
           close={() => setShowPopup(false)}
-          header="❗️Warning"
+          header="❗️"
           closeText="취소"
         >
           <PopUpMessage>삭제할 댓글 선택해주세요.</PopUpMessage>
@@ -159,7 +159,7 @@ const MemberTotalReply= ({ userMemberNum }) => {
           confirm={handleDeleteConfirmed}
           close={() => setShowPopup(false)}
           type="confirm"
-          header="❗️Warning"
+          header="❗️"
           confirmText="삭제"
           closeText="취소"
         >

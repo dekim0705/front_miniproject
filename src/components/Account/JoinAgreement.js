@@ -342,7 +342,7 @@ const Agreement = () => {
       
       {/* 팝업 */}
       <AccountPopUp open={showPopUp} close={() => setShowPopUp(false)} header="❗️" closeText="확인">
-        모든 이용 약관에 동의해 주세요 🥹
+        모든 이용 약관에 동의해 주세요 😢
       </AccountPopUp>
     </ParentWrapper>
 
