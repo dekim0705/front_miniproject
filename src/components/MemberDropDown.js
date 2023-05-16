@@ -35,6 +35,7 @@ const MemberDropDown = ({ setIsLogin, resetUser }) => {
     if(option.text === '로그아웃') {
       setIsLogin(false);
       resetUser();
+      localStorage.clear();
     } navigate(option.path);
   };
 

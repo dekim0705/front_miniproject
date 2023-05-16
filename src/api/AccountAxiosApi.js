@@ -82,7 +82,7 @@ const AccountAxiosApi = {
       return response.data;
     } catch (error) {
       console.log("🤦🏻‍♀️ 회원의 모든 게시글 조회 실패 : ", error);
-      return{};
+      return[];
     }
   },
   
@@ -94,7 +94,7 @@ const AccountAxiosApi = {
       return response.data;
     } catch (error) {
       console.log("🤦🏻‍♀️ 회원의 모든 댓글 조회 실패 : ", error);
-      return{};
+      return[];
     }
   },
 

@@ -355,6 +355,7 @@ const MemberEditInformation = ({ userMemberNum, setUpdateCounter}) => {
       setIsWithdrawn("Y");
       setIsLogin(false);
       resetUser();
+      localStorage.clear();
     } catch (error) {
       console.log("회원탈퇴 실패");
     }
