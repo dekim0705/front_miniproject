@@ -27,7 +27,7 @@ const CommentItemImg = styled.img`
 const CommentItemContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width : 1000px;
+  width : 1500px;
 `;
 
 const CommentItemAuthor = styled.span`

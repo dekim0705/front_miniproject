@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const EditorWrapper = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0 auto;
   
   .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
@@ -47,7 +47,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
-  padding-right : 220px;
+  padding-right : 320px;
   padding-bottom : 80px;
   @media (max-width: 400px) {
     justify-content: flex-start;
@@ -60,7 +60,7 @@ const ImageWrapper = styled.div`
   align-items: center;
   justify-content:flex-start;
   margin-top : 30px;
-  padding-left : 220px;
+  padding-left : 340px;
   img {
     max-width: 15%;
   }

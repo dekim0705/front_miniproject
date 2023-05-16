@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   flex-direction: column; 
   justify-content: space-between;
   align-items: flex-start; 
-  padding-left: 20px;
+  padding-left: 40px;
 
   @media (max-width: 400px) {
     padding-left: 5px;
@@ -49,15 +49,13 @@ const Views = styled.span`
 `;
 
 const Likes = styled.span`
-  margin-right: 30px;
+  margin-right: 40px;
 `;
 
 const AuthorWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-left : 5px;
 `;
-
 
 const ProfileImg = styled.img`
   width: 40px;

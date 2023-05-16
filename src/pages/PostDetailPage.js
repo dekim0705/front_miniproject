@@ -37,7 +37,8 @@ const TagListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
+  padding-left: 20px;
   position: relative;
 
 
