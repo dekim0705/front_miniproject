@@ -15,11 +15,10 @@ const TitleField = ({value, onChange}) => {
       <TextField
         label="제목"
         id="title"
-        sx={{ width: '70%',}}
+        sx={{ width: '65%',}}
         value={value}
         onChange={onChange}/>
-    </Box>
-  );
+    </Box>  );
 }
 
 export default TitleField;

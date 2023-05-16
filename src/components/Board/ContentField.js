@@ -4,7 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 
 const StyledEditor = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0 auto;
   .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
     min-height: 400px;

@@ -6,16 +6,16 @@ import MainAxiosApi from '../../api/MainAxiosApi';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: flex-start;
+  margin-left: 235px;
+  align-items: center;
   width: 100%;
   padding-left: 100px;
-  margin-left: 121px;
   margin-bottom: 15px;
-  margin-top : 50px;
+  margin-top: 50px;
   @media (max-width: 768px) {
     padding-left: 60px;
-    width : 70%;
+    width: 70%;
   }
   @media (max-width: 400px) {
     margin-left: 0;
@@ -23,11 +23,16 @@ const Wrapper = styled.div`
   }
 `;
 
+
 const StyledCategorySelect = styled(FormControl)`
   width: 250px;
+  
   margin-bottom: 8px;
   @media (max-width: 440px) {
     width: 270px;
+  }
+  @media (min-width: 1080px) {
+    padding-right: 0; 
   }
 `;
 

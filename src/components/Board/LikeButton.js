@@ -41,24 +41,24 @@ const LikeButton = ({ postNum }) => {
       const result = await boardAxiosApi.updateLikes(postNum, memberNum);
       setIsLiked(result);
       if (result) {
-        setModalMessage('추천을 눌렀습니다 👍🏻');
+        setModalMessage('추천을 눌렀습니다 😆👍🏻');
       } else {
-        setModalMessage('추천을 취소했습니다 👎🏻');
+        setModalMessage('추천을 취소했습니다 🥲');
       }
       setOpenModal(true);
     } catch (error) {
-      console.error('추천 업데이트 실패.', error);
+      console.error('추천 업데이트 실패', error);
     }
   };
 
   return (
     <>
       {!isLiked ? (
-        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '20px', position: "absolute", right: 0,}} key={`${postNum}-not-liked`}>
+        <IconButton onClick={handleLikeClick} sx={{ padding: '10px',  position: "absolute", right: 0,}} key={`${postNum}-not-liked`}>
           <ThumbUpOutlined sx={{ fontSize: '35px' }} />
         </IconButton>
       ) : (
-        <IconButton onClick={handleLikeClick} sx={{ padding: '10px', margin: '20px',  position: "absolute", right: 0,}}key={`${postNum}-liked`}>
+        <IconButton onClick={handleLikeClick} sx={{ padding: '10px',  position: "absolute", right: 0,}}key={`${postNum}-liked`}>
           <ThumbUpAltSharp sx={{ fontSize: '35px' }} />
         </IconButton>
       )}

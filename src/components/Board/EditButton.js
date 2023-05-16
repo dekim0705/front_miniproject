@@ -10,9 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-right : 280px;
   padding: 30px;
-  margin-right : 210px;
-  margin-bottom : 50px;
 
   @media (max-width: 400px) {
     justify-content: center;
