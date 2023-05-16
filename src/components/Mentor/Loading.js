@@ -39,7 +39,7 @@ const Loading = () => {
       visible={true}
       ariaLabel="rings-loading"/>
       <Content>사용자의 개발 스택을 고려하여 최적의 매칭을 찾고 있습니다.</Content>
-      <Content>조금만 기다려주세요! 🥹</Content>
+      <Content>조금만 기다려주세요! 😀</Content>
     </StyledContainer>
   );
 }

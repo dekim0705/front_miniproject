@@ -19,7 +19,7 @@ const Rank = styled.div`
 
 const Nickname = styled.div`
   font-size: 0.8em;
-  width: 100px;
+  width: 150px;
 `;
 
 const PostCount = styled.div`
@@ -67,10 +67,10 @@ const TopWriters = () => {
               border: "1px solid #eeeeee",
             }}
           />
-        <Nickname>{top5Writers[currentIndex].nickname}</Nickname>
-        <PostCount>{top5Writers[currentIndex].count}개</PostCount>
-      </Container>
-    )}
+          <Nickname>{top5Writers[currentIndex].nickname}</Nickname>
+          <PostCount>{top5Writers[currentIndex].count}개</PostCount>
+        </Container>
+      )}
     </>
   );
 };
