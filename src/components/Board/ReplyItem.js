@@ -113,7 +113,6 @@ const CommentItem = ({ reply ,fetchReply}) => {
     setReplyContent(reply.replyContent);
     
   };
-  
 
   const handleDeltetPopUp = () => {
     setDeletePopUpOpen(true);
@@ -161,8 +160,8 @@ const CommentItem = ({ reply ,fetchReply}) => {
              )}
                <EditPopUp open={deletePopUpOpen} 
               confirm={handleDelete}
-               close={handleDeltetPopUp}type="confirm" header="삭제">
-                <p>댓글을 삭제하시겠습니까?</p> </EditPopUp>
+              close={() => setDeletePopUpOpen(false)} type="confirm" header="알림">
+                삭제된 댓글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 댓글을 삭제하시겠습니까? </EditPopUp>
       </CommentItemContentWrapper>
     </CommentItemWrapper>
   );

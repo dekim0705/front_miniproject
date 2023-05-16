@@ -41,7 +41,6 @@ const TagListWrapper = styled.div`
   padding-left: 20px;
   position: relative;
 
-
   @media (max-width: 400px) {
     margin: 0 auto;
   }
