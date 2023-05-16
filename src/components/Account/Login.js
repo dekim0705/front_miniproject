@@ -135,21 +135,18 @@ const Login = () => {
       setUserNickname(userDataObject.data[0].nickname);
       setIsWithdrawn(userDataObject.data[0].isWithdrawn);
       setIsActive(userDataObject.data[0].isActive);
-      
-      
-      if(isWithdrawn === "Y") {
+
+      if (userDataObject.data[0].isWithdrawn === "Y") {
+        console.log("탈퇴여부 컨텍스트 : ", isWithdrawn);
         setPopUpMessage("탈퇴한 회원입니다.");
         setShowPopup(true);
+        localStorage.clear();
         return;
-      } else {
-        setIsWithdrawn(isWithdrawn);
-        console.log("탈퇴여부 컨텍스트 : ", isWithdrawn);
-      }
-
-      if(isActive === "N") {
-        setPopUpMessage("이메일 인증을 완료하세요.");
-        setShowPopup(true);
-        return;
+      } else if (userDataObject.data[0].isActive === "N") {
+          setPopUpMessage("이메일 인증을 완료하세요.");
+          setShowPopup(true);
+          localStorage.clear();
+          return;
       }
 
       navigate("/");
