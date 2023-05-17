@@ -88,7 +88,7 @@ const HRDNetAPI = () => {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -98,7 +98,7 @@ const HRDNetAPI = () => {
   }, [apiData]);
 
   if (apiData.length === 0) {
-    return <div>Loading...</div>;
+    return <div>데이터 불러오는 중..👀</div>;
   }
 
   const handleLinkToPage = () => {
@@ -108,19 +108,27 @@ const HRDNetAPI = () => {
   return (
     <StyledContainer onClick={handleLinkToPage}>
       <BannerIcon>K-디지털 트레이닝</BannerIcon>
-      <TraTitle>{apiData[currentIndex].title}</TraTitle>
-      <TraItem>
-        <div className="title">훈련 기관</div>
-        <p className="content">{apiData[currentIndex].subTitle}</p>
-      </TraItem>
-      <TraItem>
-        <div className="title">훈련 기간</div>
-        <p className="content">{apiData[currentIndex].traStartDate} ~ {apiData[currentIndex].traEndDate}</p>
-      </TraItem>
-      <TraItem>
-        <div className="title">주소</div>
-        <p className="content">{apiData[currentIndex].address}</p>
-      </TraItem>
+      {
+        apiData[currentIndex]
+        ? (
+          <>
+            <TraTitle>{apiData[currentIndex].title}</TraTitle>
+            <TraItem>
+              <div className="title">훈련 기관</div>
+              <p className="content">{apiData[currentIndex].subTitle}</p>
+            </TraItem>
+            <TraItem>
+              <div className="title">훈련 기간</div>
+              <p className="content">{apiData[currentIndex].traStartDate} ~ {apiData[currentIndex].traEndDate}</p>
+            </TraItem>
+            <TraItem>
+              <div className="title">주소</div>
+              <p className="content">{apiData[currentIndex].address}</p>
+            </TraItem>
+          </>
+        ) : (
+          <div>데이터 불러오는 중..👀</div>)
+      }
     </StyledContainer>
   );
 }
