@@ -88,7 +88,7 @@ const HRDNetAPI = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
