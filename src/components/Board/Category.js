@@ -21,10 +21,8 @@ const Wrapper = styled.div`
   }
 `;
 
-
 const StyledCategorySelect = styled(FormControl)`
   width: 30%;
-  
   margin-bottom: 8px;
   @media (max-width: 440px) {
     width: 270px;

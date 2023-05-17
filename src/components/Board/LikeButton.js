@@ -13,20 +13,13 @@ const LikeButton = ({ postNum }) => {
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-
   useEffect(() => {
     const fetchLikesStatus = async () => {
       if (memberNum) {
-        try {
           const result = await boardAxiosApi.likeStaus(postNum, memberNum);
           setIsLiked(result.isLiked);
- 
-        } catch (error) {
-          console.error('좋아요 정보를 가져오는 도중 에러가 발생했습니다:', error);
-        }
       }
     };
-
     fetchLikesStatus();
   }, [memberNum, postNum]);
 
@@ -36,7 +29,6 @@ const LikeButton = ({ postNum }) => {
       setOpenModal(true);
       return;
     }
-
     try {
       const result = await boardAxiosApi.updateLikes(postNum, memberNum);
       setIsLiked(result);

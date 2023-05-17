@@ -53,10 +53,10 @@ const EditButton = ({postNum}) => {
       </Stack>
     </Wrapper>
      <EditPopUp open={isModalOpen} confirm={handleDeletePost}close={handleCloseModal}type="confirm" header="알림">
-     삭제된 게시글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 게시글을 삭제하시겠습니까?
+          삭제된 게시글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 게시글을 삭제하시겠습니까?
      </EditPopUp>
      <EditPopUp open={popUpOpen} close={closePopUp} type="exit" header="삭제 완료">
-      게시글이 삭제되었습니다! 😁
+          게시글이 삭제되었습니다! 😁
      </EditPopUp>
    </>
   );

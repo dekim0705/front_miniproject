@@ -45,7 +45,7 @@ const BoardPage = ({boardName, boardNum}) => {
   const handleSetKeyword = (newKeyword) => {
     setKeyword(newKeyword);
   }
-  // 게시판 이름 화면엔 한글로..
+
   const getBoardName = (boardName) => {
     switch (boardName) {
       case "Information":
