@@ -12,7 +12,6 @@ const StyledFileInput = styled.div`
   border-radius: 3px;
   margin-left: 330px;
 
-
   > input[type='file'] {
     position: absolute;
     top: 0;
@@ -44,7 +43,7 @@ const StyledFileInput = styled.div`
     opacity: .3;
   }
 
-  &.-chosen > .label {
+  &.chosen > .label {
     opacity: 1;
   }
 
@@ -72,17 +71,17 @@ const ImageUpload = ({ onImageUpload }) => {
       try {
         await uploadBytes(imgRef, imgUrl[i]);
         const url = await getDownloadURL(imgRef);
-        urls.push(url);
+        urls.push(url); //업로드된 이미지의 URL을 urls 배열에 저장
       } catch (error) {
         console.error(`이미지 업로드 에러 :`, error);
       }
     }
     
-    onImageUpload(urls.join(',')); // imgUrl을 문자열 형태로 전달
+    onImageUpload(urls.join(',')); // urls 배열을 문자열 형태로 전달
   };
 
   return (
-    <StyledFileInput className={fileList.length > 0 ? '-chosen' : ''}>
+    <StyledFileInput className={fileList.length > 0 ? 'chosen' : ''}>
       <input type='file' multiple onChange={handleSelect} />
       <span className='button'>Upload</span>
       <span className='label' data-js-label>

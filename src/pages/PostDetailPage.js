@@ -73,7 +73,7 @@ const PostDetailPage = () => {
     const fetchPostDetail = async () => {
       const response = await boardAxiosApi.requestPostDetail(postNum);
       setPostDetail(response[0]);
-      setShowEditButton(userNickname && response[0] && response[0].nickname === userNickname);
+      setShowEditButton(response[0].nickname === userNickname);
     };
     const increaseViews = async () => {
       await boardAxiosApi.increaseViews(postNum); // 조회수 증가

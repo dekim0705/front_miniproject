@@ -8,8 +8,6 @@ import boardAxiosApi from '../../api/BoardAxiosApi';
 import TextField from '@mui/material/TextField';
 import SaveIcon from '@mui/icons-material/Save';
 
-
-
 const CommentItemWrapper = styled.div`
   display: flex;
   align-items: flex-start;
@@ -81,7 +79,7 @@ const CommentItem = ({ reply ,fetchReply}) => {
   const [popUpOpen, setPopUpOpen] = useState(false);
   const [deletePopUpOpen, setDeletePopUpOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [replyContent, setReplyContent] = useState(reply.replyContent);
+  const [replyContent, setReplyContent] = useState(reply.replyContent); // 수정 댓글 내용 저장
 
   const isMyComment = userNickname === reply.nickname;
 
@@ -92,9 +90,9 @@ const CommentItem = ({ reply ,fetchReply}) => {
       setDeletePopUpOpen(false);
       setPopUpOpen(true);
       await fetchReply();
-  } catch (error) {
+    } catch (error) {
     console.error('댓글 삭제 실패:', error);
-  }
+    }
   };
 
   const handleEdit = async () => {
@@ -146,7 +144,7 @@ const CommentItem = ({ reply ,fetchReply}) => {
                 <Button onClick={handleEdit}>
                   <SaveIcon style={{ color: '#707070' }} />
                 </Button>
-            ) : (
+                ) : (
               <>
             <Button onClick={handleEditClick}>
             <EditIcon style={{ color: '#707070' }}/>
@@ -156,12 +154,11 @@ const CommentItem = ({ reply ,fetchReply}) => {
             </Button>
             </>
             )}
-            </ButtonWrapper>
+          </ButtonWrapper>
              )}
-               <EditPopUp open={deletePopUpOpen} 
-              confirm={handleDelete}
-              close={() => setDeletePopUpOpen(false)} type="confirm" header="알림">
-                삭제된 댓글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 댓글을 삭제하시겠습니까? </EditPopUp>
+
+          <EditPopUp open={deletePopUpOpen} confirm={handleDelete} close={() => setDeletePopUpOpen(false)} type="confirm" header="알림">
+            삭제된 댓글은 복구가 <span style={{color:"red", fontWeight:"bold"}}>불가능</span>합니다.<br /> 댓글을 삭제하시겠습니까? </EditPopUp>
       </CommentItemContentWrapper>
     </CommentItemWrapper>
   );

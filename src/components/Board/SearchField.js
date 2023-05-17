@@ -57,7 +57,7 @@ const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 
-const SearchInput = ({ boardName, pageNum, setResultData,setKeyword }) => {
+const SearchInput = ({ boardName, pageNum, setResultData, setKeyword }) => {
   const [keyword, setSearchKeyword] = useState("");
 
   const handleSearchIconClick = async () => {
@@ -77,7 +77,7 @@ const SearchInput = ({ boardName, pageNum, setResultData,setKeyword }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     handleSearchIconClick();
-  };
+  };      
 
   return (
     <>
@@ -85,7 +85,7 @@ const SearchInput = ({ boardName, pageNum, setResultData,setKeyword }) => {
         <SearchBar type="search" placeholder="검색어를 입력하세요" onChange={handleChange} />
         <StyledSearchIcon onClick={handleSubmit} />
       </SearchContainer>
-      
+
      </>
   );
 }

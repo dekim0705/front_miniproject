@@ -91,14 +91,14 @@ const StyledLink = styled(Link)`
 `;
 
 
-const BoardList = ({ boardName, pageNum, resultData }) => {
+const BoardList = ({ boardName, pageNum, resultData  }) => {
   const [boardItem, setBoardItem] = useState([{}]);
   
     useEffect(() => {
       const fetchBoardItems = async () => {
       let items = [];
       if (resultData) {
-        items = resultData; 
+        items = resultData; // 검색결과가 있을 경우 해당 값을 items에 할당
       } else {
         items = await boardAxiosApi.requestGeneralList(boardName, pageNum);
       }
@@ -110,8 +110,8 @@ const BoardList = ({ boardName, pageNum, resultData }) => {
 
   return boardItem.length ?  ( 
         <ListWrapper>
-      <TableBox>
-        <TableHeader>
+         <TableBox>
+          <TableHeader>
           <TableRow>
             <HeaderCell>번호</HeaderCell>
             <HeaderCell>제목</HeaderCell>
@@ -136,8 +136,8 @@ const BoardList = ({ boardName, pageNum, resultData }) => {
       </TableBox>
     </ListWrapper>
   ) : (
-    <div style={{ textAlign: "center", padding: "150px" }}>
-      검색 결과가 없습니다 😱
+    <div style={{ fontSize: "18px", textAlign: "center", padding: "150px" }}>
+      검색 결과가 없습니다 🥲
     </div>
   );
 };

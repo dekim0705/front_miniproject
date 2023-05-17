@@ -47,13 +47,12 @@ const GalleryContainer = ({ pageNum }) => {
   <>
     <Container>
     {galleryItems.slice(0, 6).map((item) => (
-      <GalleryItem key={item.id} item={item} />
+      <GalleryItem key={item.postNum} item={item} />
     ))}
      <WriteButtonWrapper>
       <WriteButton />
     </WriteButtonWrapper>
   </Container>
-
   </>
   );
 };

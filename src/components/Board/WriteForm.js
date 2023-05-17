@@ -100,9 +100,10 @@ const WriteForm = ({ userNum}) => {
     setPreviewImgUrl(urls.split(",")); 
   };
   
+  // 이미지 삭제 버튼 클릭시 호출
   const handleImageDelete = (index) => {
     const updatedPreview = [...previewImgUrl]; 
-    updatedPreview.splice(index, 1); // 인덱스에서 이미지 제거
+    updatedPreview.splice(index, 1); // 해당 인덱스의 이미지 1개씩 제거
     setPreviewImgUrl(updatedPreview);
     setPost((prevPost) => ({
       ...prevPost,
