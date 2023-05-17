@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommentItem from './ReplyItem';
 import ReplyForm from './ReplyForm';
+import ReplyItem from './ReplyItem';
 
 const CommentListTitle = styled.h2`
   font-size: 1.2rem;
@@ -16,7 +16,7 @@ const ReplyList = ({ postNum, reply = [], fetchReply}) => {
       <CommentListTitle> {commentCount}개의 댓글 </CommentListTitle>
         <ReplyForm postNum={postNum} fetchReply={fetchReply} />
          {reply.map((reply) => (
-        <CommentItem key={reply.nickname} reply={reply} fetchReply={fetchReply} />
+        <ReplyItem key={reply.nickname} reply={reply} fetchReply={fetchReply} />
       ))}
     </>
   );

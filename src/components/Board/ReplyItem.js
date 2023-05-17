@@ -73,7 +73,7 @@ const Button = styled.button`
 `;
 
 
-const CommentItem = ({ reply ,fetchReply}) => {
+const ReplyItem = ({ reply ,fetchReply}) => {
   const context = useContext(UserContext);
   const { userNickname } = context;
   const [popUpOpen, setPopUpOpen] = useState(false);
@@ -164,4 +164,4 @@ const CommentItem = ({ reply ,fetchReply}) => {
   );
 };
 
-export default CommentItem;
+export default ReplyItem;
