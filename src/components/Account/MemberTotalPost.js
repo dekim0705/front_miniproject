@@ -81,6 +81,9 @@ export const NoResult = styled.p`
   padding: 20%;
   font-size: 1.2rem;
   text-align: center;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const MapContent = styled.p`
