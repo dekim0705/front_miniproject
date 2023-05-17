@@ -66,6 +66,10 @@ const ExtraInfo = styled.p`
 const NoResult = styled.p`
   padding: 20%;
   font-size: 1.2rem;
+  text-align: center;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const MemberLatestPost= ({ userMemberNum }) => {
@@ -89,7 +93,7 @@ const MemberLatestPost= ({ userMemberNum }) => {
       <Title>내가 작성한 글</Title>
       <StyledLink><Link to='/mypage/mypost'>전체보기</Link></StyledLink>
       {memberLatestPost.length === 0 ? (
-        <NoResult style={{textAlign: "center"}}>😱작성된 글이 없습니다. </NoResult>
+        <NoResult>😱작성된 글이 없습니다. </NoResult>
       ) : (
         <MyPostContainer>
         {memberLatestPost.map((memberPost) => (
