@@ -46,7 +46,7 @@
 
 
 
-## :oil_drum: ERD (수정 예정)
+## :oil_drum: ERD
 <img src="https://file.notion.so/f/s/79deec20-c5d6-480f-83f5-dce993e49706/erd_table.png?id=9d915c35-bb30-48ed-a9a3-155413e46241&table=block&spaceId=bdf8d538-0573-4e53-8871-08828a72d8e6&expirationTimestamp=1684380749990&signature=EL4e_7sbJvnSfYkzhyzDLl-qXhp7v0MGjofl0tDml_g&downloadName=erd_table.png" width="600"/>
 
 
