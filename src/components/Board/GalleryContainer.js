@@ -16,6 +16,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    padding-left: 20px;
   }
 `;
 const WriteButtonWrapper = styled.div`

@@ -9,6 +9,9 @@ const StyledEditor = styled.div`
   .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
     min-height: 400px;
   }
+  @media (max-width: 440px) {
+    width: 270px;
+  }
 `;
 
 const ContentField = ({ value, onChange }) => {

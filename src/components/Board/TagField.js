@@ -16,7 +16,10 @@ const TagField = ({value, onChange}) => {
       <TextField
         label="태그"
         id="title"
-        sx={{width: '65%',}}
+        sx={{ width: '65%',
+        '@media (max-width: 440px)': {
+          width: '69%',
+        },}}
         value={value}
         onChange={onChange}/>
     </Box>
