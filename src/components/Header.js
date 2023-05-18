@@ -14,6 +14,10 @@ import useCheckUserMatched from '../util/useCheckUserMatched';
 import MainAxiosApi from '../api/MainAxiosApi';
 import PopUp from '../util/PopUp';
 
+const Temparary = styled.div`
+  margin-top: 70px;
+`;
+
 const StyledLink = styled(Link)`
   width: 100px;
   height: 40px;
@@ -27,6 +31,12 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledHeader = styled.header`
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
   * {
     box-sizing: border-box;
   }
@@ -131,38 +141,41 @@ const Header = () => {
   };
 
   return (
-    <StyledHeader>
-      <nav className="navbar">
-        <Logo />
-        <ul className="navbar__menu">
-          <StyledLink to={isLogin ? mentorPath : "/login"}>멘토 찾기</StyledLink>
-          <StyledLink to="/information/1">정보 공유</StyledLink>
-          <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
-          <StyledLink to="/worker/1" onClick={handleWorkerClick}>직장인</StyledLink>
-          <StyledLink to="/best/1">베스트</StyledLink>
-          <StyledLink to="/qna/1">Q&A</StyledLink>
-        </ul>
-        <TopWriters />
-        {isLogin ? (
-          <StyledMember>
-            <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
-            <Navbar />
-          </StyledMember>
-        ) : (
-          <div className="member">
-            <div className="box login">
-              <Link to="/login">로그인</Link>
+    <>
+      <StyledHeader>
+        <nav className="navbar">
+          <Logo />
+          <ul className="navbar__menu">
+            <StyledLink to={isLogin ? mentorPath : "/login"}>멘토 찾기</StyledLink>
+            <StyledLink to="/information/1">정보 공유</StyledLink>
+            <StyledLink to="/portfolio/1">포트폴리오</StyledLink>
+            <StyledLink to="/worker/1" onClick={handleWorkerClick}>직장인</StyledLink>
+            <StyledLink to="/best/1">베스트</StyledLink>
+            <StyledLink to="/qna/1">Q&A</StyledLink>
+          </ul>
+          <TopWriters />
+          {isLogin ? (
+            <StyledMember>
+              <MemberDropDown setIsLogin={setIsLogin} resetUser={context.resetUser} />
+              <Navbar />
+            </StyledMember>
+          ) : (
+            <div className="member">
+              <div className="box login">
+                <Link to="/login">로그인</Link>
+              </div>
+              <div className="box join">
+                <Link to="/join">가입</Link>
+              </div>
+              <AuthDropDown />
+              <Navbar />
             </div>
-            <div className="box join">
-              <Link to="/join">가입</Link>
-            </div>
-            <AuthDropDown />
-            <Navbar />
-          </div>
-        )}
-      </nav>
-      {PopUpOpen && <PopUp open={PopUpOpen} close={closePopUp} type={false} header="경고">직장인만 열람 가능한 게시판 입니다.😥</PopUp>}
-    </StyledHeader>
+          )}
+        </nav>
+        {PopUpOpen && <PopUp open={PopUpOpen} close={closePopUp} type={false} header="경고">직장인만 열람 가능한 게시판 입니다.😥</PopUp>}
+      </StyledHeader>
+      <Temparary></Temparary>
+    </>
   );
 };
 
