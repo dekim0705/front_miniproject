@@ -28,8 +28,9 @@ const BoardWrapper = styled.div`
   flex-direction: column;
 
   @media (max-width: 400px) {
-    padding-bottom: 20px;
     width: 95%;
+    padding: 0px;
+    margin-top: 30px;
   }
 `;
 
@@ -42,7 +43,8 @@ const TagListWrapper = styled.div`
   position: relative;
 
   @media (max-width: 400px) {
-    margin: 0 auto;
+    margin: 0, auto;
+    padding: 0px;
   }
 `;
 

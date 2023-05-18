@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
+
 const TitleField = ({value, onChange}) => {
   return (
     <Box
@@ -11,11 +12,15 @@ const TitleField = ({value, onChange}) => {
         alignItems: 'center',
         width: '100%',
         marginBottom: '15px',
+
       }}>
       <TextField
         label="제목"
         id="title"
-        sx={{ width: '65%',}}
+        sx={{ width: '65%',
+        '@media (max-width: 440px)': {
+          width: '69%',
+        },}}
         value={value}
         onChange={onChange}/>
     </Box>  );

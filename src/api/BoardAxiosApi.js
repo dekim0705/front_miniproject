@@ -91,7 +91,6 @@ const boardAxiosApi = {
  writePost: async (post) => {
   try {
     const response = await axios.post(KH_DOMAIN + '/post', post);
-    console.log('게시글 작성에 성공했습니다', response.data);
     return response.data;
   } catch (error) {
     console.error('게시글 작성에 실패했습니다.', error);
@@ -103,7 +102,6 @@ const boardAxiosApi = {
   updatePost: async (post) => {
     try {
       const response = await axios.put(KH_DOMAIN + "/post", post);
-      console.log("게시글 수정에 성공했습니다.", response);
       return response.data;
     } catch (error) {
       console.error("게시글 수정에 실패했습니다.", error);
@@ -115,7 +113,6 @@ const boardAxiosApi = {
   deletePost: async (postNum) => {
     try {
       const response = await axios.delete(KH_DOMAIN + `/post/${postNum}`);
-      console.log("게시글 삭제에 성공했습니다.", response);
       return response.data;
     } catch (error) {
       console.error("게시글 삭제에 실패했습니다.", error);
@@ -131,7 +128,6 @@ const boardAxiosApi = {
         memberNum,
         replyContent,
       });
-      console.log("댓글 작성에 성공했습니다.", response);
       return response.data;
     } catch (error) {
       console.error("댓글 작성에 실패했습니다.", error);
@@ -146,7 +142,6 @@ const boardAxiosApi = {
         replyNum,
         replyContent,
       });
-      console.log("댓글 수정에 성공했습니다.", response);
       return response.data;
     } catch (error) {
       console.error("댓글 수정에 실패했습니다.", error);
@@ -160,7 +155,6 @@ const boardAxiosApi = {
       const response = await axios.delete(
         KH_DOMAIN + `/reply?replyNum=${replyNum}`
       );
-      console.log("댓글 삭제에 성공했습니다.", response);
       return response.data;
     } catch (error) {
       console.error("댓글 삭제에 실패했습니다.", error);
@@ -186,7 +180,6 @@ const boardAxiosApi = {
       const response = await axios.get(
         KH_DOMAIN +`/search?boardName=${boardName}&pageNum=${pageNum}&keyword=${encodeURIComponent(keyword)}`
       );
-      console.log("검색 데이터:", response);
       return response.data;
     } catch (error) {
       console.error("게시판 검색에 실패했습니다.", error);

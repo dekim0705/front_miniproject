@@ -17,7 +17,7 @@ const Container = styled.div`
     width: 80%;
     margin: 2.5%;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 400px) {
     width: 100%;
   }
 `;
@@ -27,7 +27,6 @@ const Thumbnail = styled.img`
   height: 260px;
   object-fit: cover;
   border-radius: 15px;
-  
 `;
 
 const Overlay = styled.div`
@@ -44,6 +43,7 @@ const Overlay = styled.div`
   &:hover {
     opacity: 1;
   }
+
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
