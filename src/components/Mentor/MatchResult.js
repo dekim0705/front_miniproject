@@ -7,6 +7,10 @@ import LinearProgress from '@mui/material/LinearProgress';
 import ChatAxiosApi from '../../api/ChatAxiosApi';
 import { ChatContext } from '../../context/ChatInfo';
 
+const Wrapper = styled.div`
+  padding-top: 20px;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,7 +130,7 @@ const MatchResult = () => {
     navigate('/chat');
   }
   return (
-    <>
+    <Wrapper>
       <Box sc={{ width: '40%' }}>
         <LinearProgress />
       </Box>
@@ -153,7 +157,7 @@ const MatchResult = () => {
           <Button push lightBlue onClick={ReturnButtonClick}>돌아가기</Button>
         </ButtonContainer>
       </Container>
-    </>
+    </Wrapper>
   );
 };
 

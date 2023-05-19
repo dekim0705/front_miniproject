@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
   justify-content: center;
   height: 100%;
   gap: 20px;
-  margin-top: 80px;
+  margin-top: 150px;
 `;
 
 const Content = styled.h1`

@@ -19,7 +19,7 @@ const StyledContainer = styled.div`
   justify-content: center;
   flex-wrap: nowrap;
   gap: 100px;
-  margin: 120px 0;
+  margin: 190px 0;
   @media screen and (max-width: 768px) {
     gap: 40px;
     margin: 60px 0;

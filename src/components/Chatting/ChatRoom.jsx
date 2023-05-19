@@ -28,6 +28,7 @@ const ChatRoomContainer = styled.div`
   border: 1px solid #eee;
   padding: 20px 20px 20px 20px;
   border-radius: 30px;
+  margin-top: 30px;
   @media screen and (max-width: 768px) {
     width: 90%;
     margin-bottom: 25px;

@@ -7,6 +7,7 @@ import ChatAxiosApi from '../../api/ChatAxiosApi';
 import PopUp from '../../util/PopUp';
 
 const ChatUserInfoContainer = styled.div`
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
