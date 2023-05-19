@@ -18,11 +18,11 @@ const ParentContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   gap: 5%;
-  margin: 50px auto;
+  margin: 120px auto;
   @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 40px;
-    margin: 40px 0;
+    margin: 100px 0;
     align-items: center;
   }
 `;
