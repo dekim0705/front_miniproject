@@ -22,8 +22,8 @@ const Wrapper = styled.div`
 
 const BoardWrapper = styled.div`
   width: 70%;
-  padding: 30px;
-  margin-top: 10px;
+  padding: 60px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 
