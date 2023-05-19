@@ -9,11 +9,12 @@ const BoardName = styled.div`
   text-align: center;
   font-size: 2.1rem;
   font-weight: bold;
-  padding : 0px 0px 5px 0px;
+  padding : 90px 0px 5px 0px;
   
   @media (max-width: 768px) {
     text-align: center;
     font-size: 1.6rem;
+    padding-top: 60px;
   }
 `;
 const Divider = styled.div`
