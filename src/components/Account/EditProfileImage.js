@@ -2,25 +2,11 @@ import { useState, useContext } from 'react';
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { InfoSectionContainer } from "./MemberEditInformation";
 import { storage } from "../../firebase";
 import AccountAxiosApi from '../../api/AccountAxiosApi';
 import { UserContext } from "../../context/UserInfo";
 import AccountPopUp from "../../util/AccountPopUp";
-
-const InfoSectionContainer = styled.div`
-  /* border: 0.1rem solid #E5E7EA ; */
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
-  gap: 20px;
-  margin-left: 30px;
-
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
 
 const ProfileImageSection = styled.div`
   display: flex;

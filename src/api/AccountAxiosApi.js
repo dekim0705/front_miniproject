@@ -250,6 +250,34 @@ const AccountAxiosApi = {
         'Authorization': 'Bearer ' + token
       }
     });
-  }
+  },
+
+    // (마이페이지 > 내 정보 관리) 닉네임 변경
+  editMemberNickname: async(memberNickname, memberNum) => {
+    const data = {
+      memberNickname : memberNickname,
+      memberNum : memberNum
+    };
+    return await axios.put(KH_DOMAIN + "/mypage/nickname/", data);
+  },
+
+  // (마이페이지 > 내 정보 관리) 비밀번호 변경
+  editMemberPwd: async(memberPwd, memberNum) => {
+    const data = {
+      memberPwd : memberPwd,
+      memberNum : memberNum
+    };
+    return await axios.put(KH_DOMAIN + "/mypage/password/", data);
+  },
+
+    // (마이페이지 > 내 정보 관리) 직업&연차 변경
+    editMemberJobYear: async(memberJob, memberYear, memberNum) => {
+      const data = {
+        memberJob : memberJob,
+        memberYear : memberYear,
+        memberNum : memberNum
+      };
+      return await axios.put(KH_DOMAIN + "/mypage/job-year/", data);
+    }
 };
 export default AccountAxiosApi;
